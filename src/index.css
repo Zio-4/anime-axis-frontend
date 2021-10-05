@@ -11,3 +11,34 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+@font-face {
+  font-family: 'NarutoFont';
+  src: url('../src/Fonts/njnaruto.ttf');
+}
+
+header {
+  padding: 50px;
+  text-align: center;
+  color:#813AFE;
+  font-family: 'NarutoFont';
+  font-size: 100pt;
+}
+
+.icon-img{
+  width: 100px;
+  height: 100px;
+  margin-bottom: 2rem;
+  margin-top: 4rem;
+}
+
+#login-button {
+  color: #fff;
+  background-color: #813AFE !important;
+  border-color: #813AFE !important;
+}
+
+.signup-link{
+  color: black;
+  text-align: left;
+}
