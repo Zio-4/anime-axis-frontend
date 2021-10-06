@@ -17,12 +17,14 @@ code {
   src: url('../src/Fonts/njnaruto.ttf');
 }
 
-header {
-  padding: 50px;
-  text-align: center;
+.login-container{
+  margin-top: 7rem;
+}
+
+#anime-axis-nav-header {
   color:#813AFE;
+  font-size: 20pt;
   font-family: 'NarutoFont';
-  font-size: 100pt;
 }
 
 .icon-img{

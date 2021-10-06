@@ -6,10 +6,11 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import loginIcon from '../../Images/user.svg'
 import sasuke from '../../Images/Sasuke.png'
+import {Link} from 'react-router-dom'
 
 function Login() {
     return (
-        <Container className="mt-5">
+        <Container className="login-container">
             <Row>
                 <Col lg={4} md={6} sm={12} className="text-center mt-5 p-3">
                     <img className="icon-img" src={loginIcon} alt="icon"/>
@@ -25,8 +26,8 @@ function Login() {
                         </div>
 
                         <div className="signup-link mt-3">
-                            <p>Don't have an account? Sign up</p>
-                            {/* <Link to="">Sign up</Link> */}
+                            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+                            
                         </div>
                     </Form>
                 </Col>
