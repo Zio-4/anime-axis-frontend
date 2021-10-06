@@ -3,6 +3,7 @@ import Login from "./Components/User/Login"
 import SignUp from "./Components/User/SignUp"
 import {Switch, Route, Redirect} from 'react-router-dom'
 import NavBar from './Components/NavBar'
+import About from './Components/About'
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route exact path="/">
           <Homepage />
+        </Route>
+        <Route exact path="/about">
+          <About />
         </Route>
         <Route path="*">
           <h1>404 not found</h1>

@@ -44,3 +44,7 @@ code {
   color: black;
   text-align: left;
 }
+
+#logout-button {
+  color: red;
+}

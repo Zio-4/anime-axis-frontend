@@ -12,7 +12,14 @@ function NavBar() {
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Forums</Nav.Link>
                         <Nav.Link href="#features">Manga</Nav.Link>
-                        <Nav.Link href="#pricing">About</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
+                    </Nav>
+                    <Nav>
+                        {/* {user ? <Nav.Link href="/profile">Profile</Nav.Link> : null} */}
+                        {/* {!user ? <Nav.Link href="/signup">Create Account</Nav.Link> : null} */}
+                        {/* {user ? <Nav.Link href="#memes" id="logout-button">
+                            Logout
+                        </Nav.Link> : <Nav.Link href="/login">Sign in</Nav.Link>} */}
                     </Nav>
                 </Container>
             </Navbar>
