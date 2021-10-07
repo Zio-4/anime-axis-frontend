@@ -4,12 +4,16 @@ import SignUp from "./Components/User/SignUp"
 import {Switch, Route, Redirect} from 'react-router-dom'
 import NavBar from './Components/NavBar'
 import About from './Components/About'
+import AnimePage from './Components/AnimePages/AnimePage'
 
 function App() {
   return (
     <div className="App">
       <NavBar />
       <Switch>
+        <Route exact path="/anime/:id">
+          <AnimePage />
+        </Route>
         <Route exact path="/login">
           <Login />
         </Route>
