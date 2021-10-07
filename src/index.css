@@ -48,3 +48,12 @@ code {
 #logout-button {
   color: red;
 }
+
+.anime-card-title {
+  font-size: 10pt !important;
+}
+
+/* Lower titles on all cards */
+#card-test{
+  margin-top: 17rem !important;
+}
