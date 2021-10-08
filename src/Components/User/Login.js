@@ -6,20 +6,49 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import loginIcon from '../../Images/user.svg'
 import sasuke from '../../Images/Sasuke.png'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+import {useState} from 'react'
 
-function Login() {
+
+function Login({onLogin}) {
+    const [formData, setFormData] = useState({
+        username:"",
+        password:""
+    })
+
+    const history = useHistory()
+
+    function handleInput(e) {
+        setFormData({...formData, [e.target.name]: e.target.value})
+    }
+
+    function handleLogin(e) {
+        e.preventDefault()
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(r => r.json())
+        .then(userData => {
+            onLogin(userData)
+        })
+        history.push("/")
+    }
+
     return (
         <Container className="login-container">
             <Row>
                 <Col lg={4} md={6} sm={12} className="text-center mt-5 p-3">
                     <img className="icon-img" src={loginIcon} alt="icon"/>
-                    <Form>
+                    <Form onSubmit={handleLogin}>
                         <Form.Group className="mb-3">
-                            <Form.Control type="username" placeholder="Username"/>
+                            <Form.Control type="username" name="username" value={formData.username} onChange={handleInput} placeholder="Username"/>
                         </Form.Group>
                         <Form.Group className="mb-3">
-                            <Form.Control type="password" placeholder="Password"/>
+                            <Form.Control type="password" name="password" value={formData.password} onChange={handleInput} placeholder="Password"/>
                         </Form.Group>
                         <div className="d-grid gap-2">
                         <Button id="login-button" variant="btn-block" type="submit">Login</Button>
@@ -33,7 +62,7 @@ function Login() {
                 </Col>
 
                 <Col lg={8} md={6} sm={12}>
-                    <img className="w-100" src={sasuke} alt="" />
+                    <img className="w-100" src={sasuke} alt="sasuke image" />
                 </Col>
             </Row>
         </Container>
