@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card'
 import {Link} from 'react-router-dom'
 import React from 'react'
 
-function AnimeCard({title, id, image}) {
+function AnimeCardByScore({title, id, image}) {
     return (
         <Col fluid>
                 <Link to={`/anime/${id}`}>
@@ -21,4 +21,4 @@ function AnimeCard({title, id, image}) {
     )
 }
 
-export default AnimeCard
+export default AnimeCardByScore

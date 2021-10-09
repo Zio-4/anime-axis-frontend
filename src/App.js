@@ -4,11 +4,12 @@ import SignUp from "./Components/User/SignUp"
 import {Switch, Route, Redirect} from 'react-router-dom'
 import NavBar from './Components/NavBar'
 import About from './Components/About'
-import AnimePage from './Components/AnimePages/AnimePage'
+import AnimePage from './Components/Anime/AnimePage'
 import {useState, useEffect} from 'react'
 import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
 import React from 'react'
+import MangaHome from './Components/Manga/MangaHome'
 
 function App() {
   // null or false?
@@ -53,6 +54,9 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/manga">
+            <MangaHome />
           </Route>
           <Route exact path="/profile">
             <ProfilePage />

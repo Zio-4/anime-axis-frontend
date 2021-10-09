@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import AnimeCardByScore from './AnimePages/AnimeCardByScore'
-import AnimeCardAiring from './AnimePages/AnimeCardAiring'
-import AnimeCardPopularity from './AnimePages/AnimeCardPopularity'
+import AnimeCardByScore from './Anime/AnimeCardByScore'
+import AnimeCardAiring from './Anime/AnimeCardAiring'
+import AnimeCardPopularity from './Anime/AnimeCardPopularity'
 import React from 'react'
 
 function Homepage() {
