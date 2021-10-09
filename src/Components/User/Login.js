@@ -62,7 +62,7 @@ function Login({onLogin}) {
                 </Col>
 
                 <Col lg={8} md={6} sm={12}>
-                    <img className="w-100" src={sasuke} alt="sasuke image" />
+                    <img className="w-100" src={sasuke} alt="sasuke" />
                 </Col>
             </Row>
         </Container>

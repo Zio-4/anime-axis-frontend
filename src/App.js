@@ -7,6 +7,7 @@ import About from './Components/About'
 import AnimePage from './Components/AnimePages/AnimePage'
 import {useState, useEffect} from 'react'
 import ProfilePage from "./Components/User/ProfilePage"
+import Loading from './Components/Loading'
 
 function App() {
   // null or false?
@@ -20,13 +21,16 @@ function App() {
     .then(userData => {
       console.log("userData in App", userData)
       if (userData.errors) {
-        setUser(false)
+        setLoading(false)
+        setUser(false)  
       } else {
+        setLoading(false)
         setUser(userData)
       }
-      setLoading(false)
     })
   }, [])
+
+  console.log("loading:", loading)
 
   console.log("user:", user)
 
@@ -39,33 +43,40 @@ function App() {
   }
 
 
+
   return (
     <div className="App">
-      <NavBar user={user} onLogout={onLogout}/>
-      <Switch>
-        <Route exact path="/profile">
-          <ProfilePage />
-        </Route>
-        <Route exact path="/anime/:id">
-          <AnimePage />
-        </Route>
-        <Route exact path="/login">
-          <Login onLogin={onLogin}/>
-        </Route>
-        <Route exact path="/signup">
-          <SignUp setUser={setUser}/>
-        </Route>
-        <Route exact path="/">
-          <Homepage />
-        </Route>
-        <Route exact path="/about">
-          <About />
-        </Route>
-        <Route path="*">
-          <h1>404 not found</h1>
-          <Redirect from="*" to="/" />
-        </Route>
-      </Switch>
+      {loading ? <Loading /> : 
+      <>
+        <NavBar user={user} onLogout={onLogout}/>
+        <Switch>
+          <Route exact path="/loading">
+            <Loading />
+          </Route>
+          <Route exact path="/profile">
+            <ProfilePage />
+          </Route>
+          <Route exact path="/anime/:id">
+            <AnimePage />
+          </Route>
+          <Route exact path="/login">
+            <Login onLogin={onLogin}/>
+          </Route>
+          <Route exact path="/signup">
+            <SignUp setUser={setUser}/>
+          </Route>
+          <Route exact path="/">
+            <Homepage />
+          </Route>
+          <Route exact path="/about">
+            <About />
+          </Route>
+          <Route path="*">
+            <h1>404 not found</h1>
+            <Redirect from="*" to="/" />
+          </Route>
+        </Switch>
+      </>}
     </div>
   );
 }

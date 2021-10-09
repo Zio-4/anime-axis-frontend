@@ -18,9 +18,9 @@ function NavBar({user, onLogout}) {
                 <Container>
                     <Navbar.Brand href="/" id="anime-axis-nav-header">Anime Axis</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link href="#home">Forums</Nav.Link>
-                        <Nav.Link href="#features">Manga</Nav.Link>
-                        <Nav.Link href="#about">About</Nav.Link>
+                        <Nav.Link href="/forums">Forums</Nav.Link>
+                        <Nav.Link href="/manga">Manga</Nav.Link>
+                        <Nav.Link href="/about">About</Nav.Link>
                     </Nav>
                     <Nav>
                         {user ?  <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/signup">Create Account</Nav.Link>}
@@ -33,5 +33,3 @@ function NavBar({user, onLogout}) {
 }
 
 export default NavBar
-
-{/* <Nav.Link href="" id="logout-button">Logout</Nav.Link> */}

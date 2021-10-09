@@ -54,7 +54,7 @@ function Homepage() {
     })
 
     return (
-        <Container fluid="md" fluid="true" className="mt-5">
+        <Container fluid="md" className="mt-5">
             <p>Top anime by Score</p>
             <Row>
                 {renderTopAnimeByScoreCards} 
