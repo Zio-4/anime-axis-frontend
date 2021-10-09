@@ -1,6 +1,7 @@
 import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import {Link} from 'react-router-dom'
+import React from 'react'
 
 function AnimeCardPopularity({title, id, image}) {
     return (

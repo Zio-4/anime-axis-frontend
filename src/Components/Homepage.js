@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row'
 import AnimeCardByScore from './AnimePages/AnimeCardByScore'
 import AnimeCardAiring from './AnimePages/AnimeCardAiring'
 import AnimeCardPopularity from './AnimePages/AnimeCardPopularity'
+import React from 'react'
 
 function Homepage() {
     const [topAnimeByScore, setTopAnimeByScore] = useState([])

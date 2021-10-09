@@ -8,6 +8,7 @@ import AnimePage from './Components/AnimePages/AnimePage'
 import {useState, useEffect} from 'react'
 import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
+import React from 'react'
 
 function App() {
   // null or false?
