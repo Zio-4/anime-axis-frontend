@@ -10,6 +10,7 @@ import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
 import React from 'react'
 import MangaHome from './Components/Manga/MangaHome'
+import MangaPage from './Components/Manga/MangaPage'
 
 function App() {
   // null or false?
@@ -32,9 +33,6 @@ function App() {
     })
   }, [])
 
-  console.log("loading:", loading)
-
-  console.log("user:", user)
 
   function onLogin(userData) {
     setUser(userData)
@@ -54,6 +52,9 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/manga/:id">
+            <MangaPage />
           </Route>
           <Route exact path="/manga">
             <MangaHome />

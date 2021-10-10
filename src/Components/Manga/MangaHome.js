@@ -2,6 +2,10 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import {useEffect, useState} from 'react'
+import MangaCardByPopularity from './MangaCardByPopularity'
+import MangaCardByScore from './MangaCardByScore'
+import MangaCardNovels from './MangaCardNovels'
+import MangaCardOneShots from './MangaCardOneShots'
 
 
 function MangaHome() {
@@ -13,8 +17,7 @@ function MangaHome() {
     function fetchTopMangaByScore() {
         fetch("https://api.jikan.moe/v3/top/manga/1/manga")
         .then(r => r.json())
-        .then(manga => {
-            console.log("manga by score:", manga)
+        .then((manga) => {
             setTopMangaByScore(manga.top.slice(0,5))
         })
     }
@@ -22,8 +25,7 @@ function MangaHome() {
     function fetchTopMangaOneShots() {
         fetch("https://api.jikan.moe/v3/top/manga/1/oneshots")
         .then(r => r.json())
-        .then(manga => {
-            console.log("manga oneshots:", manga)
+        .then((manga) => {
             setTopMangaOneShots(manga.top.slice(0,5))
         })
     }
@@ -31,8 +33,7 @@ function MangaHome() {
     function fetchTopMangaByPopularity() {
         fetch("https://api.jikan.moe/v3/top/manga/1/bypopularity")
         .then(r => r.json())
-        .then(manga => {
-            console.log("manga by popularity:", manga)
+        .then((manga) => {
             setTopMangaByPopularity(manga.top.slice(0,5))
         })
     }
@@ -40,8 +41,7 @@ function MangaHome() {
     function fetchTopMangaNovels() {
         fetch("https://api.jikan.moe/v3/top/manga/1/novels")
         .then(r => r.json())
-        .then(manga => {
-            console.log("manga by novels:", manga)
+        .then((manga) => {
             setTopMangaNovels(manga.top.slice(0,5))
         })
     }
@@ -73,17 +73,21 @@ function MangaHome() {
 
     return (
         <Container fluid="md" className="mt-5">
+            <p>Top manga by score</p>
             <Row>
-
+                {renderMangaByScore}
             </Row>
+            <p>Top manga One Shots</p>
             <Row>
-
+                {renderMangaOneShots}
             </Row>
+            <p>Top manga by popularity</p>
             <Row>
-
+                {renderMangaByPopularity}
             </Row>
+            <p>Top manga novels</p>
             <Row>
-                
+                {renderMangaNovels}
             </Row>
         </Container>
     )
