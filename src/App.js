@@ -11,6 +11,7 @@ import Loading from './Components/Loading'
 import React from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
+import Forums from './Components/Forums/Forums'
 
 function App() {
   // null or false?
@@ -52,6 +53,9 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/forums">
+            <Forums />
           </Route>
           <Route exact path="/manga/:id">
             <MangaPage />

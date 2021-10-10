@@ -4,12 +4,14 @@ import Row from 'react-bootstrap/Row'
 import AnimeCardByScore from './Anime/AnimeCardByScore'
 import AnimeCardAiring from './Anime/AnimeCardAiring'
 import AnimeCardPopularity from './Anime/AnimeCardPopularity'
+import AnimeCardUpcoming from './Anime/AnimeCardUpcoming'
 import React from 'react'
 
 function Homepage() {
     const [topAnimeByScore, setTopAnimeByScore] = useState([])
     const [topAnimeAiring, setTopAnimeAiring] = useState([])
     const [topAnimeByPopularity, setTopAnimeByPopularity] = useState([])
+    const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
 
     const fetchTopAnimesByScore = () => {
         fetch("https://api.jikan.moe/v3/top/anime/1/tv")
@@ -36,10 +38,19 @@ function Homepage() {
                 })
             }
 
+    const fetchTopUpcomingAnime = () => {
+        fetch("https://api.jikan.moe/v3/top/anime/1/upcoming")
+        .then((r) => r.json())
+        .then((data) => {
+                    setTopUpcomingAnime(data.top.slice(0,5))
+                })
+            }
+
     useEffect(() => {
         fetchTopAnimesByScore()
         fetchTopAnimeAiring() 
         fetchTopAnimeByPopularity()
+        fetchTopUpcomingAnime()
     }, [])
 
     const renderTopAnimeByScoreCards = topAnimeByScore.map(anime => {  
@@ -54,6 +65,10 @@ function Homepage() {
         return (<AnimeCardPopularity title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
+    const renderTopUpcomingAnime = topUpcomingAnime.map(anime => {
+        return (<AnimeCardUpcoming title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+    })
+
     return (
         <Container fluid="md" className="mt-5">
             <p>Top anime by Score</p>
@@ -63,6 +78,10 @@ function Homepage() {
             <p>Top anime currently airing</p>
             <Row>
                 {renderTopAnimeAiring}
+            </Row>
+            <p>Top upcoming anime</p>
+            <Row>
+                {renderTopUpcomingAnime}
             </Row>
             <p>Top anime by popularity</p>
             <Row>
