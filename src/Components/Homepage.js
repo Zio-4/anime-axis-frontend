@@ -54,19 +54,19 @@ function Homepage() {
     }, [])
 
     const renderTopAnimeByScoreCards = topAnimeByScore.map(anime => {  
-      return (<AnimeCardByScore title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+      return (<AnimeCardByScore key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
     const renderTopAnimeAiring = topAnimeAiring.map(anime => {
-        return (<AnimeCardAiring title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+        return (<AnimeCardAiring key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
     const renderTopAnimeByPopularity = topAnimeByPopularity.map(anime => {
-        return (<AnimeCardPopularity title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+        return (<AnimeCardPopularity key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
     const renderTopUpcomingAnime = topUpcomingAnime.map(anime => {
-        return (<AnimeCardUpcoming title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+        return (<AnimeCardUpcoming key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
     return (
