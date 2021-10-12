@@ -12,6 +12,10 @@ import React from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
 import Forums from './Components/Forums/Forums'
+import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
+import TopAnimeByPopularityList from './Components/Anime/TopAnimeByPopularityList'
+import TopAnimeAiringList from './Components/Anime/TopAnimeAiringList'
+import TopAnimeByScoreList from './Components/Anime/TopAnimeByScoreList'
 
 function App() {
   // null or false?
@@ -53,6 +57,18 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path ="/topanime/score">
+            <TopAnimeByScoreList />
+          </Route>
+          <Route exact path="/topanime/upcoming">
+            <TopAnimeUpcomingList />
+          </Route>
+          <Route exact path="/topanime/popularity">
+            <TopAnimeByPopularityList />
+          </Route>
+          <Route exact path="/topanime/airing">
+            <TopAnimeAiringList />
           </Route>
           <Route exact path="/forums">
             <Forums />

@@ -72,7 +72,7 @@ function MangaHome() {
 
 
     return (
-        <Container fluid="md" className="mt-5">
+        <Container fluid="md" className="manga-homepage-container">
             <p>Top manga by score</p>
             <Row>
                 {renderMangaByScore}

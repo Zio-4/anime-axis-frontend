@@ -6,6 +6,7 @@ import AnimeCardAiring from './Anime/AnimeCardAiring'
 import AnimeCardPopularity from './Anime/AnimeCardPopularity'
 import AnimeCardUpcoming from './Anime/AnimeCardUpcoming'
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 function Homepage() {
     const [topAnimeByScore, setTopAnimeByScore] = useState([])
@@ -70,22 +71,26 @@ function Homepage() {
     })
 
     return (
-        <Container fluid="md" className="mt-5">
+        <Container fluid="md" className="homepage-container">
             <p>Top anime by Score</p>
             <Row>
-                {renderTopAnimeByScoreCards} 
+                {renderTopAnimeByScoreCards}
+                <Link to="/topanime/score">See more</Link>
             </Row>
             <p>Top anime currently airing</p>
             <Row>
                 {renderTopAnimeAiring}
+                <Link to="/topanime/airing">See more</Link>
             </Row>
             <p>Top upcoming anime</p>
             <Row>
                 {renderTopUpcomingAnime}
+                <Link to="/topanime/upcoming">See more</Link>
             </Row>
             <p>Top anime by popularity</p>
             <Row>
                 {renderTopAnimeByPopularity}
+                <Link to="/topanime/popularity">See more</Link>
             </Row>
         </Container>
     )
