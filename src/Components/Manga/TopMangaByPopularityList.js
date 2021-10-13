@@ -3,40 +3,42 @@ import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
 
-function TopAnimeUpcomingList() {
-    const [topAnimeUpcoming, setTopAnimeUpcoming] = useState([])
+function TopMangaByPopularityList() {
+    const [topMangaByPopularity, setTopMangaByPopularity] = useState([])
 
     useEffect(() => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/upcoming")
+        fetch("https://api.jikan.moe/v3/top/manga/1/bypopularity")
         .then((r) => r.json())
         .then((data) => {
-                setTopAnimeUpcoming(data.top)
+                setTopMangaByPopularity(data.top)
                 })
     }, [])
 
-    const renderTopAnimeUpcomingList = topAnimeUpcoming.map(anime => {
-        return ( 
+    const renderTopMangaByPopularity = topMangaByPopularity.map(manga => {
+        return (
+            
             <tr>
                 <td>
-                    {anime.rank}
+                    {manga.rank}
                 </td>
                 <td>
-                    <Link to={`/anime/${anime.mal_id}`}>
-                        <img src={anime.image_url} />
-                        {anime.title}
+                    <Link to={`/manga/${manga.mal_id}`}>
+                        <img src={manga.image_url} />
+                        {manga.title}
                     </Link>
                 </td>
                 <td>
-                    {anime.score}
-                </td>   
+                    {manga.score}
+                </td>
             </tr>
+            
         )
     })
 
     return (
-        <Container className="top-anime-upcoming-list">
+        <Container className="top-manga-popularity-list">
             <header>
-                <h1>Top 50 upcoming anime</h1>
+                <h1>Top 50 manga by popularity</h1>
             </header>
             <Table striped bordered hover>
                 <thead>
@@ -47,11 +49,11 @@ function TopAnimeUpcomingList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {renderTopAnimeUpcomingList}
+                    {renderTopMangaByPopularity}
                 </tbody>
             </Table>
         </Container>
     )
 }
 
-export default TopAnimeUpcomingList
+export default TopMangaByPopularityList

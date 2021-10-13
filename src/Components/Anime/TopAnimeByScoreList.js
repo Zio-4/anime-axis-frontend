@@ -1,10 +1,58 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import Container from 'react-bootstrap/Container'
+import Table from 'react-bootstrap/Table'
+import {Link} from 'react-router-dom'
 
 function TopAnimeByScoreList() {
-    return (
-        <div>
+    const [topAnimeByScore, setTopAnimeByScore] = useState([])
+
+    useEffect(() => {
+        fetch("https://api.jikan.moe/v3/top/anime/1/tv")
+        .then((r) => r.json())
+        .then((data) => {
+                setTopAnimeByScore(data.top)
+                })
+    }, [])
+
+    const renderTopAnimeByScore = topAnimeByScore.map(anime => {
+        return (
             
-        </div>
+            <tr>
+                <td>
+                    {anime.rank}
+                </td>
+                <td>
+                    <Link to={`/anime/${anime.mal_id}`}>
+                        <img src={anime.image_url} />
+                        {anime.title}
+                    </Link>
+                </td>
+                <td>
+                    {anime.score}
+                </td>
+            </tr>
+            
+        )
+    })
+
+    return (
+<Container className="top-anime-score-list">
+            <header>
+                <h1>Top 50 anime by score</h1>
+            </header>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {renderTopAnimeByScore}
+                </tbody>
+            </Table>
+        </Container>
     )
 }
 

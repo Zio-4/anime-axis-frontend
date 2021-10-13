@@ -3,40 +3,40 @@ import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
 
-function TopAnimeUpcomingList() {
-    const [topAnimeUpcoming, setTopAnimeUpcoming] = useState([])
+function TopMangaByScoreList() {
+    const [topMangaByScore, setTopMangaByScore] = useState([])
 
     useEffect(() => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/upcoming")
+        fetch("https://api.jikan.moe/v3/top/manga/1/manga")
         .then((r) => r.json())
         .then((data) => {
-                setTopAnimeUpcoming(data.top)
+                setTopMangaByScore(data.top)
                 })
     }, [])
 
-    const renderTopAnimeUpcomingList = topAnimeUpcoming.map(anime => {
-        return ( 
+    const renderTopMangaByScore = topMangaByScore.map(manga => {
+        return (
             <tr>
                 <td>
-                    {anime.rank}
+                    {manga.rank}
                 </td>
                 <td>
-                    <Link to={`/anime/${anime.mal_id}`}>
-                        <img src={anime.image_url} />
-                        {anime.title}
+                    <Link to={`/manga/${manga.mal_id}`}>
+                        <img src={manga.image_url} />
+                        {manga.title}
                     </Link>
                 </td>
                 <td>
-                    {anime.score}
-                </td>   
+                    {manga.score}
+                </td>
             </tr>
         )
     })
 
     return (
-        <Container className="top-anime-upcoming-list">
+        <Container className="top-manga-score-list">
             <header>
-                <h1>Top 50 upcoming anime</h1>
+                <h1>Top 50 manga by score</h1>
             </header>
             <Table striped bordered hover>
                 <thead>
@@ -47,11 +47,11 @@ function TopAnimeUpcomingList() {
                     </tr>
                 </thead>
                 <tbody>
-                    {renderTopAnimeUpcomingList}
+                    {renderTopMangaByScore}
                 </tbody>
             </Table>
         </Container>
     )
 }
 
-export default TopAnimeUpcomingList
+export default TopMangaByScoreList

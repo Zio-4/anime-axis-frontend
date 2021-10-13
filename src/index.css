@@ -58,30 +58,10 @@ code {
   margin-top: 17rem !important;
 }
 
-.forum-component{
-  margin-top: 6rem;
-}
-
-.anime-page-container{
-  margin-top: 6rem;
-}
-
-.manga-page-container{
+.forum-component, .anime-page-container, .manga-page-container, .homepage-container, .manga-homepage-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list{
   margin-top: 6rem;
 }
 
 #manga-background-card{
   margin-top: 1rem;
-}
-
-.homepage-container{
-  margin-top: 6rem;
-}
-
-.manga-homepage-container{
-  margin-top: 6rem;
-}
-
-.top-airing-list{
-  margin-top: 6rem;
 }

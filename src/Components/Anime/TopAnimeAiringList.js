@@ -19,27 +19,25 @@ function TopAnimeAiringList() {
         return (
             
             <tr>
-                
-                    <td>
-                        {anime.rank}
-                    </td>
-                    <td>
-                        <Link to={`/anime/${anime.mal_id}`}>
-                            <img src={anime.image_url} />
-                            {anime.title}
-                        </Link>
-                    </td>
-                    <td>
-                        {anime.score}
-                    </td>
-                
+                <td>
+                    {anime.rank}
+                </td>
+                <td>
+                    <Link to={`/anime/${anime.mal_id}`}>
+                        <img src={anime.image_url} />
+                        {anime.title}
+                    </Link>
+                </td>
+                <td>
+                    {anime.score}
+                </td>
             </tr>
             
         )
     })
 
     return (
-        <Container className="top-airing-list">
+        <Container className="top-anime-airing-list">
             <header>
                 <h1>Top 50 anime currently airing</h1>
             </header>

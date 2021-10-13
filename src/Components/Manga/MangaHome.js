@@ -6,6 +6,7 @@ import MangaCardByPopularity from './MangaCardByPopularity'
 import MangaCardByScore from './MangaCardByScore'
 import MangaCardNovels from './MangaCardNovels'
 import MangaCardOneShots from './MangaCardOneShots'
+import {Link} from 'react-router-dom'
 
 
 function MangaHome() {
@@ -76,18 +77,22 @@ function MangaHome() {
             <p>Top manga by score</p>
             <Row>
                 {renderMangaByScore}
+                <Link to="/topmanga/score">See more</Link>
             </Row>
-            <p>Top manga One Shots</p>
+            <p>Top manga one-shots</p>
             <Row>
                 {renderMangaOneShots}
+                <Link to="/topmanga/oneshots">See more</Link>
             </Row>
             <p>Top manga by popularity</p>
             <Row>
                 {renderMangaByPopularity}
+                <Link to="/topmanga/popularity">See more</Link>
             </Row>
             <p>Top manga novels</p>
             <Row>
                 {renderMangaNovels}
+                <Link to="/topmanga/novels">See more</Link>
             </Row>
         </Container>
     )

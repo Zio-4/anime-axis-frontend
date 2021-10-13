@@ -16,6 +16,10 @@ import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
 import TopAnimeByPopularityList from './Components/Anime/TopAnimeByPopularityList'
 import TopAnimeAiringList from './Components/Anime/TopAnimeAiringList'
 import TopAnimeByScoreList from './Components/Anime/TopAnimeByScoreList'
+import TopMangaNovelsList from "./Components/Manga/TopMangaNovelsList"
+import TopMangaByPopularityList from "./Components/Manga/TopMangaByPopularityList"
+import TopMangaByScoreList from "./Components/Manga/TopMangaByScoreList"
+import TopMangaOneShotsList from "./Components/Manga/TopMangaOneShotsList"
 
 function App() {
   // null or false?
@@ -57,6 +61,18 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/topmanga/score">
+            <TopMangaByScoreList />
+          </Route>
+          <Route exact path="/topmanga/oneshots">
+            <TopMangaOneShotsList />
+          </Route>
+          <Route exact path="/topmanga/novels">
+            <TopMangaNovelsList />
+          </Route>
+          <Route exact path="/topmanga/popularity">
+            <TopMangaByPopularityList />
           </Route>
           <Route exact path ="/topanime/score">
             <TopAnimeByScoreList />
