@@ -6,13 +6,16 @@ import AnimeCardAiring from './Anime/AnimeCardAiring'
 import AnimeCardPopularity from './Anime/AnimeCardPopularity'
 import AnimeCardUpcoming from './Anime/AnimeCardUpcoming'
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+import Col from 'react-bootstrap/Col'
 
-function Homepage() {
+function Homepage({onAnimeSearch}) {
     const [topAnimeByScore, setTopAnimeByScore] = useState([])
     const [topAnimeAiring, setTopAnimeAiring] = useState([])
     const [topAnimeByPopularity, setTopAnimeByPopularity] = useState([])
     const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
+    const [search, setSearch] = useState("")
+    const history = useHistory()
 
     const fetchTopAnimesByScore = () => {
         fetch("https://api.jikan.moe/v3/top/anime/1/tv")
@@ -22,7 +25,7 @@ function Homepage() {
                     setTopAnimeByScore(data.top.slice(0,5))
                 })
             }
-
+ 
     const fetchTopAnimeAiring = () => {
         fetch("https://api.jikan.moe/v3/top/anime/1/airing")
         .then((r) => r.json())
@@ -54,6 +57,23 @@ function Homepage() {
         fetchTopUpcomingAnime()
     }, [])
 
+    function handleChange(e) {
+        setSearch(mUV => e.target.value)
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetch(`https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&sort=asc&limit=20`)
+        .then(r => r.json())
+        .then(searchResultData => {
+            console.log("search result data", searchResultData)
+            onAnimeSearch(searchResultData)
+        })
+        history.push(`/search/anime`)
+    }
+
+    console.log("search state:", search)
+
     const renderTopAnimeByScoreCards = topAnimeByScore.map(anime => {  
       return (<AnimeCardByScore key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
@@ -71,6 +91,16 @@ function Homepage() {
     })
 
     return (
+        <>
+        <Container className="anime-search">
+            <Row>
+                <Col>
+                    <input  type="text" value={search} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
+                    <button type="submit" onClick={handleSubmit} >Search</button>
+                </Col>
+            </Row>
+        </Container>
+
         <Container fluid="md" className="homepage-container">
             <p>Top anime by Score</p>
             <Row>
@@ -93,6 +123,7 @@ function Homepage() {
                 <Link to="/topanime/popularity">See more</Link>
             </Row>
         </Container>
+        </>
     )
 }
 

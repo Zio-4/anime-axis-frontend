@@ -20,12 +20,14 @@ import TopMangaNovelsList from "./Components/Manga/TopMangaNovelsList"
 import TopMangaByPopularityList from "./Components/Manga/TopMangaByPopularityList"
 import TopMangaByScoreList from "./Components/Manga/TopMangaByScoreList"
 import TopMangaOneShotsList from "./Components/Manga/TopMangaOneShotsList"
+import AnimeSearchPage from "./Components/Anime/AnimeSearchPage"
 
 function App() {
   // null or false?
   // use CB's for setting user data?
   const [user, setUser] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [animeSearchResults, setAnimeSearchResults] = useState([])
 
   useEffect(() => {
     fetch("/user")
@@ -51,6 +53,11 @@ function App() {
     setUser(false)
   }
 
+  function onAnimeSearch(results) {
+    setAnimeSearchResults(results)
+  }
+
+  console.log("anime search results in app", animeSearchResults)
 
 
   return (
@@ -61,6 +68,9 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/search/anime">
+            <AnimeSearchPage animeSearchResults={animeSearchResults}/>
           </Route>
           <Route exact path="/topmanga/score">
             <TopMangaByScoreList />
@@ -108,7 +118,7 @@ function App() {
             <SignUp setUser={setUser}/>
           </Route>
           <Route exact path="/">
-            <Homepage />
+            <Homepage onAnimeSearch={onAnimeSearch}/>
           </Route>
           <Route exact path="/about">
             <About />
