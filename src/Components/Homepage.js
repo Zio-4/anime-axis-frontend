@@ -9,12 +9,12 @@ import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 
-function Homepage({onAnimeSearch}) {
+function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     const [topAnimeByScore, setTopAnimeByScore] = useState([])
     const [topAnimeAiring, setTopAnimeAiring] = useState([])
     const [topAnimeByPopularity, setTopAnimeByPopularity] = useState([])
     const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
-    const [search, setSearch] = useState("")
+    
     const history = useHistory()
 
     const fetchTopAnimesByScore = () => {
@@ -58,12 +58,12 @@ function Homepage({onAnimeSearch}) {
     }, [])
 
     function handleChange(e) {
-        setSearch(mUV => e.target.value)
+        updateAnimeSearchQuery(mUV => e.target.value)
     }
 
     function handleSubmit(e) {
         e.preventDefault()
-        fetch(`https://api.jikan.moe/v3/search/anime?q=${search}&order_by=title&sort=asc&limit=20`)
+        fetch(`https://api.jikan.moe/v3/search/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
         .then(r => r.json())
         .then(searchResultData => {
             console.log("search result data", searchResultData)
@@ -71,8 +71,6 @@ function Homepage({onAnimeSearch}) {
         })
         history.push(`/search/anime`)
     }
-
-    console.log("search state:", search)
 
     const renderTopAnimeByScoreCards = topAnimeByScore.map(anime => {  
       return (<AnimeCardByScore key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
@@ -95,7 +93,7 @@ function Homepage({onAnimeSearch}) {
         <Container className="anime-search">
             <Row>
                 <Col>
-                    <input  type="text" value={search} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
+                    <input  type="text" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
                     <button type="submit" onClick={handleSubmit} >Search</button>
                 </Col>
             </Row>

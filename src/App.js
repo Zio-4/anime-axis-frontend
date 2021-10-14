@@ -27,6 +27,7 @@ function App() {
   // use CB's for setting user data?
   const [user, setUser] = useState(false)
   const [loading, setLoading] = useState(true)
+  const [animeSearchQuery, setAnimeSearchQuery] = useState("")
   const [animeSearchResults, setAnimeSearchResults] = useState([])
 
   useEffect(() => {
@@ -53,11 +54,13 @@ function App() {
     setUser(false)
   }
 
-  function onAnimeSearch(results) {
-    setAnimeSearchResults(results)
+  function updateAnimeSearchQuery(query) {
+    setAnimeSearchQuery(query)
   }
 
-  console.log("anime search results in app", animeSearchResults)
+  function onAnimeSearch(results) {
+    setAnimeSearchResults(results.results)
+  }
 
 
   return (
@@ -70,7 +73,7 @@ function App() {
             <Loading />
           </Route>
           <Route exact path="/search/anime">
-            <AnimeSearchPage animeSearchResults={animeSearchResults}/>
+            <AnimeSearchPage animeSearchResults={animeSearchResults} animeSearchQuery={animeSearchQuery}/>
           </Route>
           <Route exact path="/topmanga/score">
             <TopMangaByScoreList />
@@ -118,7 +121,7 @@ function App() {
             <SignUp setUser={setUser}/>
           </Route>
           <Route exact path="/">
-            <Homepage onAnimeSearch={onAnimeSearch}/>
+            <Homepage onAnimeSearch={onAnimeSearch} updateAnimeSearchQuery={updateAnimeSearchQuery} animeSearchQuery={animeSearchQuery}/>
           </Route>
           <Route exact path="/about">
             <About />
