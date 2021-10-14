@@ -24,6 +24,8 @@ import AnimeSearchPage from "./Components/Anime/AnimeSearchPage"
 import AnimeForum from "./Components/Forums/AnimeForum"
 import GeneralForum from "./Components/Forums/GeneralForum"
 import MangaForum from "./Components/Forums/MangaForum"
+import AnimePostForm from "./Components/Forums/AnimePostForm"
+import AnimeForumPost from "./Components/Forums/AnimeForumPost"
 
 function App() {
   // null or false?
@@ -74,6 +76,12 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/forums/anime/post/:id">
+            <AnimeForumPost />
+          </Route>
+          <Route exact path="/forums/anime/newpost">
+            <AnimePostForm />
           </Route>
           <Route exact path="/forums/anime">
             <AnimeForum />
