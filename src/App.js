@@ -21,6 +21,9 @@ import TopMangaByPopularityList from "./Components/Manga/TopMangaByPopularityLis
 import TopMangaByScoreList from "./Components/Manga/TopMangaByScoreList"
 import TopMangaOneShotsList from "./Components/Manga/TopMangaOneShotsList"
 import AnimeSearchPage from "./Components/Anime/AnimeSearchPage"
+import AnimeForum from "./Components/Forums/AnimeForum"
+import GeneralForum from "./Components/Forums/GeneralForum"
+import MangaForum from "./Components/Forums/MangaForum"
 
 function App() {
   // null or false?
@@ -58,8 +61,8 @@ function App() {
     setAnimeSearchQuery(query)
   }
 
-  function onAnimeSearch(results) {
-    setAnimeSearchResults(results.results)
+  function onAnimeSearch(searchResults) {
+    setAnimeSearchResults(searchResults.results)
   }
 
 
@@ -71,6 +74,15 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/forums/anime">
+            <AnimeForum />
+          </Route>
+          <Route exact path="/forums/manga">
+            <MangaForum />
+          </Route>
+          <Route exact path="/forums/general">
+            <GeneralForum />
           </Route>
           <Route exact path="/search/anime">
             <AnimeSearchPage animeSearchResults={animeSearchResults} animeSearchQuery={animeSearchQuery}/>

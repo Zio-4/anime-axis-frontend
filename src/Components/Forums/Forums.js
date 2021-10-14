@@ -5,6 +5,7 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import {useEffect, useState} from 'react'
+import {Link} from 'react-router-dom'
 
 function Forums() {
     const [forumPosts, setForumPosts] = useState([])
@@ -20,6 +21,8 @@ function Forums() {
     //     })
     // }, [])
 
+
+
     return (
         <div className="forum-component">
             <Container>
@@ -28,7 +31,7 @@ function Forums() {
                 </header>
                     <Row>
                         <Card >
-                            <Card.Header>Anime</Card.Header>
+                        <Link to="/forums/anime"><Card.Header>Anime</Card.Header></Link>
                             <ListGroup variant="flush">
                                     {/* <ListGroup.Item>{title} {content_summary} {posted}</ListGroup.Item>
                                     <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
@@ -38,7 +41,7 @@ function Forums() {
                     </Row>
                     <Row>
                         <Card >
-                            <Card.Header>Manga</Card.Header>
+                            <Link to="/forums/manga"><Card.Header>Manga</Card.Header></Link>
                             <ListGroup variant="flush">
                                 <ListGroup.Item>Cras justo odio</ListGroup.Item>
                                 <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
@@ -47,8 +50,8 @@ function Forums() {
                         </Card>
                     </Row>
                     <Row>
-                        <Card >
-                            <Card.Header>General</Card.Header>
+                        <Card>
+                            <Link to="/forums/general"><Card.Header>General</Card.Header></Link>
                             <ListGroup variant="flush">
                                 <ListGroup.Item>Cras justo odio</ListGroup.Item>
                                 <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
