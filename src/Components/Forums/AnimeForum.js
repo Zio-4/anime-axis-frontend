@@ -1,11 +1,20 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import {useHistory} from 'react-router-dom'
 
 function AnimeForum({user}) {
+    const [animePosts, setAnimePosts] = useState([])
     const history = useHistory()
+    
+    useEffect(() => {
+        fetch("/forum_posts/anime")
+        .then(r => r.json())
+        .then(animes => {
+            setAnimePosts(animes)
+        })
+    }, [])
 
     function handleClick() {
         if (user) {
@@ -16,6 +25,19 @@ function AnimeForum({user}) {
             history.push("/login", {from: "anime forum"})
         }
     }
+    
+    const renderAnimePosts = animePosts.map(a => (
+            <tr>
+                <td>
+                    {a.title}
+                    <br/>
+                    posted458 - Nov 12, 2020
+                </td>
+                <td>43</td>
+                <td>Otto43</td>
+            </tr>
+        )
+    )
 
     return (
         <Container className="anime-forum-container">
@@ -31,27 +53,7 @@ function AnimeForum({user}) {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                    <td>
-                        What is your favorite Anime?
-                        <br/>
-                        posted458 - Nov 12, 2020
-                    </td>
-                    <td>43</td>
-                    <td>Otto43</td>
-                    </tr>
-
-                    <tr>
-                    <td>Most annoying anime character?</td>
-                    <td>107</td>
-                    <td>Thornton96x</td>
-                    </tr>
-                    
-                    <tr>
-                    <td>Strongest character in any anime?</td>
-                    <td>9</td>
-                    <td>philtered_soul</td>
-                    </tr>
+                {renderAnimePosts}
                 </tbody>
             </Table>
         </Container>
