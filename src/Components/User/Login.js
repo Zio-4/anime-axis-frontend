@@ -9,6 +9,7 @@ import sasuke from '../../Images/Sasuke.png'
 import {Link, useHistory} from 'react-router-dom'
 import {useState} from 'react'
 import React from 'react'
+import Alert from 'react-bootstrap/Alert'
 
 
 function Login({onLogin}) {
@@ -18,6 +19,8 @@ function Login({onLogin}) {
     })
 
     const history = useHistory()
+
+    console.log("history", history.location.state)
 
     function handleInput(e) {
         setFormData({...formData, [e.target.name]: e.target.value})
@@ -57,7 +60,7 @@ function Login({onLogin}) {
 
                         <div className="signup-link mt-3">
                             <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
-                            
+                            {history.location.state === undefined ? null : <Alert variant="danger" className="forum-post-alert">You must first login to see this page</Alert>}        
                         </div>
                     </Form>
                 </Col>
@@ -65,6 +68,7 @@ function Login({onLogin}) {
                 <Col lg={8} md={6} sm={12}>
                     <img className="w-100" src={sasuke} alt="sasuke" />
                 </Col>
+                
             </Row>
         </Container>
     )

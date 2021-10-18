@@ -81,10 +81,10 @@ function App() {
             <AnimeForumPost />
           </Route>
           <Route exact path="/forums/anime/newpost">
-            <AnimePostForm />
+            <AnimePostForm user={user}/>
           </Route>
           <Route exact path="/forums/anime">
-            <AnimeForum />
+            <AnimeForum user={user}/>
           </Route>
           <Route exact path="/forums/manga">
             <MangaForum />

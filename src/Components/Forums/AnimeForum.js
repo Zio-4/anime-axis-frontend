@@ -2,16 +2,25 @@ import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import {Link} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 
-function AnimeForum() {
+function AnimeForum({user}) {
+    const history = useHistory()
 
-
+    function handleClick() {
+        if (user) {
+            history.push("/forums/anime/newpost")
+        } else {
+            // Passing current page as props for rendering error on login page
+            // Adding state of the current page
+            history.push("/login", {from: "anime forum"})
+        }
+    }
 
     return (
         <Container className="anime-forum-container">
             <h1>Anime Forum Board</h1>
-            <Link to="/forums/anime/newpost"><Button>Create New Post</Button></Link>
+           <Button onClick={handleClick}>Create New Post</Button>
             
             <Table striped bordered hover className="anime-forum-table">
                 <thead>

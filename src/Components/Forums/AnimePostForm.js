@@ -5,7 +5,7 @@ import Button from 'react-bootstrap/Button'
 import {useHistory} from 'react-router-dom'
 
 
-function AnimePostForm() {
+function AnimePostForm({user}) {
     const [formData, setFormData] = useState({
         title:"",
         content:""
@@ -21,17 +21,15 @@ function AnimePostForm() {
                 "Accept": "application/json",
             },
             body: JSON.stringify({
-                title: formData.content, content: formData.content, forum_id: 1
+                title: formData.content, content: formData.content, forum_id: 1, user_id: user.id
             }
             ),
         })
         .then(r => r.json())
         .then(returnedData => {
             setFormData({
-                username:"",
-                password:"",
-                password_confirmation:"",
-                email:""
+                title:"",
+                content:""
             })
             history.push(`/forums/anime/post/${returnedData.id}`)
         })
