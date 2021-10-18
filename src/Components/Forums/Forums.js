@@ -8,18 +8,21 @@ import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 
 function Forums() {
-    const [forumPosts, setForumPosts] = useState([])
+    const [animeForumPosts, setAnimeForumPosts] = useState([])
 
-    // Create custom method in backend for the 5 newest posts?
+    useEffect(() => {
+        fetch("/forum_posts/anime")
+        .then(r => r.json())
+        .then(forumPostData => {
+            console.log("Anime Forum Post Data:", forumPostData)
+             setAnimeForumPosts(forumPostData)     
+        })
+    }, [])
 
-    // useEffect(() => {
-    //     fetch("/forums_posts")
-    //     .then(r => r.json())
-    //     .then(forumPostData => {
-    //         console.log("Forum Post Data:", forumPostData)
-    //          setForumPosts(forumPostData)     
-    //     })
-    // }, [])
+    // Add content summary and posted date
+    const renderAnimePosts = animeForumPosts.map(a => (
+        <ListGroup.Item>{a.title}</ListGroup.Item>
+    ))
 
 
 
@@ -33,9 +36,7 @@ function Forums() {
                         <Card >
                         <Link to="/forums/anime"><Card.Header>Anime</Card.Header></Link>
                             <ListGroup variant="flush">
-                                    {/* <ListGroup.Item>{title} {content_summary} {posted}</ListGroup.Item>
-                                    <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-                                    <ListGroup.Item>Vestibulum at eros</ListGroup.Item> */}
+                                    {renderAnimePosts}
                             </ListGroup>
                         </Card>
                     </Row>

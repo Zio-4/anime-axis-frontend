@@ -40,11 +40,13 @@ function AnimeForum({user}) {
                     <td>43</td>
                     <td>Otto43</td>
                     </tr>
+
                     <tr>
                     <td>Most annoying anime character?</td>
                     <td>107</td>
                     <td>Thornton96x</td>
                     </tr>
+                    
                     <tr>
                     <td>Strongest character in any anime?</td>
                     <td>9</td>
