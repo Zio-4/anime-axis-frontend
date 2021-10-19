@@ -1,20 +1,32 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import {useHistory} from 'react-router-dom'
 
 
-function AnimePostForm({user}) {
+function ForumPostForm({user}) {
     const [formData, setFormData] = useState({
         title:"",
         content:""
     })
+    const [forumIdState, setForumIdState] = useState(1)
     const history = useHistory()
+
 
     function handleChange(e) {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
+
+    useEffect(() => {
+        if (history.location.state === undefined) {
+            setForumIdState(1)
+        } else if (history.location.state.from === "manga forum") {
+            setForumIdState(2)
+        } else if (history.location.state.from === "general forum"){
+            setForumIdState(3)
+        }
+    }, [history.location.state])
 
 
     function handleSubmit(e){
@@ -26,7 +38,7 @@ function AnimePostForm({user}) {
                 "Accept": "application/json",
             },
             body: JSON.stringify({
-                title: formData.title, content: formData.content, forum_id: 1, user_id: user.id
+                title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.id
             }
             ),
         })
@@ -37,7 +49,17 @@ function AnimePostForm({user}) {
                 title:"",
                 content:""
             })
-            history.push(`/forums/anime/post/${returnedData.id}`)
+            switch(returnedData.forum_id) {
+                case 1:
+                    history.push(`/forums/anime/post/${returnedData.id}`)
+                    break;
+                case 2:
+                    history.push(`/forums/manga/post/${returnedData.id}`)
+                    break;
+                case 3:
+                    history.push(`/forums/general/post/${returnedData.id}`)
+                    break;
+            }
         })
             
     }
@@ -61,4 +83,4 @@ function AnimePostForm({user}) {
     )
 }
 
-export default AnimePostForm
+export default ForumPostForm

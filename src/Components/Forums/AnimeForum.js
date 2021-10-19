@@ -18,7 +18,7 @@ function AnimeForum({user}) {
 
     function handleClick() {
         if (user) {
-            history.push("/forums/anime/newpost")
+            history.push("/forums/newpost")
         } else {
             // Passing current page as props for rendering error on login page
             // Adding state of the current page
