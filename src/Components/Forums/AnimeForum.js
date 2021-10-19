@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 function AnimeForum({user}) {
     const [animePosts, setAnimePosts] = useState([])
@@ -27,15 +27,17 @@ function AnimeForum({user}) {
     }
     
     const renderAnimePosts = animePosts.map(a => (
-            <tr>
-                <td>
-                    {a.title}
-                    <br/>
-                    posted458 - Nov 12, 2020
-                </td>
-                <td>43</td>
-                <td>Otto43</td>
-            </tr>
+            
+                <tr>
+                    <td>
+                    <Link to={`/forums/anime/post/${a.id}`}>{a.title}</Link>
+                        <br/>
+                        posted458 - Nov 12, 2020
+                    </td>
+                    <td>43</td>
+                    <td>Otto43</td>
+                </tr>
+            
         )
     )
 
