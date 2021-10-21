@@ -26,6 +26,7 @@ import GeneralForum from "./Components/Forums/GeneralForum"
 import MangaForum from "./Components/Forums/MangaForum"
 import ForumPostForm from "./Components/Forums/ForumPostForm"
 import ForumPost from "./Components/Forums/ForumPost"
+import CommentForm from "./Components/Forums/CommentForm"
 
 
 function App() {
@@ -78,6 +79,9 @@ function App() {
           <Route exact path="/loading">
             <Loading />
           </Route>
+          <Route exact path="/forums/post/comment">
+            <CommentForm />
+          </Route>
           <Route exact path="/forums/newpost">
             <ForumPostForm user={user}/>
           </Route>
@@ -91,7 +95,7 @@ function App() {
             <GeneralForum user={user}/>
           </Route>
           <Route exact path="/forums/post/:id">
-            <ForumPost />
+            <ForumPost user={user}/>
           </Route>
           <Route exact path="/search/anime">
             <AnimeSearchPage animeSearchResults={animeSearchResults} animeSearchQuery={animeSearchQuery}/>
