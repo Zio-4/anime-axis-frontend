@@ -15,7 +15,7 @@ function Forums() {
         fetch("/forum_posts/anime")
         .then(r => r.json())
         .then(forumPostData => {
-             setAnimeForumPosts(forumPostData.slice(0,5))     
+            setAnimeForumPosts(forumPostData.slice(0,5))     
         })
     }
 
@@ -44,15 +44,15 @@ function Forums() {
 
     // Add content summary and posted date
     const renderAnimePosts = animeForumPosts.map(a => (
-        <ListGroup.Item key={a.id}><Link to={`/forums/anime/post/${a.id}`}>{a.title}</Link></ListGroup.Item>
+        <ListGroup.Item key={a.id}><Link to={`/forums/post/${a.id}`}>{a.title}</Link></ListGroup.Item>
     ))
 
     const renderMangaPosts = mangaForumPosts.map(m => (
-        <ListGroup.Item key={m.id}><Link to={`/forums/manga/post/${m.id}`}>{m.title}</Link></ListGroup.Item>
+        <ListGroup.Item key={m.id}><Link to={`/forums/post/${m.id}`}>{m.title}</Link></ListGroup.Item>
     ))
 
     const renderGeneralPosts = generalForumPosts.map(g => (
-        <ListGroup.Item key={g.id}><Link to={`/forums/general/post/${g.id}`}>{g.title}</Link></ListGroup.Item>
+        <ListGroup.Item key={g.id}><Link to={`/forums/post/${g.id}`}>{g.title}</Link></ListGroup.Item>
     ))
 
 

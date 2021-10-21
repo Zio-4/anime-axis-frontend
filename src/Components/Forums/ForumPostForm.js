@@ -38,8 +38,7 @@ function ForumPostForm({user}) {
                 "Accept": "application/json",
             },
             body: JSON.stringify({
-                title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.id
-            }
+                title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.id}
             ),
         })
         .then(r => r.json())
@@ -49,17 +48,7 @@ function ForumPostForm({user}) {
                 title:"",
                 content:""
             })
-            switch(returnedData.forum_id) {
-                case 1:
-                    history.push(`/forums/anime/post/${returnedData.id}`)
-                    break;
-                case 2:
-                    history.push(`/forums/manga/post/${returnedData.id}`)
-                    break;
-                case 3:
-                    history.push(`/forums/general/post/${returnedData.id}`)
-                    break;
-            }
+            history.push(`/forums/post/${returnedData.id}`)
         })
             
     }

@@ -30,7 +30,7 @@ function AnimeForum({user}) {
             
                 <tr>
                     <td>
-                    <Link to={`/forums/anime/post/${a.id}`}>{a.title}</Link>
+                    <Link to={`/forums/post/${a.id}`}>{a.title}</Link>
                         <br/>
                         posted458 - Nov 12, 2020
                     </td>

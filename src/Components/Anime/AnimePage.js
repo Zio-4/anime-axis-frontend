@@ -1,5 +1,5 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, Link, useHistory} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import Loading from '../Loading'
 import Card from 'react-bootstrap/Card'
@@ -14,15 +14,21 @@ import Badge from 'react-bootstrap/Badge'
 function AnimePage() {
     const params = useParams()
     const [anime, setAnime] = useState()
+    const history = useHistory()
 
-    useEffect(() => {
+    function fetchAnime() {
         fetch(`https://api.jikan.moe/v3/anime/${params.id}`)
         .then(r => r.json())
         .then(animeFetched => {
             setAnime(animeFetched)
         })
+    }
+
+    useEffect(() => {
+        fetchAnime()
     }, [params.id])
 
+   
     if (!anime) return <Loading />
 
 
@@ -30,10 +36,11 @@ function AnimePage() {
     console.log("Anime in state:", anime)
 
     return (
-        <Container className="anime-page-container">
+        <div>
+        <Container className="anime-page-container" >
             <Row>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '18rem' }} >
                         <Card.Img variant="top" src={anime.image_url} />
                         <Card.Body>
                             <Card.Title>{anime.title_english ? anime.title_english : anime.title}</Card.Title>
@@ -57,7 +64,7 @@ function AnimePage() {
                         </Card.Text>
                     </Card.Body>
                    </Card>
-                   {anime.genres.map(g => <Badge pill bg="dark">{g.name}</Badge>)}
+                   {anime.genres.map(g => <Badge key={g.name} pill bg="dark">{g.name}</Badge>)}
                 </Col>
                 <Col>
                     <Card style={{ width: '18rem' }}>
@@ -66,19 +73,28 @@ function AnimePage() {
                             <ListGroup.Item>Aired: {anime.aired.string}</ListGroup.Item>
                             <ListGroup.Item>Type: {anime.type}</ListGroup.Item>
                             <ListGroup.Item>Rank by popularity: {anime.popularity}</ListGroup.Item>
-                            <ListGroup.Item>Producers: {anime.producers.map(prod => <li>{prod.name}</li>) }</ListGroup.Item>
+                            <ListGroup.Item>Producers: {anime.producers.map(prod => <li key={prod.name}>{prod.name}</li>) }</ListGroup.Item>
                             <ListGroup.Item>Premiered: {anime.premiered}</ListGroup.Item>
                             <ListGroup.Item>Rating: {anime.rating}</ListGroup.Item>
                             <ListGroup.Item>MyAnimeList Score: {anime.score}</ListGroup.Item>
                             <ListGroup.Item>Status: {anime.status}</ListGroup.Item>
-                            <ListGroup.Item>Studios: {anime.studios.map(studio => <li>{studio.name}</li>)}</ListGroup.Item>
+                            <ListGroup.Item>Studios: {anime.studios.map(studio => <li key={studio.name}>{studio.name}</li>)}</ListGroup.Item>
                             <ListGroup.Item>Japanese Title: {anime.title_japanese}</ListGroup.Item>
-                            <ListGroup.Item>Synonyms: {anime.title_synonyms.map(syn => <li>{syn}</li>)}</ListGroup.Item>
+                            <ListGroup.Item>Synonyms: {anime.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
                         </ListGroup>
                     </Card>
                 </Col>
             </Row>
         </Container>
+
+        <Container>
+            <Row className="d-flex justify-content-center mt-3">
+                
+            </Row>
+        </Container>
+        </div>
+
+        // Render forum posts about current anime on page, have button to post about this anime or button to see all forum posts about it
     )
 }
 

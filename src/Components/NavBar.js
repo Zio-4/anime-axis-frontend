@@ -6,7 +6,7 @@ import Nav from 'react-bootstrap/Nav'
 function NavBar({user, onLogout}) {
 
     function logoutUser() {
-        fetch("logout", {
+        fetch("/logout", {
             method: "DELETE"
         })
         onLogout()

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 function MangaForum({user}) {
     const [mangaPosts, setMangaPosts] = useState([])
@@ -30,7 +30,7 @@ function MangaForum({user}) {
     const renderMangaPosts = mangaPosts.map(m => (
             <tr key={m.id}>
                 <td>
-                    {m.title}
+                <Link to={`/forums/post/${m.id}`}>{m.title}</Link>
                     <br/>
                     posted458 - Nov 12, 2020
                 </td>

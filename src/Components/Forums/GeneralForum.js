@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
-import {useHistory} from 'react-router-dom'
+import {useHistory, Link} from 'react-router-dom'
 
 
 function GeneralForum({user}) {
@@ -31,7 +31,7 @@ function GeneralForum({user}) {
     const renderGeneralPosts = generalPosts.map(g => (
             <tr key={g.id}>
                 <td>
-                    {g.title}
+                <Link to={`/forums/post/${g.id}`}>{g.title}</Link>
                     <br/>
                     posted458 - Nov 12, 2020
                 </td>
