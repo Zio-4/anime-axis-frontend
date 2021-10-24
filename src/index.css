@@ -58,7 +58,7 @@ code {
   margin-top: 17rem !important;
 }
 
-.forum-component, .anime-page-container, .manga-page-container, .homepage-container, .manga-homepage-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container{
+.forum-component, .anime-page-container, .manga-page-container, .homepage-container, .manga-homepage-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list{
   margin-top: 6rem;
 }
 
@@ -70,4 +70,14 @@ code {
   text-align: center;
 }
 
+.profile-container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100vh;
+    
+}
 
+#profile-icon {
+  margin-top: 1rem;
+}

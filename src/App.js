@@ -26,6 +26,7 @@ import GeneralForum from "./Components/Forums/GeneralForum"
 import MangaForum from "./Components/Forums/MangaForum"
 import ForumPostForm from "./Components/Forums/ForumPostForm"
 import ForumPost from "./Components/Forums/ForumPost"
+import AnimeList from "./Components/Anime/AnimeList"
 
 function App() {
   // null or false?
@@ -49,7 +50,6 @@ function App() {
       }
     })
   }, [])
-
 
   function onLogin(userData) {
     setUser(userData)
@@ -76,6 +76,9 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/animelist">
+            <AnimeList/>
           </Route>
           <Route exact path="/forums/newpost">
             <ForumPostForm user={user}/>
@@ -129,10 +132,10 @@ function App() {
             <MangaHome />
           </Route>
           <Route exact path="/profile">
-            <ProfilePage />
+            <ProfilePage user={user}/>
           </Route>
           <Route exact path="/anime/:id">
-            <AnimePage />
+            <AnimePage user={user}/>
           </Route>
           <Route exact path="/login">
             <Login onLogin={onLogin}/>

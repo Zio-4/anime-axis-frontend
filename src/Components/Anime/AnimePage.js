@@ -11,7 +11,7 @@ import Col from 'react-bootstrap/Col'
 import Badge from 'react-bootstrap/Badge'
 
 
-function AnimePage() {
+function AnimePage({user}) {
     const params = useParams()
     const [anime, setAnime] = useState()
     const history = useHistory()
@@ -28,12 +28,23 @@ function AnimePage() {
         fetchAnime()
     }, [params.id])
 
+    function handleClick() {
+        fetch("/animes", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({title: anime.title, id: anime.mal_id, image_url: anime.image_url , score: anime.score, user_id: user.id})
+        })
+        .then(r => r.json())
+        .then(createdAnimeData => {
+            console.log("anime page created anime data", createdAnimeData)
+        }) 
+    }
+
    
     if (!anime) return <Loading />
 
-
-
-    console.log("Anime in state:", anime)
 
     return (
         <div>
@@ -51,7 +62,7 @@ function AnimePage() {
                             <ListGroup.Item>Duration: {anime.duration}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                            <Button>+ Anime List</Button>
+                            <Button onClick={handleClick}>+ Anime List</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -94,7 +105,6 @@ function AnimePage() {
         </Container>
         </div>
 
-        // Render forum posts about current anime on page, have button to post about this anime or button to see all forum posts about it
     )
 }
 
