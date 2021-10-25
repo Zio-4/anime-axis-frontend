@@ -12,74 +12,123 @@ import Alert from 'react-bootstrap/Alert'
 
 function ProfilePage({user}) {
     const [bio, setBio] = useState(user.bio)
-    const [show, setShow] = useState(false);
-    const [modalTextValue, setModalTextValue] = useState("")
-    const [alertState, setAlertState] = useState(false)
+    const [avatar, setAvatar] = useState(user.avatar)
+    const [showBioModal, setShowBioModal] = useState(false);
+    const [showAvatarModal, setAvatarModal] = useState(false)
+    const [avatarModalValue, setAvatarModalValue] = useState("")
+    const [bioModalTextValue, setBioModalTextValue] = useState("")
+    const [bioAlertState, setBioAlertState] = useState(false)
+    const [avatarAlertState, setAvatarAlertState] = useState(false)
 
-    const handleClose = () => {
-        setShow(false)
-        setModalTextValue("")
+    if (!user) return <Redirect to="/login"/>
+
+    const handleCloseBio = () => {
+        setShowBioModal(false)
+        setBioModalTextValue("")
     }
-    const handleShow = () => setShow(true)
 
-    function handleSubmit() {
+    const handleShowBio = () => setShowBioModal(true)
+
+
+    const handleCloseAvatar = () => {
+        setAvatarModal(false)
+        setAvatarModalValue("")
+    }
+
+    const handleShowAvatar = () => setAvatarModal(true)
+
+   
+
+    function handleSubmitBio() {
         fetch(`/users/${user.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({bio: modalTextValue || user.bio})
+            body: JSON.stringify({bio: bioModalTextValue || user.bio})
         })
         .then(r => r.json())
         .then(userData => {
             console.log(userData)
             setBio(userData.bio)
-            setShow(false)
-            setAlertState(true)
+            setBioModalTextValue("")
+            setBioAlertState(true)
         })
     }
 
-    if (!user) return <Redirect to="/login"/>
+    function handleSubmitAvatar() {
+        fetch(`/users/${user.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({avatar: avatarModalValue || user.avatar})
+        })
+        .then(r => r.json())
+        .then(userData => {
+            console.log(userData)
+            setAvatar(userData.avatar)
+            setAvatarModalValue(false)
+            setAvatarAlertState(true)
+        })
+    }
 
-    // center buttons
+
+    
+
 
     return (
         <Container className="profile-container">
             <Row className="d-flex justify-content-center"> 
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={user.avatar === null ? loginIcon : user.avatar} id="profile-icon" alt="profile-icon" />
+                    <Card.Img variant="top" src={user.avatar && avatar === undefined ? user.avatar : avatar} id="profile-icon" alt="profile-icon" />
                     <Card.Body>
                         <Card.Title>{user.username}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">                
                         <ListGroup.Item> <strong>Bio:</strong> {user.bio && bio === undefined ? user.bio : bio}</ListGroup.Item>
-                        <ListGroup.Item>Email: {user.email}</ListGroup.Item>
                     </ListGroup>
                 </Card>
                 <div className="d-grid gap-2 mt-2 justify-content-center">
-                    {user.bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShow}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShow}>
+                    {user.bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>
                         Add bio
                     </Button>}
-                    <Button variant="primary" size="sm" style={{width: '18rem'}}>
+                    <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>
                         Add avatar
                     </Button>
 
-                    {alertState ? <Alert variant="success" className="text-center" onClose={() => setAlertState(false)} dismissible>Bio has been updated</Alert> : null}
+                    {bioAlertState ? <Alert variant="success" className="text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
+                    {avatarAlertState ? <Alert variant="success" className="text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}
                 </div>
             </Row>
 
            
 
-            <Modal show={show} onHide={handleClose} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+            <Modal show={showBioModal} onHide={handleCloseBio} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Bio</Modal.Title>
                 </Modal.Header>
-                <Modal.Body as="textarea" value={modalTextValue} onChange={(e) => setModalTextValue(e.target.value)}></Modal.Body>
+                <Modal.Body as="textarea" value={bioModalTextValue} onChange={(e) => setBioModalTextValue(e.target.value)}></Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleCloseBio}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>
+                    <Button variant="primary" onClick={handleSubmitBio}>
+                        Submit
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            <Modal show={showAvatarModal} onHide={handleCloseAvatar} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Enter url for avatar image</Modal.Title>
+                </Modal.Header>
+                <Modal.Body as="textarea" value={avatarModalValue} onChange={(e) => setAvatarModalValue(e.target.value)}></Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleCloseAvatar}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleSubmitAvatar}>
                         Submit
                     </Button>
                 </Modal.Footer>

@@ -14,7 +14,6 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     const [topAnimeAiring, setTopAnimeAiring] = useState([])
     const [topAnimeByPopularity, setTopAnimeByPopularity] = useState([])
     const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
-    
     const history = useHistory()
 
     const fetchTopAnimesByScore = () => {

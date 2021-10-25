@@ -4,42 +4,42 @@ import Table from 'react-bootstrap/Table'
 import {Link, Redirect} from 'react-router-dom'
 import Loading from '../Loading'
 
-function AnimeList({user}) {
-
+function MangaList({user}) {
     if (!user) return <Loading/>
+
+    console.log("user mangas", user.mangas)
 
     let positionNumber = 0
 
-    const renderUsersAnimeList = () => {
-        if (user.animes) {
-            user.animes.map(a => (
-                <tr key={a.id}>
+    const renderUsersMangaList = () => {
+        if (user.mangas) {
+            user.mangas.map(m => (
+                <tr key={m.id}>
                     <td>
                         {positionNumber +=1}
                     </td>
                     <td>
-                        <Link to={`/anime/${a.id}`}>
-                            <img src={a.image_url} />
-                            {a.title}
+                        <Link to={`/manga/${m.id}`}>
+                            <img src={m.image_url} />
+                            {m.title}
                         </Link>
                     </td>
                     <td>
-                        {a.score}
+                        {m.score}
                     </td>
                 </tr>
             ))
         } else {
-            return <h1>There are no anime in your list yet. Go add some!</h1>
+            return <h1>There are no manga in your list yet. Go add some!</h1>
         }
-        
     }
 
-    console.log(user.animes)
 
     return (
-        <Container className="users-anime-list">
+
+        <Container className="users-manga-list">    
             <header>
-                <h1>{user.username} anime list</h1>
+                <h1>{user.username} manga list</h1>
             </header>
             <Table striped bordered hover>
                 <thead>
@@ -50,11 +50,11 @@ function AnimeList({user}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {renderUsersAnimeList}
+                    {renderUsersMangaList()}
                 </tbody>
             </Table>
         </Container>
     )
 }
 
-export default AnimeList
+export default MangaList

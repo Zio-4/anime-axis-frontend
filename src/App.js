@@ -27,6 +27,7 @@ import MangaForum from "./Components/Forums/MangaForum"
 import ForumPostForm from "./Components/Forums/ForumPostForm"
 import ForumPost from "./Components/Forums/ForumPost"
 import AnimeList from "./Components/Anime/AnimeList"
+import MangaList from "./Components/Manga/MangaList"
 
 function App() {
   // null or false?
@@ -76,6 +77,9 @@ function App() {
         <Switch>
           <Route exact path="/loading">
             <Loading />
+          </Route>
+          <Route exact path="/mangalist">
+            <MangaList user={user}/>
           </Route>
           <Route exact path="/animelist">
             <AnimeList user={user}/>

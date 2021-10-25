@@ -58,10 +58,6 @@ function SignUp({setUser}) {
                     <Form.Label>Confirm Password</Form.Label>
                     <Form.Control type="password" value={formData.password_confirmation} name="password_confirmation" onChange={handleInput} placeholder="Confirm your password" autoComplete="on"/>
                 </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" value={formData.email} name="email" onChange={handleInput} placeholder="Enter email" />
-                </Form.Group>
                 <Button variant="primary" type="submit">
                     Submit
                 </Button>
