@@ -33,10 +33,9 @@ function GeneralForum({user}) {
                 <td>
                 <Link to={`/forums/post/${g.id}`}>{g.title}</Link>
                     <br/>
-                    posted458 - Nov 12, 2020
+                    {g.user.username} - {g.post_time}
                 </td>
-                <td>43</td>
-                <td>Otto43</td>
+                <td>{g.number_of_comments}</td>
             </tr>
         )   
     )
@@ -51,7 +50,6 @@ function GeneralForum({user}) {
                     <tr>
                     <th>Post</th>
                     <th>Comments</th>
-                    <th>Last Comment</th>
                     </tr>
                 </thead>
                 <tbody>
