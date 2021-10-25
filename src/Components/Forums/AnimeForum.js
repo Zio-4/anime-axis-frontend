@@ -12,6 +12,7 @@ function AnimeForum({user}) {
         fetch("/forum_posts/anime")
         .then(r => r.json())
         .then(animes => {
+            console.log(animes)
             setAnimePosts(animes)
         })
     }, [])
@@ -28,14 +29,13 @@ function AnimeForum({user}) {
     
     const renderAnimePosts = animePosts.map(a => (
             
-                <tr>
+                <tr key={a.id}>
                     <td>
                     <Link to={`/forums/post/${a.id}`}>{a.title}</Link>
                         <br/>
-                        posted458 - Nov 12, 2020
+                        {a.user.username} - {a.post_time}
                     </td>
-                    <td>43</td>
-                    <td>Otto43</td>
+                    <td>{a.number_of_comments}</td>
                 </tr>
             
         )
@@ -51,7 +51,6 @@ function AnimeForum({user}) {
                     <tr>
                     <th>Post</th>
                     <th>Comments</th>
-                    <th>Last Comment</th>
                     </tr>
                 </thead>
                 <tbody>

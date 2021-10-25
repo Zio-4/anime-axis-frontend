@@ -4,16 +4,9 @@ import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
 import Loading from '../Loading'
 
-function AnimeList() {
-    const [user, setUser] = useState()
-    
-    useEffect(() => {
-        fetch("/user")
-        .then(r => r.json())
-        .then(userData => {
-            setUser(userData)
-        })
-      }, [])
+function AnimeList({user}) {
+
+    if (!user) return <Loading />
 
     const renderUsersAnimeList = user.animes.map(a => (
         <tr key={a.id}>
@@ -32,7 +25,7 @@ function AnimeList() {
         </tr>
     ))
 
-    if (!user) return <Loading />
+    
 
     return (
         <Container className="users-anime-list">

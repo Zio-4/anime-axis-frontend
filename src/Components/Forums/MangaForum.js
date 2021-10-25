@@ -32,10 +32,9 @@ function MangaForum({user}) {
                 <td>
                 <Link to={`/forums/post/${m.id}`}>{m.title}</Link>
                     <br/>
-                    posted458 - Nov 12, 2020
+                    {m.user.username} - {m.post_time}
                 </td>
-                <td>43</td>
-                <td>Otto43</td>
+                <td>{m.number_of_comments}</td>
             </tr>
         )   
     )
@@ -50,7 +49,6 @@ function MangaForum({user}) {
                     <tr>
                     <th>Post</th>
                     <th>Comments</th>
-                    <th>Last Comment</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -11,7 +11,7 @@ import Loading from './Components/Loading'
 import React from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
-import Forums from './Components/Forums/Forums'
+// import Forums from './Components/Forums/Forums'
 import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
 import TopAnimeByPopularityList from './Components/Anime/TopAnimeByPopularityList'
 import TopAnimeAiringList from './Components/Anime/TopAnimeAiringList'
@@ -78,7 +78,7 @@ function App() {
             <Loading />
           </Route>
           <Route exact path="/animelist">
-            <AnimeList/>
+            <AnimeList user={user}/>
           </Route>
           <Route exact path="/forums/newpost">
             <ForumPostForm user={user}/>
@@ -122,9 +122,9 @@ function App() {
           <Route exact path="/topanime/airing">
             <TopAnimeAiringList />
           </Route>
-          <Route exact path="/forums">
+          {/* <Route exact path="/forums">
             <Forums />
-          </Route>
+          </Route> */}
           <Route exact path="/manga/:id">
             <MangaPage />
           </Route>

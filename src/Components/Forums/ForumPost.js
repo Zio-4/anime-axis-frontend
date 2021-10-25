@@ -21,7 +21,6 @@ function ForumPost({user}) {
         fetch(`/forum_posts/${params.id}`)
         .then(r => r.json())
         .then(post => {
-            console.log("post in ForumPost", post)
             setForumPost(post)
         })
     }, [params.id])
@@ -47,7 +46,7 @@ function ForumPost({user}) {
     // Add time to comments
 
     const renderComments = comments.map(c => (
-        <Comment key={c.id} content={c.content} userID={c.user_id} />
+        <Comment key={c.id} content={c.content} userID={c.user_id} time={c.comment_time} username={c.user.username}/>
     ))
 
     function handleSubmit(e) {
@@ -80,14 +79,14 @@ function ForumPost({user}) {
                 <Button onClick={handleShow}>Comment on post</Button>
                 {alertState ? <Alert variant="danger" className="forum-post-alert" onClose={() => setAlertState(false)} dismissible>You must first login to comment</Alert> : null}
                 <Card>
-                    <Card.Header>By Username</Card.Header>
+                    <Card.Header>By {forumPost.user.username}</Card.Header>
                     <Card.Body>
                         <Card.Title>{forumPost.title}</Card.Title>
                         <Card.Text>
                             {forumPost.content}
                         </Card.Text>
                     </Card.Body>
-                    <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                    <Card.Footer className="text-muted">{forumPost.post_time}</Card.Footer>
                 </Card>
             </Container>
 

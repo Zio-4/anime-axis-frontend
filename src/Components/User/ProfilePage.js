@@ -6,7 +6,7 @@ import Row from 'react-bootstrap/Row'
 import loginIcon from '../../Images/user.svg'
 import Button from 'react-bootstrap/Button'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 
@@ -39,6 +39,8 @@ function ProfilePage({user}) {
         })
     }
 
+    if (!user) return <Redirect to="/login"/>
+
     // center buttons
 
     return (
@@ -53,17 +55,11 @@ function ProfilePage({user}) {
                         <ListGroup.Item> <strong>Bio:</strong> {user.bio && bio === undefined ? user.bio : bio}</ListGroup.Item>
                         <ListGroup.Item>Email: {user.email}</ListGroup.Item>
                     </ListGroup>
-                    <Card.Body>
-                        <ButtonGroup >
-                            <Link to="/animelist"><Button size="sm">Anime List</Button></Link>
-                            <Link to="/mangalist"><Button size="sm">Manga List</Button></Link>
-                        </ButtonGroup>
-                    </Card.Body>
                 </Card>
                 <div className="d-grid gap-2 mt-2 justify-content-center">
-                    <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShow}>
+                    {user.bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShow}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShow}>
                         Add bio
-                    </Button>
+                    </Button>}
                     <Button variant="primary" size="sm" style={{width: '18rem'}}>
                         Add avatar
                     </Button>
