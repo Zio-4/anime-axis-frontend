@@ -11,9 +11,7 @@ import Col from 'react-bootstrap/Col'
 import Badge from 'react-bootstrap/Badge'
 
 
-
-
-function MangaPage() {
+function MangaPage({user}) {
     const params = useParams()
     const [manga, setManga] = useState()
 
@@ -24,6 +22,20 @@ function MangaPage() {
             setManga(mangaFetched)
         })
     }, [params.id])
+
+    function handleClick() {
+        fetch("/mangas", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({title: manga.title, id: manga.mal_id, image_url: manga.image_url , score: manga.score, user_id: user.id})
+        })
+        .then(r => r.json())
+        .then(createdMangaData => {
+            console.log("manga page, created manga data", createdMangaData)
+        }) 
+    }
 
     if (!manga) return <Loading />
 
@@ -44,7 +56,7 @@ function MangaPage() {
                             <ListGroup.Item>Volumes:  {manga.volumes}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                            <Button>+ Manga List</Button>
+                            <Button onCLick={handleClick}>+ Manga List</Button>
                         </Card.Body>
                     </Card>
                 </Col>
@@ -61,7 +73,7 @@ function MangaPage() {
 
                     {manga.genres.map(g => <Badge pill bg="dark">{g.name}</Badge>)}
 
-                    <Card id="manga-background-card">
+                    <Card id="manga-background-card"> 
                         <Card.Body>
                             <Card.Title>Background</Card.Title>
                             <Card.Text>

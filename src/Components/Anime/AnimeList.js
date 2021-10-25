@@ -50,7 +50,7 @@ function AnimeList({user}) {
                     </tr>
                 </thead>
                 <tbody>
-                    {renderUsersAnimeList}
+                    {renderUsersAnimeList()}
                 </tbody>
             </Table>
         </Container>

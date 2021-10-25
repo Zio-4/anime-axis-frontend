@@ -130,7 +130,7 @@ function App() {
             <Forums />
           </Route> */}
           <Route exact path="/manga/:id">
-            <MangaPage />
+            <MangaPage user={user}/>
           </Route>
           <Route exact path="/manga">
             <MangaHome />
