@@ -92,16 +92,12 @@ function ProfilePage({user}) {
                     {user.bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>
                         Add bio
                     </Button>}
-                    <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>
-                        Add avatar
-                    </Button>
+                    {user.avatar? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Add avatar</Button>}
 
                     {bioAlertState ? <Alert variant="success" className="text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
                     {avatarAlertState ? <Alert variant="success" className="text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}
                 </div>
             </Row>
-
-           
 
             <Modal show={showBioModal} onHide={handleCloseBio} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
@@ -120,7 +116,7 @@ function ProfilePage({user}) {
 
             <Modal show={showAvatarModal} onHide={handleCloseAvatar} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Enter url for avatar image</Modal.Title>
+                    <Modal.Title>Enter url for avatar image (Some url's may not render the image due to Cross Origin Read Blocking)</Modal.Title>
                 </Modal.Header>
                 <Modal.Body as="textarea" value={avatarModalValue} onChange={(e) => setAvatarModalValue(e.target.value)}></Modal.Body>
                 <Modal.Footer>
