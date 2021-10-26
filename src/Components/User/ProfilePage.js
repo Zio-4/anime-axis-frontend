@@ -13,13 +13,16 @@ function ProfilePage({user}) {
     const [bio, setBio] = useState(user.bio)
     const [avatar, setAvatar] = useState(user.avatar)
     const [showBioModal, setShowBioModal] = useState(false);
-    const [showAvatarModal, setAvatarModal] = useState(false)
+    const [showAvatarModal, setShowAvatarModal] = useState(false)
     const [avatarModalValue, setAvatarModalValue] = useState("")
     const [bioModalTextValue, setBioModalTextValue] = useState("")
     const [bioAlertState, setBioAlertState] = useState(false)
     const [avatarAlertState, setAvatarAlertState] = useState(false)
 
-    if (!user) return <Redirect to="/login"/>
+
+
+    console.log("user.avatar:", user.avatar)
+    console.log("avatar state:", avatar)
 
     const handleCloseBio = () => {
         setShowBioModal(false)
@@ -30,13 +33,13 @@ function ProfilePage({user}) {
 
 
     const handleCloseAvatar = () => {
-        setAvatarModal(false)
+        setShowAvatarModal(false)
         setAvatarModalValue("")
     }
 
-    const handleShowAvatar = () => setAvatarModal(true)
+    const handleShowAvatar = () => setShowAvatarModal(true)
 
-   
+
 
     function handleSubmitBio() {
         fetch(`/users/${user.id}`, {
@@ -50,6 +53,7 @@ function ProfilePage({user}) {
         .then(userData => {
             console.log(userData)
             setBio(userData.bio)
+            setShowBioModal(false)
             setBioModalTextValue("")
             setBioAlertState(true)
         })
@@ -67,20 +71,22 @@ function ProfilePage({user}) {
         .then(userData => {
             console.log(userData)
             setAvatar(userData.avatar)
-            setAvatarModalValue(false)
+            setShowAvatarModal(false)
+            setAvatarModalValue("")
             setAvatarAlertState(true)
         })
     }
 
+    if (!user) return <Redirect to="/login"/>
 
-    
+    //user.avatar && avatar === undefined || user.avatar === null ? loginIcon : user.avatar    
 
 
     return (
         <Container className="profile-container">
             <Row className="d-flex justify-content-center"> 
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={user.avatar && avatar === undefined ? user.avatar : avatar} id="profile-icon" alt="profile-icon" />
+                    <Card.Img variant="top" src={avatar ? avatar : loginIcon} id="profile-icon" alt="profile-icon" />
                     <Card.Body>
                         <Card.Title>{user.username}</Card.Title>
                     </Card.Body>
