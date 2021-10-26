@@ -32,7 +32,7 @@ function ForumPost({user}) {
             console.log("comments in ForumPost", commentData)
             setComments(commentData)
         })
-    }, [comments.length])
+    }, [comments.length, params.id])
 
     const handleClose = () => setShow(false);
     function handleShow() {

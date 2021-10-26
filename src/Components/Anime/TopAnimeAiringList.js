@@ -24,7 +24,7 @@ function TopAnimeAiringList() {
                 </td>
                 <td>
                     <Link to={`/anime/${anime.mal_id}`}>
-                        <img src={anime.image_url} />
+                        <img src={anime.image_url} alt="anime art"/>
                         {anime.title}
                     </Link>
                 </td>

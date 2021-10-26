@@ -1,14 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
-import {useState} from 'react'
 import {Link} from 'react-router-dom'
 
-
-function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
+function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
     const [searchQuery, setSearchQuery] = useState("")
     const [searchResults, setSearchResults] = useState([])
     const [searchQueryOnceSearched, setSearchQueryOnceSearched] = useState("")
@@ -27,23 +25,23 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
     }
 
 
-    const renderResultsFromSearchPage = searchResults.map(anime => (
-        <Col key={anime.mal_id}>
+    const renderResultsFromMangaSearchPage = searchResults.map(m => (
+        <Col key={m.mal_id}>
             <Card>
-                <Link to={`/anime/${anime.mal_id}`}><Card.Img variant="top" src={anime.image_url} /></Link>
+            <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
                 <Card.Body>
-                <Card.Title>{anime.title}</Card.Title>
+                <Card.Title>{m.title}</Card.Title>
                 </Card.Body>
             </Card>
         </Col>
     ))
 
-    const renderResultsFromHomepage = animeSearchResults.map(anime => (
-        <Col key={anime.mal_id}>
+    const renderResultsFromMangaHomepage = mangaSearchResults.map(m => (
+        <Col key={m.mal_id}>
             <Card>
-            <Link to={`/anime/${anime.mal_id}`}><Card.Img variant="top" src={anime.image_url} /></Link>
+            <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
                 <Card.Body>
-                <Card.Title>{anime.title}</Card.Title>
+                <Card.Title>{m.title}</Card.Title>
                 </Card.Body>
             </Card>
         </Col>
@@ -51,17 +49,16 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
 
     const render = () => {
         if (searchResults.length === 0) {
-            return renderResultsFromHomepage
+            return renderResultsFromMangaHomepage
         } else {
-            return renderResultsFromSearchPage
+            return renderResultsFromMangaSearchPage
         }
     }
 
-
     return (
         <div>
-            <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : animeSearchQuery}</h1>
-            <Container className="anime-search">
+            <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : mangaSearchQuery}</h1>
+            <Container className="manga-search">
                 <Row>
                     <Col>
                         <input  type="text" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
@@ -78,4 +75,4 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
     )
 }
 
-export default AnimeSearchPage
+export default MangaSearchPage

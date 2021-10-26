@@ -1,25 +1,34 @@
 import React, {useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Loading from '../Loading'
 
 function AnimeList({user}) {
+    const [animeList, setAnimeList] = useState([])
+
+    useEffect(() => {
+        fetch("/user")
+        .then(r => r.json())
+        .then(userData => {
+            setAnimeList(userData.animes)
+        })
+    }, [])
 
     if (!user) return <Loading/>
 
     let positionNumber = 0
 
     const renderUsersAnimeList = () => {
-        if (user.animes) {
-            user.animes.map(a => (
-                <tr key={a.id}>
+        if (animeList) {
+           return animeList.map(a => (
+               <tr key={a.id}>
                     <td>
                         {positionNumber +=1}
                     </td>
                     <td>
                         <Link to={`/anime/${a.id}`}>
-                            <img src={a.image_url} />
+                            <img src={a.image_url} alt="anime art"/>
                             {a.title}
                         </Link>
                     </td>
@@ -34,7 +43,7 @@ function AnimeList({user}) {
         
     }
 
-    console.log(user.animes)
+    console.log(user)
 
     return (
         <Container className="users-anime-list">

@@ -5,8 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import loginIcon from '../../Images/user.svg'
 import Button from 'react-bootstrap/Button'
-import ButtonGroup from 'react-bootstrap/ButtonGroup'
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 
@@ -139,5 +138,3 @@ function ProfilePage({user}) {
 
 export default ProfilePage
 
-{/* <Button className="mt-2" >Add Bio</Button>
-<Button className="mt-2" style={{ width: '18rem' }}>Add Avatar</Button> */}

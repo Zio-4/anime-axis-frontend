@@ -6,14 +6,15 @@ import MangaCardByPopularity from './MangaCardByPopularity'
 import MangaCardByScore from './MangaCardByScore'
 import MangaCardNovels from './MangaCardNovels'
 import MangaCardOneShots from './MangaCardOneShots'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
+import Col from 'react-bootstrap/Col'
 
-
-function MangaHome() {
+function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     const [topMangaByScore, setTopMangaByScore] = useState([])
     const [topMangaOneShots, setTopMangaOneShots] = useState([])
     const [topMangaByPopularity, setTopMangaByPopularity] = useState([])
-    const [topMangaNovels, setTopMangaNovels] = useState([]) 
+    const [topMangaNovels, setTopMangaNovels] = useState([])
+    const history = useHistory() 
 
     function fetchTopMangaByScore() {
         fetch("https://api.jikan.moe/v3/top/manga/1/manga")
@@ -54,25 +55,49 @@ function MangaHome() {
         fetchTopMangaNovels()
     }, [])
 
+    function handleChange(e) {
+        updateMangaSearchQuery(mUV => e.target.value)
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault()
+        fetch(`https://api.jikan.moe/v3/search/manga?q=${mangaSearchQuery}&order_by=title&sort=asc&limit=10`)
+        .then(r => r.json())
+        .then(searchResultData => {
+            console.log("search result data", searchResultData)
+            onMangaSearch(searchResultData)
+        })
+        history.push(`/search/manga`)
+    }
+
     const renderMangaByScore = topMangaByScore.map(manga => {
-        return (<MangaCardByScore title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<MangaCardByScore key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
     const renderMangaOneShots = topMangaOneShots.map(manga => {
-        return (<MangaCardOneShots title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<MangaCardOneShots key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })    
 
     const renderMangaByPopularity = topMangaByPopularity.map(manga => {
-        return (<MangaCardByPopularity title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<MangaCardByPopularity key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
     const renderMangaNovels = topMangaNovels.map(manga => {
-        return (<MangaCardNovels title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<MangaCardNovels key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
 
 
     return (
+        <>
+         <Container className="manga-search">
+            <Row>
+                <Col>
+                    <input  type="text" value={mangaSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
+                    <button type="submit" onClick={handleSubmit} >Search</button>
+                </Col>
+            </Row>
+        </Container>
         <Container fluid="md" className="manga-homepage-container">
             <p>Top manga by score</p>
             <Row>
@@ -95,6 +120,7 @@ function MangaHome() {
                 <Link to="/topmanga/novels">See more</Link>
             </Row>
         </Container>
+        </>
     )
 }
 

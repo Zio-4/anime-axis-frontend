@@ -5,7 +5,7 @@ import React from 'react'
 
 function AnimeCardByScore({title, id, image}) {
     return (
-        <Col fluid>
+        <Col>
                 <Link to={`/anime/${id}`}>
                         <Card className="bg-white text-white"  key={id}>
                                 <Card.Img src={image} alt="Card image" />

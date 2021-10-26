@@ -28,14 +28,15 @@ import ForumPostForm from "./Components/Forums/ForumPostForm"
 import ForumPost from "./Components/Forums/ForumPost"
 import AnimeList from "./Components/Anime/AnimeList"
 import MangaList from "./Components/Manga/MangaList"
+import MangaSearchPage from "./Components/Manga/MangaSearchPage"
 
 function App() {
-  // null or false?
-  // use CB's for setting user data?
   const [user, setUser] = useState(false)
   const [loading, setLoading] = useState(true)
   const [animeSearchQuery, setAnimeSearchQuery] = useState("")
   const [animeSearchResults, setAnimeSearchResults] = useState([])
+  const [mangaSearchQuery, setMangaSearchQuery] = useState("")
+  const [mangaSearchResults, setMangaSearchResults] = useState([])
 
   useEffect(() => {
     fetch("/user")
@@ -66,6 +67,14 @@ function App() {
 
   function onAnimeSearch(searchResults) {
     setAnimeSearchResults(searchResults.results)
+  }
+
+  function updateMangaSearchQuery(query) {
+    setMangaSearchQuery(query)
+  }
+
+  function onMangaSearch(searchResults) {
+    setMangaSearchResults(searchResults.results)
   }
 
 
@@ -99,9 +108,6 @@ function App() {
           <Route exact path="/forums/post/:id">
             <ForumPost user={user}/>
           </Route>
-          <Route exact path="/search/anime">
-            <AnimeSearchPage animeSearchResults={animeSearchResults} animeSearchQuery={animeSearchQuery}/>
-          </Route>
           <Route exact path="/topmanga/score">
             <TopMangaByScoreList />
           </Route>
@@ -132,9 +138,6 @@ function App() {
           <Route exact path="/manga/:id">
             <MangaPage user={user}/>
           </Route>
-          <Route exact path="/manga">
-            <MangaHome />
-          </Route>
           <Route exact path="/profile">
             <ProfilePage user={user}/>
           </Route>
@@ -147,11 +150,23 @@ function App() {
           <Route exact path="/signup">
             <SignUp setUser={setUser}/>
           </Route>
+          <Route exact path="/search/manga">
+            <MangaSearchPage mangaSearchResults={mangaSearchResults} mangaSearchQuery={mangaSearchQuery}/>
+          </Route>
+          <Route exact path="/manga">
+            <MangaHome onMangaSearch={onMangaSearch} updateMangaSearchQuery={updateMangaSearchQuery} mangaSearchQuery={mangaSearchQuery}/>
+          </Route>
+          <Route exact path="/search/anime">
+            <AnimeSearchPage animeSearchResults={animeSearchResults} animeSearchQuery={animeSearchQuery}/>
+          </Route>
           <Route exact path="/">
             <Homepage onAnimeSearch={onAnimeSearch} updateAnimeSearchQuery={updateAnimeSearchQuery} animeSearchQuery={animeSearchQuery}/>
           </Route>
           <Route exact path="/about">
             <About />
+          </Route>
+          <Route exact path="/loading">
+            <Loading />
           </Route>
           <Route path="*">
             <h1>404 not found</h1>

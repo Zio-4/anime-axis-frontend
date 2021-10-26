@@ -1,26 +1,36 @@
 import React, {useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import Loading from '../Loading'
 
 function MangaList({user}) {
-    if (!user) return <Loading/>
+    const [mangaList, setMangaList] = useState([])
 
-    console.log("user mangas", user.mangas)
+    useEffect(() => {
+        fetch("/user")
+        .then(r => r.json())
+        .then(userData => {
+            setMangaList(userData.mangas)
+        })
+    },[])
+
+    if (!mangaList) return <Loading/>
+
+    console.log("user mangas", mangaList)
 
     let positionNumber = 0
 
     const renderUsersMangaList = () => {
-        if (user.mangas) {
-            user.mangas.map(m => (
+        if (mangaList) {
+           return mangaList.map(m => (
                 <tr key={m.id}>
                     <td>
                         {positionNumber +=1}
                     </td>
                     <td>
                         <Link to={`/manga/${m.id}`}>
-                            <img src={m.image_url} />
+                            <img src={m.image_url} alt="manga art"/>
                             {m.title}
                         </Link>
                     </td>

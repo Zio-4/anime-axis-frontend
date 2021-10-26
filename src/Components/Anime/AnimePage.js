@@ -1,5 +1,5 @@
 import React from 'react'
-import {useParams, Link, useHistory} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import Loading from '../Loading'
 import Card from 'react-bootstrap/Card'
@@ -9,41 +9,48 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Badge from 'react-bootstrap/Badge'
+import Alert from 'react-bootstrap/Alert'
 
 
 function AnimePage({user}) {
     const params = useParams()
     const [anime, setAnime] = useState()
-    const history = useHistory()
+    const [alertState, setAlertState] = useState(false)
 
-    function fetchAnime() {
+   
+
+    useEffect(() => {
         fetch(`https://api.jikan.moe/v3/anime/${params.id}`)
         .then(r => r.json())
         .then(animeFetched => {
             setAnime(animeFetched)
         })
-    }
-
-    useEffect(() => {
-        fetchAnime()
     }, [params.id])
 
+    if (!anime) return <Loading />
+
     function handleClick() {
-        fetch("/animes", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({title: anime.title, id: anime.mal_id, image_url: anime.image_url , score: anime.score, user_id: user.id})
-        })
-        .then(r => r.json())
-        .then(createdAnimeData => {
-            console.log("anime page created anime data", createdAnimeData)
-        }) 
+        if (!user) {
+            setAlertState(true)
+        } else {
+            fetch("/animes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({title: anime.title, id: anime.mal_id, image_url: anime.image_url , score: anime.score, user_id: user.id})
+            })
+            .then(r => r.json())
+            .then(createdAnimeData => {
+                console.log("anime page created anime data", createdAnimeData)
+            }) 
+        }
     }
 
+    console.log("anime in anime page", anime)
+
    
-    if (!anime) return <Loading />
+    
 
 
     return (
@@ -65,6 +72,7 @@ function AnimePage({user}) {
                             <Button onClick={handleClick}>+ Anime List</Button>
                         </Card.Body>
                     </Card>
+                    {alertState ? <Alert variant="danger" className="anime-page-alert" onClose={() => setAlertState(false)} dismissible>You must be logged in to add an anime!</Alert> : null}
                 </Col>
                 <Col>
                    <Card>
