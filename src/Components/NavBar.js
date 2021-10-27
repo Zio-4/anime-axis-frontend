@@ -1,21 +1,22 @@
 import React, {useState} from 'react'
-// import Navbar from 'react-bootstrap/Navbar'
-// import Container from 'react-bootstrap/Container'
-// import Nav from 'react-bootstrap/Nav'
-import {Link, useHistory} from 'react-router-dom'
+import Navbar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import {useHistory} from 'react-router-dom'
 
-import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-import 'react-pro-sidebar/dist/css/styles.css';
+// import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
+// import 'react-pro-sidebar/dist/css/styles.css';
 import { RiMenuLine, RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} from "react-icons/ri";
 import { FcImport } from "react-icons/fc";
 
 function NavBar({user, onLogout}) {
-    const [collapseState, setCollapseState] = useState(true)
+    // const [collapseState, setCollapseState] = useState(true)
     const history = useHistory()
 
-    function handleCollapseState() {
-        setCollapseState(!collapseState)
-    }
+    // function handleCollapseState() {
+    //     setCollapseState(!collapseState)
+    // }
 
     function logoutUser() {
         fetch("/logout", {
@@ -28,21 +29,31 @@ function NavBar({user, onLogout}) {
 
     return (
         <>
-            {/* <Navbar bg="dark" variant="dark" fixed="top">
+            <Navbar bg="dark" variant="dark" fixed="top">
                 <Container>
                     <Navbar.Brand href="/" id="anime-axis-nav-header">Anime Axis</Navbar.Brand>
                     <Nav className="me-auto">
-                        <Nav.Link href="/forums">Forums</Nav.Link>
-                        <Nav.Link href="/manga">Manga</Nav.Link>
-                        <Nav.Link href="/about">About</Nav.Link>
+                        <NavDropdown title={<RiHome2Fill/>}  menuVariant="dark">
+                            <NavDropdown.Item href="/">Anime home</NavDropdown.Item>
+                            <NavDropdown.Item href="/manga">Manga home</NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown title={<RiDiscussFill />}  menuVariant="dark">
+                            <NavDropdown.Item href="/forums/anime">Anime forum</NavDropdown.Item>
+                            <NavDropdown.Item href="/forums/manga">Manga forum</NavDropdown.Item>
+                            <NavDropdown.Item href="/forums/general">General forum</NavDropdown.Item>
+                        </NavDropdown>
+                        <NavDropdown title={<RiFileMarkFill/>} menuVariant="dark" >
+                            <NavDropdown.Item href="/animelist">Anime list</NavDropdown.Item>
+                            <NavDropdown.Item href="/mangalist">Manga list</NavDropdown.Item>
+                        </NavDropdown>
                     </Nav>
                     <Nav>
-                        {user ?  <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/signup">Create Account</Nav.Link>}
-                        {user ? <Nav.Link href="" id="logout-button" onClick={logoutUser}>Logout</Nav.Link> : <Nav.Link href="/login">Sign in</Nav.Link>}
+                        <Nav.Link href="/profile"><RiUser3Fill /></Nav.Link>
+                        {user ? <Nav.Link href="" id="logout-button" onClick={logoutUser}><FcImport/></Nav.Link> : null}
                     </Nav>
                 </Container>
-            </Navbar> */}
-            <ProSidebar collapsed={collapseState} width="190px" collapsedWidth="70px" className="sidebar">
+            </Navbar>
+            {/* <ProSidebar collapsed={collapseState} width="190px" collapsedWidth="70px" className="sidebar">
                 <Menu >
                     <MenuItem icon={<RiMenuLine />} onClick={handleCollapseState}></MenuItem>
 
@@ -67,7 +78,7 @@ function NavBar({user, onLogout}) {
                     {user ? <MenuItem icon={<FcImport/>} onClick={logoutUser}>Logout</MenuItem> : null}
 
                 </Menu>
-            </ProSidebar>
+            </ProSidebar> */}
         </>
     )
 }
