@@ -1,20 +1,34 @@
 import React, {useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 import Loading from '../Loading'
 
 function MangaList({user}) {
     const [mangaList, setMangaList] = useState([])
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         fetch("/user")
-        .then(r => r.json())
-        .then(userData => {
-            setMangaList(userData.mangas)
-        })
+        .then(r => {
+            if (r.ok) {
+                r.json().then(userData => {
+                    const mangasSortedByName = userData.mangas.sort((a, b) => a.title.localeCompare(b.title))
+                    setMangaList(mangasSortedByName)
+                    }
+                )
+            } else {
+                r.json().then(err => {
+                    setErrors(err.errors)
+                })
+            }
+        }
+    
+    )
+            
     },[])
 
+    if (errors.length > 0) return <Redirect to="/login"/>
     if (!mangaList) return <Loading/>
 
     console.log("user mangas", mangaList)
@@ -22,7 +36,7 @@ function MangaList({user}) {
     let positionNumber = 0
 
     const renderUsersMangaList = () => {
-        if (mangaList) {
+        if (mangaList.length > 0) {
            return mangaList.map(m => (
                 <tr key={m.id}>
                     <td>

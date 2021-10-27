@@ -24,6 +24,9 @@ function ProfilePage({user}) {
     console.log("user.avatar:", user.avatar)
     console.log("avatar state:", avatar)
 
+    console.log("user.bio:", user.bio)
+    console.log("bio state:", bio)
+
     const handleCloseBio = () => {
         setShowBioModal(false)
         setBioModalTextValue("")
@@ -95,10 +98,8 @@ function ProfilePage({user}) {
                     </ListGroup>
                 </Card>
                 <div className="d-grid gap-2 mt-2 justify-content-center">
-                    {user.bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>
-                        Add bio
-                    </Button>}
-                    {user.avatar? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Add avatar</Button>}
+                    {bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Add bio</Button>}
+                    {avatar? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Add avatar</Button>}
 
                     {bioAlertState ? <Alert variant="success" className="text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
                     {avatarAlertState ? <Alert variant="success" className="text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}

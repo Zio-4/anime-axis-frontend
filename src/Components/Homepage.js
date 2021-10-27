@@ -54,6 +54,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         fetchTopAnimeAiring() 
         fetchTopAnimeByPopularity()
         fetchTopUpcomingAnime()
+        updateAnimeSearchQuery("")
     }, [])
 
     function handleChange(e) {

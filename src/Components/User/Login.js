@@ -36,9 +36,14 @@ function Login({onLogin}) {
         })
         .then(r => r.json())
         .then(userData => {
-            onLogin(userData)
-        })
-        history.push("/")
+            if (userData.error) {
+                // setAlertState(true)
+                console.log("Login problem")
+            } else {
+                onLogin(userData)
+                history.push("/")
+            }
+        })   
     }
 
     return (

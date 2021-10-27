@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 // import Navbar from 'react-bootstrap/Navbar'
 // import Container from 'react-bootstrap/Container'
 // import Nav from 'react-bootstrap/Nav'
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -11,6 +11,7 @@ import { FcImport } from "react-icons/fc";
 
 function NavBar({user, onLogout}) {
     const [collapseState, setCollapseState] = useState(true)
+    const history = useHistory()
 
     function handleCollapseState() {
         setCollapseState(!collapseState)
@@ -21,7 +22,9 @@ function NavBar({user, onLogout}) {
             method: "DELETE"
         })
         onLogout()
+        history.push("/")
     }
+    console.log("user in navbar:", user)
 
     return (
         <>

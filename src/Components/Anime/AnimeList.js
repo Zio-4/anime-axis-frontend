@@ -3,24 +3,42 @@ import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
 import Loading from '../Loading'
+import {Redirect} from 'react-router-dom'
 
 function AnimeList({user}) {
     const [animeList, setAnimeList] = useState([])
+    const [errors, setErrors] = useState([])
 
     useEffect(() => {
         fetch("/user")
-        .then(r => r.json())
-        .then(userData => {
-            setAnimeList(userData.animes)
-        })
+        .then(r => {
+            if (r.ok) {
+                r.json().then(userData => {
+                const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
+                setAnimeList(animesSortedByName)
+                    }
+                )
+            } else {
+                r.json().then(err => {
+                    setErrors(err.errors)
+                })
+            }
+        }
+    )
+        
     }, [])
 
-    if (!user) return <Loading/>
+    if (errors.length > 0) return <Redirect to="/login" />
+    if (!animeList) return <Loading/>
+    
+    
+
+    console.log("anime list in animeList:", animeList)
 
     let positionNumber = 0
 
     const renderUsersAnimeList = () => {
-        if (animeList) {
+        if (animeList.length > 0) {
            return animeList.map(a => (
                <tr key={a.id}>
                     <td>

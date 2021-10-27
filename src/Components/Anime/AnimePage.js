@@ -27,7 +27,9 @@ function AnimePage({user}) {
         })
     }, [params.id])
 
-    if (!anime) return <Loading />
+    
+
+    console.log("user in anime page:", user)
 
     function handleClick() {
         if (!user) {
@@ -47,10 +49,9 @@ function AnimePage({user}) {
         }
     }
 
-    console.log("anime in anime page", anime)
+    if (!anime) return <Loading />
 
-   
-    
+    console.log("anime in anime page", anime)
 
 
     return (
