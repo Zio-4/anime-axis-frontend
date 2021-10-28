@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -9,23 +9,40 @@ import {Redirect} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 
-function ProfilePage({user}) {
-    const [bio, setBio] = useState(user.bio)
-    const [avatar, setAvatar] = useState(user.avatar)
+function ProfilePage() {
+    const [user, setUser] = useState(false)
+    const [bio, setBio] = useState("")
+    const [avatar, setAvatar] = useState("")
     const [showBioModal, setShowBioModal] = useState(false);
     const [showAvatarModal, setShowAvatarModal] = useState(false)
     const [avatarModalValue, setAvatarModalValue] = useState("")
     const [bioModalTextValue, setBioModalTextValue] = useState("")
     const [bioAlertState, setBioAlertState] = useState(false)
     const [avatarAlertState, setAvatarAlertState] = useState(false)
+    const [errors, setErrors] = useState([])
 
+    useEffect(() => {
+        fetch("/user")
+        .then(r => {
+            if (r.ok) {
+                r.json().then(userData => {
+                    console.log("userData in ProfilePage", userData)
+                    setUser(userData)
+                    setBio(userData.bio)
+                    setAvatar(userData.avatar)
+                    }
+                )
+            } else {
+                r.json().then(err => {
+                    setErrors(err.errors)
+                })
+            }
+        }
+    
+    )
+            
+    },[])
 
-
-    console.log("user.avatar:", user.avatar)
-    console.log("avatar state:", avatar)
-
-    console.log("user.bio:", user.bio)
-    console.log("bio state:", bio)
 
     const handleCloseBio = () => {
         setShowBioModal(false)
@@ -80,7 +97,7 @@ function ProfilePage({user}) {
         })
     }
 
-    if (!user) return <Redirect to="/login"/>
+    if (errors.length > 0) return <Redirect to="/login"/>
 
     //user.avatar && avatar === undefined || user.avatar === null ? loginIcon : user.avatar    
 

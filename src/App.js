@@ -11,7 +11,6 @@ import Loading from './Components/Loading'
 import React from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
-// import Forums from './Components/Forums/Forums'
 import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
 import TopAnimeByPopularityList from './Components/Anime/TopAnimeByPopularityList'
 import TopAnimeAiringList from './Components/Anime/TopAnimeAiringList'
@@ -139,7 +138,7 @@ function App() {
             <MangaPage user={user}/>
           </Route>
           <Route exact path="/profile">
-            <ProfilePage user={user}/>
+            <ProfilePage/>
           </Route>
           <Route exact path="/anime/:id">
             <AnimePage user={user}/>
