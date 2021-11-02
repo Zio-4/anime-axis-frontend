@@ -118,7 +118,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
             <p>Top manga novels</p>
             <Row>
                 {renderMangaNovels}
-                <Link to="/topmanga/novels"><Button className="top-list-button" size="md">See more</Button></Link>
+                <Link to="/topmanga/novels"><Button className="top-list-button" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
             </Row>
         </Container>
         </>
