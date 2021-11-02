@@ -51,25 +51,25 @@ function MangaPage({user}) {
         <Container className="manga-page-container">
             <Row>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Img variant="top" src={manga.image_url} />
                         <Card.Body>
                             <Card.Title>{manga.title_english ? manga.title_english : manga.title}</Card.Title>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
-                            <ListGroup.Item>Rank:  {manga.rank}</ListGroup.Item>
-                            <ListGroup.Item>Chapters:  {manga.chapters ? manga.chapters : "Unknown"}</ListGroup.Item>
-                            <ListGroup.Item>Volumes:  {manga.volumes}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rank:  {manga.rank}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Chapters:  {manga.chapters ? manga.chapters : "Unknown"}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Volumes:  {manga.volumes}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                            <Button onClick={handleClick}>+ Manga List</Button>
+                            <Button onClick={handleClick} className="add-to-manga-list-button">+ Manga List</Button>
                         </Card.Body>
                     </Card>
                     {alertState ? <Alert variant="danger" className="manga-page-alert" onClose={() => setAlertState(false)} dismissible>You must be logged in to add a manga!</Alert> : null}
                 </Col>
 
                 <Col>
-                   <Card>
+                   <Card className="bg-dark text-white">
                    <Card.Body>
                         <Card.Title>Synopsis</Card.Title>
                         <Card.Text>
@@ -78,9 +78,9 @@ function MangaPage({user}) {
                     </Card.Body>
                    </Card>
 
-                    {manga.genres.map(g => <Badge key={g.name} pill bg="dark">{g.name}</Badge>)}
+                    {manga.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
 
-                    <Card id="manga-background-card"> 
+                    <Card id="manga-background-card" className="bg-dark text-white"> 
                         <Card.Body>
                             <Card.Title>Background</Card.Title>
                             <Card.Text>
@@ -91,18 +91,18 @@ function MangaPage({user}) {
                 </Col>
 
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Header>Manga Info</Card.Header>
                         <ListGroup variant="flush">
-                            <ListGroup.Item>Published: {manga.published.string}</ListGroup.Item>
-                            <ListGroup.Item>Type:  {manga.type}</ListGroup.Item>
-                            <ListGroup.Item>Authors:  {manga.authors.map(auth => <li key={auth.name}>{auth.name}</li>)}</ListGroup.Item>
-                            <ListGroup.Item>Rank by popularity:  {manga.popularity}</ListGroup.Item>
-                            <ListGroup.Item>Serializations:  {manga.serializations.map(s => <li key={s.name}>{s.name}</li>)}</ListGroup.Item>
-                            <ListGroup.Item>MyAnimeList Score:  {manga.score}</ListGroup.Item>
-                            <ListGroup.Item>Status:  {manga.status}</ListGroup.Item>
-                            <ListGroup.Item>Japanese Title:  {manga.title_japanese}</ListGroup.Item>
-                            <ListGroup.Item>Synonyms:  {manga.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Published: {manga.published.string}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Type:  {manga.type}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Authors:  {manga.authors.map(auth => <li key={auth.name}>{auth.name}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rank by popularity:  {manga.popularity}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Serializations:  {manga.serializations.map(s => <li key={s.name}>{s.name}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">MyAnimeList Score:  {manga.score}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Status:  {manga.status}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Japanese Title:  {manga.title_japanese}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Synonyms:  {manga.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
                         </ListGroup>
                     </Card>
                 </Col>

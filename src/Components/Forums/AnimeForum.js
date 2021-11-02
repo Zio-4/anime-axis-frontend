@@ -44,7 +44,7 @@ function AnimeForum({user}) {
     return (
         <Container className="anime-forum-container">
             <h1>Anime Forum Board</h1>
-           <Button onClick={handleClick}>Create New Post</Button>
+           <Button onClick={handleClick} className="create-forum-post-button">Create New Post</Button>
             
             <Table striped bordered hover className="anime-forum-table">
                 <thead>

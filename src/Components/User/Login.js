@@ -16,6 +16,7 @@ function Login({onLogin}) {
         username:"",
         password:""
     })
+    const [errors, setErrors] = useState([])
 
     const history = useHistory()
 
@@ -33,18 +34,21 @@ function Login({onLogin}) {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formData)
-        })
-        .then(r => r.json())
-        .then(userData => {
-            if (userData.error) {
-                // setAlertState(true)
-                console.log("Login problem")
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((user) => {
+                    onLogin(user)})
+                    history.push("/")
             } else {
-                onLogin(userData)
-                history.push("/")
+                r.json().then((err) => {
+                    console.log("err", err)
+                    setErrors(err.error)
+                })
             }
-        })   
+        })
     }
+    console.log("error state:", errors)
+    // console.log("errors length:", errors.length)    
 
     return (
         <Container className="login-container">
@@ -64,7 +68,8 @@ function Login({onLogin}) {
 
                         <div className="signup-link mt-3">
                             <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
-                            {history.location.state === undefined ? null : <Alert variant="danger" className="forum-post-alert">You must first login to see this page</Alert>}        
+                            {history.location.state === undefined ? null : <Alert variant="danger" className="forum-post-alert">You must first login to see this page</Alert>} 
+                            {errors.length > 0 ? <Alert variant="danger" className="text-center">{errors.length > 0 ? errors : null }</Alert> : null}       
                         </div>
                     </Form>
                 </Col>

@@ -42,11 +42,11 @@ function MangaList({user}) {
                     <td>
                         {positionNumber +=1}
                     </td>
-                    <td>
+                    <td>   
                         <Link to={`/manga/${m.id}`}>
                             <img src={m.image_url} alt="manga art"/>
-                            {m.title}
                         </Link>
+                        {m.title}  
                     </td>
                     <td>
                         {m.score}

@@ -64,7 +64,7 @@ function ForumPostForm({user}) {
                     <Form.Label>Post content</Form.Label>
                     <Form.Control as="textarea" onChange={handleChange} name="content" value={formData.content} rows={3} placeholder="To get home and watch some anime obviously!"/>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" className="forum-post-submit-button">
                     Submit
                 </Button>
             </Form>

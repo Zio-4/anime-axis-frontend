@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import {useHistory} from 'react-router-dom'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
 
 // import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
 // import 'react-pro-sidebar/dist/css/styles.css';
@@ -11,7 +13,7 @@ import { RiMenuLine, RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} fr
 import { FcImport } from "react-icons/fc";
 
 function NavBar({user, onLogout}) {
-    // const [collapseState, setCollapseState] = useState(true)
+    const [showModal, setShowModal] = useState(false)
     const history = useHistory()
 
     // function handleCollapseState() {
@@ -23,9 +25,16 @@ function NavBar({user, onLogout}) {
             method: "DELETE"
         })
         onLogout()
+        setShowModal(false)
         history.push("/")
     }
     console.log("user in navbar:", user)
+
+    const handleCloseModal = () => setShowModal(false)
+    
+    const handleShowModal = () => {
+        setShowModal(true)
+    }
 
     return (
         <>
@@ -49,10 +58,24 @@ function NavBar({user, onLogout}) {
                     </Nav>
                     <Nav>
                         <Nav.Link href="/profile"><RiUser3Fill /></Nav.Link>
-                        {user ? <Nav.Link href="" id="logout-button" onClick={logoutUser}><FcImport/></Nav.Link> : null}
+                        {user ? <Nav.Link href="" id="logout-button" onClick={handleShowModal}><FcImport/></Nav.Link> : null}
                     </Nav>
                 </Container>
             </Navbar>
+
+            <Modal show={showModal} onHide={handleCloseModal} animation={false} size="sm" aria-labelledby="contained-modal-title-vcenter" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Are you sure you want to logout?</Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={handleCloseModal}>
+                        No
+                    </Button>
+                    <Button variant="success" onClick={logoutUser}>
+                        Yes
+                    </Button>
+                </Modal.Footer>
+            </Modal>
             {/* <ProSidebar collapsed={collapseState} width="190px" collapsedWidth="70px" className="sidebar">
                 <Menu >
                     <MenuItem icon={<RiMenuLine />} onClick={handleCollapseState}></MenuItem>

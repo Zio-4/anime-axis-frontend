@@ -40,7 +40,7 @@ code {
   margin-top: 4rem;
 }
 
-#login-button {
+#login-button, .top-list-button, .create-forum-post-button, .comment-button, .profile-buttons, .signup-button, .add-to-anime-list-button, .add-to-manga-list-button, .forum-post-submit-button, .comment-submit-button {
   color: #fff;
   background-color: #813AFE !important;
   border-color: #813AFE !important;
@@ -64,11 +64,11 @@ code {
   margin-top: 17rem !important;
 }
 
-/* .forum-component, .anime-page-container, .manga-page-container, .homepage-container, .manga-homepage-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list{
+.forum-component, .anime-page-container, .manga-page-container, .homepage-container, .manga-homepage-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list, .sign-up-form-container, .manga-search, .users-manga-list{
   margin-top: 6rem;
-} */
+}
 
-#manga-background-card, .anime-forum-table, .manga-forum-table, .general-forum-table, .anime-discussion-table{
+#manga-background-card, .anime-forum-table, .manga-forum-table, .general-forum-table, .anime-discussion-table, .forum-post-card, .comments-container{
   margin-top: 1rem;
 }
 
@@ -93,4 +93,15 @@ code {
   justify-content: center !important;
   align-items: center !important;
   min-height: 100vh;
+}
+
+.mainpage-cards{
+  /* height: 320px;
+  width: 170px; */
+  
+}
+
+#anime-card-score{
+  height: 318px;
+  width: 237px;
 }

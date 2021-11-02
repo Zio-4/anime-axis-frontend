@@ -42,7 +42,7 @@ function MangaForum({user}) {
     return (
         <Container className="manga-forum-container">
             <h1>Manga Forum Board</h1>
-            <Button onClick={handleClick}>Create New Post</Button>
+            <Button onClick={handleClick} className="create-forum-post-button">Create New Post</Button>
             
             <Table striped bordered hover className="manga-forum-table">
                 <thead>

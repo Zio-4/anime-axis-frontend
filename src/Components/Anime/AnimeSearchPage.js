@@ -62,14 +62,14 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
         <div>
             <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : animeSearchQuery}</h1>
             <Container className="anime-search">
-                <Row>
+                <Row >
                     <Col>
                         <input  type="text" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
                         <button type="submit" onClick={handleSearch} >Search</button>
                     </Col>
                 </Row>
             </Container>
-                <Row>
+                <Row  md={3} className="g-4">
                     <CardGroup>
                         {render()}
                     </CardGroup>

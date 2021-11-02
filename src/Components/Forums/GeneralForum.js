@@ -43,7 +43,7 @@ function GeneralForum({user}) {
     return (
         <Container className="general-forum-container">
             <h1>General Forum Board</h1>
-            <Button onClick={handleClick}>Create New Post</Button>
+            <Button onClick={handleClick} className="create-forum-post-button">Create New Post</Button>
             
             <Table striped bordered hover className="general-forum-table">
                 <thead>

@@ -76,9 +76,9 @@ function ForumPost({user}) {
     return (
         <div>
             <Container className="forum-post-container">
-                <Button onClick={handleShow}>Comment on post</Button>
+                <Button onClick={handleShow} className="comment-button">Comment on post</Button>
                 {alertState ? <Alert variant="danger" className="forum-post-alert" onClose={() => setAlertState(false)} dismissible>You must first login to comment</Alert> : null}
-                <Card>
+                <Card className="forum-post-card" border="dark">
                     <Card.Header>By {forumPost.user.username}</Card.Header>
                     <Card.Body>
                         <Card.Title>{forumPost.title}</Card.Title>
@@ -90,10 +90,8 @@ function ForumPost({user}) {
                 </Card>
             </Container>
 
-            <Container >
-                <Row className="d-flex justify-content-center">
-                    {renderComments}
-                </Row>
+            <Container className="comments-container"> 
+                {renderComments}      
             </Container>
 
             <Modal show={show} onHide={handleClose} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
@@ -105,7 +103,7 @@ function ForumPost({user}) {
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant="primary" type="submit" onClick={handleSubmit}>
+                    <Button variant="primary" type="submit" onClick={handleSubmit} className="comment-submit-button">
                         Post Comment
                     </Button>
                 </Modal.Footer>

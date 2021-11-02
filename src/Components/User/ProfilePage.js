@@ -115,11 +115,11 @@ function ProfilePage() {
                     </ListGroup>
                 </Card>
                 <div className="d-grid gap-2 mt-2 justify-content-center">
-                    {bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio}>Add bio</Button>}
-                    {avatar? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar}>Add avatar</Button>}
+                    {bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio} className="profile-buttons">Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio} className="profile-buttons">Add bio</Button>}
+                    {avatar? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar} className="profile-buttons">Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar} className="profile-buttons">Add avatar</Button>}
 
-                    {bioAlertState ? <Alert variant="success" className="text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
-                    {avatarAlertState ? <Alert variant="success" className="text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}
+                    {bioAlertState ? <Alert variant="success" className="profile-buttons text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
+                    {avatarAlertState ? <Alert variant="success" className="profile-buttons text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}
                 </div>
             </Row>
 

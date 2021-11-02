@@ -28,7 +28,6 @@ function AnimePage({user}) {
     }, [params.id])
 
     
-
     console.log("user in anime page:", user)
 
     function handleClick() {
@@ -59,24 +58,24 @@ function AnimePage({user}) {
         <Container className="anime-page-container" >
             <Row>
                 <Col>
-                    <Card style={{ width: '18rem' }} >
+                    <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Img variant="top" src={anime.image_url} />
                         <Card.Body>
                             <Card.Title>{anime.title_english ? anime.title_english : anime.title}</Card.Title>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
-                            <ListGroup.Item>Rank: {anime.rank}</ListGroup.Item>
-                            <ListGroup.Item>Episodes: {anime.episodes ? anime.episodes : "Unknown"}</ListGroup.Item>
-                            <ListGroup.Item>Duration: {anime.duration}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rank: {anime.rank}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Episodes: {anime.episodes ? anime.episodes : "Unknown"}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Duration: {anime.duration}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                            <Button onClick={handleClick}>+ Anime List</Button>
+                            <Button onClick={handleClick} className="add-to-anime-list-button">+ Anime List</Button>
                         </Card.Body>
                     </Card>
                     {alertState ? <Alert variant="danger" className="anime-page-alert" onClose={() => setAlertState(false)} dismissible>You must be logged in to add an anime!</Alert> : null}
                 </Col>
                 <Col>
-                   <Card>
+                   <Card className="bg-dark text-white">
                    <Card.Body>
                         <Card.Title>Synopsis</Card.Title>
                         <Card.Text>
@@ -84,34 +83,34 @@ function AnimePage({user}) {
                         </Card.Text>
                     </Card.Body>
                    </Card>
-                   {anime.genres.map(g => <Badge key={g.name} pill bg="dark">{g.name}</Badge>)}
+                   {anime.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
                 </Col>
                 <Col>
-                    <Card style={{ width: '18rem' }}>
+                    <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Header>Anime Info</Card.Header>
                         <ListGroup variant="flush">
-                            <ListGroup.Item>Aired: {anime.aired.string}</ListGroup.Item>
-                            <ListGroup.Item>Type: {anime.type}</ListGroup.Item>
-                            <ListGroup.Item>Rank by popularity: {anime.popularity}</ListGroup.Item>
-                            <ListGroup.Item>Producers: {anime.producers.map(prod => <li key={prod.name}>{prod.name}</li>) }</ListGroup.Item>
-                            <ListGroup.Item>Premiered: {anime.premiered}</ListGroup.Item>
-                            <ListGroup.Item>Rating: {anime.rating}</ListGroup.Item>
-                            <ListGroup.Item>MyAnimeList Score: {anime.score}</ListGroup.Item>
-                            <ListGroup.Item>Status: {anime.status}</ListGroup.Item>
-                            <ListGroup.Item>Studios: {anime.studios.map(studio => <li key={studio.name}>{studio.name}</li>)}</ListGroup.Item>
-                            <ListGroup.Item>Japanese Title: {anime.title_japanese}</ListGroup.Item>
-                            <ListGroup.Item>Synonyms: {anime.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Aired: {anime.aired.string}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Type: {anime.type}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rank by popularity: {anime.popularity}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Producers: {anime.producers.map(prod => <li key={prod.name}>{prod.name}</li>) }</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Premiered: {anime.premiered}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rating: {anime.rating}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">MyAnimeList Score: {anime.score}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Status: {anime.status}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Studios: {anime.studios.map(studio => <li key={studio.name}>{studio.name}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Japanese Title: {anime.title_japanese}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Synonyms: {anime.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
                         </ListGroup>
                     </Card>
                 </Col>
             </Row>
         </Container>
 
-        <Container>
+        {/* <Container>
             <Row className="d-flex justify-content-center mt-3">
                 
             </Row>
-        </Container>
+        </Container> */}
         </div>
 
     )

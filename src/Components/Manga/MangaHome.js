@@ -8,6 +8,7 @@ import MangaCardNovels from './MangaCardNovels'
 import MangaCardOneShots from './MangaCardOneShots'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
 function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     const [topMangaByScore, setTopMangaByScore] = useState([])
@@ -102,22 +103,22 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
             <p>Top manga by score</p>
             <Row>
                 {renderMangaByScore}
-                <Link to="/topmanga/score">See more</Link>
+                <Link to="/topmanga/score"><Button className="top-list-button" size="md">See more</Button></Link>
             </Row>
             <p>Top manga one-shots</p>
             <Row>
                 {renderMangaOneShots}
-                <Link to="/topmanga/oneshots">See more</Link>
+                <Link to="/topmanga/oneshots"><Button className="top-list-button" size="md">See more</Button></Link>
             </Row>
             <p>Top manga by popularity</p>
             <Row>
                 {renderMangaByPopularity}
-                <Link to="/topmanga/popularity">See more</Link>
+                <Link to="/topmanga/popularity"><Button className="top-list-button" size="md">See more</Button></Link>
             </Row>
             <p>Top manga novels</p>
             <Row>
                 {renderMangaNovels}
-                <Link to="/topmanga/novels">See more</Link>
+                <Link to="/topmanga/novels"><Button className="top-list-button" size="md">See more</Button></Link>
             </Row>
         </Container>
         </>

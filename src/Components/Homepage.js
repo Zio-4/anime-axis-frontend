@@ -8,6 +8,8 @@ import AnimeCardUpcoming from './Anime/AnimeCardUpcoming'
 import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+
 
 function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     const [topAnimeByScore, setTopAnimeByScore] = useState([])
@@ -102,23 +104,33 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         <Container fluid="md" className="homepage-container">
             <p>Top anime by Score</p>
             <Row>
+
                 {renderTopAnimeByScoreCards}
-                <Link to="/topanime/score">See more</Link>
+
+                <Container>
+                    <Link to="/topanime/score"><Button className="top-list-button" size="md">See More</Button></Link>
+                </Container>
             </Row>
             <p>Top anime currently airing</p>
             <Row>
                 {renderTopAnimeAiring}
-                <Link to="/topanime/airing">See more</Link>
+                <Container>
+                    <Link to="/topanime/airing"><Button className="top-list-button" size="md">See More</Button></Link>
+                </Container>
             </Row>
             <p>Top upcoming anime</p>
             <Row>
                 {renderTopUpcomingAnime}
-                <Link to="/topanime/upcoming">See more</Link>
+                <Container>
+                    <Link to="/topanime/upcoming"><Button className="top-list-button" size="md">See More</Button></Link>
+                </Container>
             </Row>
             <p>Top anime by popularity</p>
             <Row>
                 {renderTopAnimeByPopularity}
-                <Link to="/topanime/popularity">See more</Link>
+                <Container>
+                    <Link to="/topanime/popularity"><Button className="top-list-button" size="md">See More</Button></Link>
+                </Container>
             </Row>
         </Container>
         </>

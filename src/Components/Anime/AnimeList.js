@@ -44,11 +44,11 @@ function AnimeList({user}) {
                     <td>
                         {positionNumber +=1}
                     </td>
-                    <td>
+                    <td>  
                         <Link to={`/anime/${a.id}`}>
                             <img src={a.image_url} alt="anime art"/>
-                            {a.title}
                         </Link>
+                        {a.title}
                     </td>
                     <td>
                         {a.score}
