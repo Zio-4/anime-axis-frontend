@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 
 
 function AnimePage({user}) {
@@ -50,14 +51,12 @@ function AnimePage({user}) {
 
     if (!anime) return <Loading />
 
-    console.log("anime in anime page", anime)
-
 
     return (
         <div>
         <Container className="anime-page-container" >
-            <Row>
-                <Col>
+            <Row >
+                <Col className="anime-cards d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Img variant="top" src={anime.image_url} />
                         <Card.Body>
@@ -74,7 +73,7 @@ function AnimePage({user}) {
                     </Card>
                     {alertState ? <Alert variant="danger" className="anime-page-alert" onClose={() => setAlertState(false)} dismissible>You must be logged in to add an anime!</Alert> : null}
                 </Col>
-                <Col>
+                <Col className="anime-cards">
                    <Card className="bg-dark text-white">
                    <Card.Body>
                         <Card.Title>Synopsis</Card.Title>
@@ -85,7 +84,7 @@ function AnimePage({user}) {
                    </Card>
                    {anime.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
                 </Col>
-                <Col>
+                <Col className="anime-cards d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Header>Anime Info</Card.Header>
                         <ListGroup variant="flush">
@@ -105,14 +104,7 @@ function AnimePage({user}) {
                 </Col>
             </Row>
         </Container>
-
-        {/* <Container>
-            <Row className="d-flex justify-content-center mt-3">
-                
-            </Row>
-        </Container> */}
         </div>
-
     )
 }
 

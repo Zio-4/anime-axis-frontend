@@ -124,7 +124,7 @@ code {
   width: 275px;
   background: none;
   margin-left: 1rem;
-  caret-color:transparent;
+  caret-color:white;
   line-height: 40px;
   transition: width 0.4s linear;
   }
@@ -150,3 +150,7 @@ code {
     color: white;
     opacity: 0.50;
   }
+
+.anime-cards {
+  margin-bottom: 1rem;
+}

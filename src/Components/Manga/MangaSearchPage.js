@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
 import {Link} from 'react-router-dom'
+import {RiSearchLine} from "react-icons/ri";    
 
 function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
     const [searchQuery, setSearchQuery] = useState("")
@@ -16,17 +17,18 @@ function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
     }
 
     function handleSearch() {
-        fetch(`https://api.jikan.moe/v3/search/anime?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
+        fetch(`https://api.jikan.moe/v3/search/manga?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
         .then(r => r.json())
         .then(searchResultData => {
             setSearchResults(searchResultData.results)
             setSearchQueryOnceSearched(searchQuery)
+            setSearchQuery("")
         })
     }
 
 
     const renderResultsFromMangaSearchPage = searchResults.map(m => (
-        <Col key={m.mal_id}>
+        <Col xs={3} key={m.mal_id}>
             <Card>
             <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
                 <Card.Body>
@@ -37,7 +39,7 @@ function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
     ))
 
     const renderResultsFromMangaHomepage = mangaSearchResults.map(m => (
-        <Col key={m.mal_id}>
+        <Col xs={3} key={m.mal_id}>
             <Card>
             <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
                 <Card.Body>
@@ -57,20 +59,21 @@ function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
 
     return (
         <div>
-            <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : mangaSearchQuery}</h1>
+            
             <Container className="manga-search">
+                <Col style={{width: '22rem'}} className='mx-auto'>
+                    <div className="searchbar">
+                        <input type="text" className="search-input" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
+                        <a onClick={handleSearch} className="search-icon"><RiSearchLine/></a>
+                    </div>
+                </Col>
+                <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : mangaSearchQuery}</h1>
+            </Container>
+            <Container className="d-flex justify-content-center">
                 <Row>
-                    <Col>
-                        <input  type="text" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
-                        <button type="submit" onClick={handleSearch} >Search</button>
-                    </Col>
+                    {render()}
                 </Row>
             </Container>
-                <Row>
-                    <CardGroup>
-                        {render()}
-                    </CardGroup>
-                </Row>
         </div>
     )
 }

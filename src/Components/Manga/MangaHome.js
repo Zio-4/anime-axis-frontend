@@ -22,7 +22,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/manga")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaByScore(manga.top.slice(0,6))
+            setTopMangaByScore(manga.top.slice(0,5))
         })
     }
 
@@ -30,7 +30,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/oneshots")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaOneShots(manga.top.slice(0,6))
+            setTopMangaOneShots(manga.top.slice(0,5))
         })
     }
 
@@ -38,7 +38,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/bypopularity")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaByPopularity(manga.top.slice(0,6))
+            setTopMangaByPopularity(manga.top.slice(0,5))
         })
     }
 
@@ -46,7 +46,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/novels")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaNovels(manga.top.slice(0,6))
+            setTopMangaNovels(manga.top.slice(0,5))
         })
     }
 

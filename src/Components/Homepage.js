@@ -24,7 +24,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         .then((r) => r.json())
         .then((data) => {
                     // Only using the top 5 anime
-                    setTopAnimeByScore(data.top.slice(0,6))
+                    setTopAnimeByScore(data.top.slice(0,5))
                 })
             }
  
@@ -32,7 +32,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/anime/1/airing")
         .then((r) => r.json())
         .then((data) => {
-                    setTopAnimeAiring(data.top.slice(0,6))
+                    setTopAnimeAiring(data.top.slice(0,5))
                 })
             }
     
@@ -40,7 +40,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/anime/1/bypopularity")
         .then((r) => r.json())
         .then((data) => {
-                    setTopAnimeByPopularity(data.top.slice(0,6))
+                    setTopAnimeByPopularity(data.top.slice(0,5))
                 })
             }
 
@@ -48,7 +48,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/anime/1/upcoming")
         .then((r) => r.json())
         .then((data) => {
-                    setTopUpcomingAnime(data.top.slice(0,6))
+                    setTopUpcomingAnime(data.top.slice(0,5))
                 })
             }
 
