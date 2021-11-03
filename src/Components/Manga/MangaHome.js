@@ -9,6 +9,7 @@ import MangaCardOneShots from './MangaCardOneShots'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import {RiSearchLine} from "react-icons/ri";
 
 function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     const [topMangaByScore, setTopMangaByScore] = useState([])
@@ -21,7 +22,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/manga")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaByScore(manga.top.slice(0,5))
+            setTopMangaByScore(manga.top.slice(0,6))
         })
     }
 
@@ -29,7 +30,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/oneshots")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaOneShots(manga.top.slice(0,5))
+            setTopMangaOneShots(manga.top.slice(0,6))
         })
     }
 
@@ -37,7 +38,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/bypopularity")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaByPopularity(manga.top.slice(0,5))
+            setTopMangaByPopularity(manga.top.slice(0,6))
         })
     }
 
@@ -45,7 +46,7 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetch("https://api.jikan.moe/v3/top/manga/1/novels")
         .then(r => r.json())
         .then((manga) => {
-            setTopMangaNovels(manga.top.slice(0,5))
+            setTopMangaNovels(manga.top.slice(0,6))
         })
     }
 
@@ -91,36 +92,44 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
 
     return (
         <>
-         <Container className="manga-search">
-            <Row>
-                <Col>
-                    <input  type="text" value={mangaSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
-                    <button type="submit" onClick={handleSubmit} >Search</button>
+            <Container className="manga-search">
+                <Col style={{width: '22rem'}} className='mx-auto'>
+                    <div class="searchbar">
+                        <input type="text" className="search-input" value={mangaSearchQuery} onChange={handleChange} placeholder="eg. 'Tokyo Ghoul'"/>
+                        <a onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
+                    </div>
                 </Col>
-            </Row>
-        </Container>
-        <Container fluid="md" className="manga-homepage-container">
-            <p>Top manga by score</p>
-            <Row>
-                {renderMangaByScore}
-                <Link to="/topmanga/score"><Button className="top-list-button" size="md">See more</Button></Link>
-            </Row>
-            <p>Top manga one-shots</p>
-            <Row>
-                {renderMangaOneShots}
-                <Link to="/topmanga/oneshots"><Button className="top-list-button" size="md">See more</Button></Link>
-            </Row>
-            <p>Top manga by popularity</p>
-            <Row>
-                {renderMangaByPopularity}
-                <Link to="/topmanga/popularity"><Button className="top-list-button" size="md">See more</Button></Link>
-            </Row>
-            <p>Top manga novels</p>
-            <Row>
-                {renderMangaNovels}
-                <Link to="/topmanga/novels"><Button className="top-list-button" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
-            </Row>
-        </Container>
+            </Container>
+            <Container fluid="md" className="manga-homepage-container">
+                <p className='mt-4 text-center'>Top manga by score</p>
+                <Row>
+                    {renderMangaByScore}
+                    <Container>
+                        <Link to="/topmanga/score"><Button className="top-list-button-manga" size="md">See more</Button></Link>
+                    </Container>
+                </Row>
+                <p className='mt-4 text-center'>Top manga one-shots</p>
+                <Row>
+                    {renderMangaOneShots}
+                    <Container>
+                        <Link to="/topmanga/oneshots"><Button className="top-list-button-manga" size="md">See more</Button></Link>
+                    </Container>
+                </Row>
+                <p className='mt-4 text-center'>Top manga by popularity</p>
+                <Row>
+                    {renderMangaByPopularity}
+                    <Container>
+                        <Link to="/topmanga/popularity"><Button className="top-list-button-manga" size="md">See more</Button></Link>
+                    </Container>
+                </Row>
+                <p className='mt-4 text-center'>Top manga novels</p>
+                <Row>
+                    {renderMangaNovels}
+                    <Container>
+                        <Link to="/topmanga/novels"><Button className="top-list-button-manga" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
+                    </Container>
+                </Row>
+            </Container>
         </>
     )
 }

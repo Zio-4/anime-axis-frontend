@@ -96,8 +96,8 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         <Container className="anime-search">
             <Col style={{width: '22rem'}} className='mx-auto'>
                 <div class="searchbar">
-                    <input type="text" className="search_input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
-                    <a onClick={handleSubmit} className="search_icon"><RiSearchLine/></a>
+                    <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
+                    <a onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
                 </div>
             </Col>
         </Container>

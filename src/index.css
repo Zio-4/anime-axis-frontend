@@ -40,7 +40,7 @@ code {
   margin-top: 4rem;
 }
 
-#login-button, .top-list-button, .create-forum-post-button, .comment-button, .profile-buttons, .signup-button, .add-to-anime-list-button, .add-to-manga-list-button, .forum-post-submit-button, .comment-submit-button {
+#login-button, .top-list-button, .create-forum-post-button, .comment-button, .profile-buttons, .signup-button, .add-to-anime-list-button, .add-to-manga-list-button, .forum-post-submit-button, .comment-submit-button, .top-list-button-manga {
   color: #fff;
   background-color: #813AFE !important;
   border-color: #813AFE !important;
@@ -64,11 +64,11 @@ code {
   margin-top: 17rem !important;
 }
 
-.homepage-container{
+.homepage-container, .manga-homepage-container{
   margin-top: 3rem;
 }
 
-.forum-component, .anime-page-container, .manga-page-container, .manga-homepage-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list, .sign-up-form-container, .manga-search, .users-manga-list{
+.forum-component, .anime-page-container, .manga-page-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list, .sign-up-form-container, .manga-search, .users-manga-list{
   margin-top: 6rem;
 }
 
@@ -104,7 +104,7 @@ code {
   width: 170px; */
 }
 
-#bottom-see-more-button-anime, #bottom-see-more-button-anime{
+#bottom-see-more-button-anime, #bottom-see-more-button-manga{
   margin-bottom: 1rem;
 }
 
@@ -117,7 +117,7 @@ code {
   padding: 10px;
   }
 
-  .search_input{
+  .search-input{
   color: white;
   border: 0;
   outline: 0;
@@ -134,7 +134,7 @@ code {
     color: #813AFE;
     }
 
-  .search_icon{
+  .search-icon{
   height: 40px;
   width: 40px;
   float: right;
