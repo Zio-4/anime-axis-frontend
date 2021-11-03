@@ -28,7 +28,6 @@ function NavBar({user, onLogout}) {
         setShowModal(false)
         history.push("/")
     }
-    console.log("user in navbar:", user)
 
     const handleCloseModal = () => setShowModal(false)
     

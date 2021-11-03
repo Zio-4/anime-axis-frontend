@@ -9,6 +9,7 @@ import React from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import {RiSearchLine} from "react-icons/ri";
 
 
 function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
@@ -93,12 +94,12 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     return (
         <>
         <Container className="anime-search">
-            <Row>
-                <Col>
-                    <input  type="text" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
-                    <button type="submit" onClick={handleSubmit} >Search</button>
-                </Col>
-            </Row>
+            <Col style={{width: '22rem'}} className='mx-auto'>
+                <div class="searchbar">
+                    <input type="text" className="search_input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
+                    <a onClick={handleSubmit} className="search_icon"><RiSearchLine/></a>
+                </div>
+            </Col>
         </Container>
 
         <Container fluid="md" className="homepage-container">
@@ -138,3 +139,6 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
 }
 
 export default Homepage
+
+{/* <input  type="text" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
+    <button type="submit" onClick={handleSubmit} >Search</button> */}

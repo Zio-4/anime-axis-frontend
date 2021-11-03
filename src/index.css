@@ -108,3 +108,45 @@ code {
   margin-bottom: 1rem;
 }
 
+.searchbar{
+  margin-bottom: auto;
+  margin-top: auto;
+  height: 60px;
+  background-color: #813AFE;
+  border-radius: 30px;
+  padding: 10px;
+  }
+
+  .search_input{
+  color: white;
+  border: 0;
+  outline: 0;
+  width: 275px;
+  background: none;
+  margin-left: 1rem;
+  caret-color:transparent;
+  line-height: 40px;
+  transition: width 0.4s linear;
+  }
+
+  .searchbar:hover > .search_icon{
+    background: white;
+    color: #813AFE;
+    }
+
+  .search_icon{
+  height: 40px;
+  width: 40px;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color:white;
+  text-decoration:none;
+  }
+
+  ::placeholder{
+    color: white;
+    opacity: 0.50;
+  }
