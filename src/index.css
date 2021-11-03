@@ -99,9 +99,18 @@ code {
   min-height: 100vh;
 }
 
-.mainpage-cards{
-  /* height: 320px;
-  width: 170px; */
+.mainpage-card-images{
+  height: 346px;
+  width: 225px;
+}
+
+@media (max-width: 1000px) {
+
+  .mainpage-cards{
+    height: fit-content;
+    width: fit-content;
+  }
+
 }
 
 #bottom-see-more-button-anime, #bottom-see-more-button-manga{

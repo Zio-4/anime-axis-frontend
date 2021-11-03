@@ -24,8 +24,9 @@ function TopMangaByPopularityList() {
                 <td>
                     <Link to={`/manga/${manga.mal_id}`}>
                         <img src={manga.image_url} alt="manga art"/>
-                        {manga.title}
+                        
                     </Link>
+                    {manga.title}
                 </td>
                 <td>
                     {manga.score}

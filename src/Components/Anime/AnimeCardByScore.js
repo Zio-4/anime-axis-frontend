@@ -11,8 +11,8 @@ function AnimeCardByScore({title, id, image}) {
                 <Tooltip>{title}</Tooltip>
         }>
                 <Col className="mt-3">
-                <Card className="bg-dark text-white fluid"  key={id}>
-                        <Link to={`/anime/${id}`}><Card.Img className="mainpage-cards" src={image} alt="Card image" /></Link>
+                <Card className="mainpage-cards bg-dark text-white fluid"  key={id}>
+                        <Link to={`/anime/${id}`}><Card.Img className="mainpage-card-images" src={image} alt="Card image" /></Link>
                 </Card>  
                 </Col>
                 
