@@ -26,7 +26,6 @@ function ProfilePage() {
         .then(r => {
             if (r.ok) {
                 r.json().then(userData => {
-                    console.log("userData in ProfilePage", userData)
                     setUser(userData)
                     setBio(userData.bio)
                     setAvatar(userData.avatar)
@@ -97,9 +96,7 @@ function ProfilePage() {
         })
     }
 
-    if (errors.length > 0) return <Redirect to="/login"/>
-
-    //user.avatar && avatar === undefined || user.avatar === null ? loginIcon : user.avatar    
+    if (errors.length > 0) return <Redirect to="/login"/>  
 
 
     return (

@@ -13,7 +13,6 @@ function GeneralForum({user}) {
         fetch("/forum_posts/general")
         .then(r => r.json())
         .then(general => {
-            console.log("general forum posts in generalForum", general)
             setGeneralPosts(general)
         })
     }, [])

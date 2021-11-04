@@ -18,6 +18,7 @@ function ForumPostForm({user}) {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
+    // Use the location state to provide the correct forum id for the backend when creating a new forum post
     useEffect(() => {
         if (history.location.state === undefined) {
             setForumIdState(1)

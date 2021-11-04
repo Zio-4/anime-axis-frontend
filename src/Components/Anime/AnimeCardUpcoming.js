@@ -11,12 +11,11 @@ function AnimeCardUpcoming({title, image, id}) {
             <Tooltip>{title}</Tooltip>
     }>
             <Col className="mt-3">
-            <Card className="mainpage-cards bg-dark text-white fluid"  key={id}>
+                <Card className="mainpage-cards bg-dark text-white fluid"  key={id}>
                     <Link to={`/anime/${id}`}><Card.Img className="mainpage-card-images" src={image} alt="Card image" /></Link>
-            </Card>  
-            </Col>
-            
-    </OverlayTrigger>
+                </Card>  
+            </Col>  
+        </OverlayTrigger>
     )
 }
 

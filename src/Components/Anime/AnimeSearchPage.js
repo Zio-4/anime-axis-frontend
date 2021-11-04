@@ -2,7 +2,6 @@ import React from 'react'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
@@ -61,7 +60,6 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
         }
     }
 
-
     return (
         <div>
             <Container className="anime-search">
@@ -85,8 +83,3 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
 
 export default AnimeSearchPage
 
-
-{/* <Col>
-<input  type="text" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
-<button type="submit" onClick={handleSearch} >Search</button>
-</Col> */}

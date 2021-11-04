@@ -45,8 +45,6 @@ function MangaPage({user}) {
 
     if (!manga) return <Loading />
 
-    console.log("Manga in state:", manga)
-
     return (
         <div>
             <Container className="manga-page-container">

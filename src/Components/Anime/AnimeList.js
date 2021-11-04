@@ -13,7 +13,9 @@ function AnimeList({user}) {
         fetch("/user")
         .then(r => {
             if (r.ok) {
+                // If the response that is returned is not an error, parse it and turn it into JSON
                 r.json().then(userData => {
+                // Sort the user's anime list by title from A-Z
                 const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
                 setAnimeList(animesSortedByName)
                     }
@@ -30,10 +32,6 @@ function AnimeList({user}) {
 
     if (errors.length > 0) return <Redirect to="/login" />
     if (!animeList) return <Loading/>
-    
-    
-
-    console.log("anime list in animeList:", animeList)
 
     let positionNumber = 0
 
@@ -60,8 +58,6 @@ function AnimeList({user}) {
         }
         
     }
-
-    console.log(user)
 
     return (
         <Container className="users-anime-list">

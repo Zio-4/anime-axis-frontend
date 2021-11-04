@@ -6,19 +6,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown'
 import {useHistory} from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-
-// import { ProSidebar, Menu, MenuItem, SubMenu } from 'react-pro-sidebar';
-// import 'react-pro-sidebar/dist/css/styles.css';
-import { RiMenuLine, RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} from "react-icons/ri";
+import { RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} from "react-icons/ri";
 import { FcImport } from "react-icons/fc";
 
 function NavBar({user, onLogout}) {
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
-
-    // function handleCollapseState() {
-    //     setCollapseState(!collapseState)
-    // }
 
     function logoutUser() {
         fetch("/logout", {
@@ -75,32 +68,6 @@ function NavBar({user, onLogout}) {
                     </Button>
                 </Modal.Footer>
             </Modal>
-            {/* <ProSidebar collapsed={collapseState} width="190px" collapsedWidth="70px" className="sidebar">
-                <Menu >
-                    <MenuItem icon={<RiMenuLine />} onClick={handleCollapseState}></MenuItem>
-
-                    <SubMenu icon={<RiHome2Fill/>} title="Home">
-                        <MenuItem>Anime <Link to="/"/></MenuItem>
-                        <MenuItem>Manga <Link to="/manga"/></MenuItem>
-                    </SubMenu>
-
-                    <SubMenu icon={<RiDiscussFill />} title="Forums" >
-                        <MenuItem>Anime Forum <Link to="/forums/anime"/></MenuItem>
-                        <MenuItem>Manga Forum <Link to="/forums/manga"/></MenuItem>
-                        <MenuItem>General Forum <Link to="/forums/general"/></MenuItem>
-                    </SubMenu>
-
-                    <SubMenu icon={<RiFileMarkFill/>} title="My Lists">
-                        <MenuItem>Anime List <Link to="/animelist"/></MenuItem>
-                        <MenuItem>Manga List <Link to="/mangalist"/></MenuItem>
-                    </SubMenu>
-
-                    <MenuItem icon={<RiUser3Fill />}>Profile <Link to="/profile"/></MenuItem>
-
-                    {user ? <MenuItem icon={<FcImport/>} onClick={logoutUser}>Logout</MenuItem> : null}
-
-                </Menu>
-            </ProSidebar> */}
         </>
     )
 }

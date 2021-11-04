@@ -10,15 +10,13 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+
 
 
 function AnimePage({user}) {
     const params = useParams()
     const [anime, setAnime] = useState()
     const [alertState, setAlertState] = useState(false)
-
-   
 
     useEffect(() => {
         fetch(`https://api.jikan.moe/v3/anime/${params.id}`)
@@ -28,8 +26,6 @@ function AnimePage({user}) {
         })
     }, [params.id])
 
-    
-    console.log("user in anime page:", user)
 
     function handleClick() {
         if (!user) {
@@ -44,7 +40,6 @@ function AnimePage({user}) {
             })
             .then(r => r.json())
             .then(createdAnimeData => {
-                console.log("anime page created anime data", createdAnimeData)
             }) 
         }
     }

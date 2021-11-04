@@ -19,6 +19,8 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
     const history = useHistory()
 
+    //API fetch functions
+
     const fetchTopAnimesByScore = () => {
         fetch("https://api.jikan.moe/v3/top/anime/1/tv")
         .then((r) => r.json())
@@ -52,6 +54,8 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
                 })
             }
 
+    // Call fetch functions
+
     useEffect(() => {
         fetchTopAnimesByScore()
         fetchTopAnimeAiring() 
@@ -60,9 +64,13 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         updateAnimeSearchQuery("")
     }, [])
 
+    // Update search
+
     function handleChange(e) {
         updateAnimeSearchQuery(mUV => e.target.value)
     }
+
+    // Handle a search
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -139,6 +147,3 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
 }
 
 export default Homepage
-
-{/* <input  type="text" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"></input>
-    <button type="submit" onClick={handleSubmit} >Search</button> */}

@@ -4,7 +4,6 @@ import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
 
 function TopAnimeAiringList() {
-
     const [topAnimeAiring, setTopAnimeAiring] = useState([])
 
     useEffect(() => {
@@ -17,7 +16,6 @@ function TopAnimeAiringList() {
 
     const renderTopAnimeAiringList = topAnimeAiring.map(anime => {
         return (
-            
             <tr>
                 <td>
                     {anime.rank}
@@ -33,7 +31,6 @@ function TopAnimeAiringList() {
                     {anime.score}
                 </td>
             </tr>
-            
         )
     })
 

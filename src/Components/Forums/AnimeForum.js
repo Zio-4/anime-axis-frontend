@@ -12,7 +12,6 @@ function AnimeForum({user}) {
         fetch("/forum_posts/anime")
         .then(r => r.json())
         .then(animes => {
-            console.log(animes)
             setAnimePosts(animes)
         })
     }, [])

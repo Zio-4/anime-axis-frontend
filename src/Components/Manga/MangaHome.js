@@ -18,6 +18,8 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     const [topMangaNovels, setTopMangaNovels] = useState([])
     const history = useHistory() 
 
+    // API fetch functions
+
     function fetchTopMangaByScore() {
         fetch("https://api.jikan.moe/v3/top/manga/1/manga")
         .then(r => r.json())
@@ -50,6 +52,8 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         })
     }
 
+    // Call fetch functions
+
     useEffect(() => {
         fetchTopMangaByScore()
         fetchTopMangaOneShots()
@@ -57,9 +61,13 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         fetchTopMangaNovels()
     }, [])
 
+    // update search state
+
     function handleChange(e) {
         updateMangaSearchQuery(mUV => e.target.value)
     }
+
+    // Handle a search
 
     function handleSubmit(e) {
         e.preventDefault()

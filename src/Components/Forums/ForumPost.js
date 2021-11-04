@@ -7,7 +7,6 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 import Comment from './Comment'
-import Row from 'react-bootstrap/Row'
 
 function ForumPost({user}) {
     const [forumPost, setForumPost] = useState()
@@ -29,7 +28,6 @@ function ForumPost({user}) {
         fetch(`/comments/${params.id}`) 
         .then(r => r.json())
         .then(commentData => {
-            console.log("comments in ForumPost", commentData)
             setComments(commentData)
         })
     }, [comments.length, params.id])
@@ -43,10 +41,9 @@ function ForumPost({user}) {
         }
     } 
 
-    // Add time to comments
 
     const renderComments = comments.map(c => (
-        <Comment key={c.id} content={c.content} userID={c.user_id} time={c.comment_time} username={c.user.username}/>
+        <Comment key={c.id} content={c.content} time={c.comment_time} username={c.user.username}/>
     ))
 
     function handleSubmit(e) {

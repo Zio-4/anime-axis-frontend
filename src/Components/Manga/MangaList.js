@@ -31,8 +31,6 @@ function MangaList({user}) {
     if (errors.length > 0) return <Redirect to="/login"/>
     if (!mangaList) return <Loading/>
 
-    console.log("user mangas", mangaList)
-
     let positionNumber = 0
 
     const renderUsersMangaList = () => {

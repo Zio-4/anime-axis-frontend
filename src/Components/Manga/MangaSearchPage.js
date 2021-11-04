@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
 import {Link} from 'react-router-dom'
 import {RiSearchLine} from "react-icons/ri";

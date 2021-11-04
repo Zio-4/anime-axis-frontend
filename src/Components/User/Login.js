@@ -20,8 +20,6 @@ function Login({onLogin}) {
 
     const history = useHistory()
 
-    console.log("history", history.location.state)
-
     function handleInput(e) {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
@@ -41,14 +39,11 @@ function Login({onLogin}) {
                     history.push("/")
             } else {
                 r.json().then((err) => {
-                    console.log("err", err)
                     setErrors(err.error)
                 })
             }
         })
-    }
-    console.log("error state:", errors)
-    // console.log("errors length:", errors.length)    
+    }    
 
     return (
         <Container className="login-container">
