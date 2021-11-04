@@ -130,9 +130,6 @@ function App() {
           <Route exact path="/topanime/airing">
             <TopAnimeAiringList />
           </Route>
-          {/* <Route exact path="/forums">
-            <Forums />
-          </Route> */}
           <Route exact path="/manga/:id">
             <MangaPage user={user}/>
           </Route>
