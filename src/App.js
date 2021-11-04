@@ -3,7 +3,6 @@ import Login from "./Components/User/Login"
 import SignUp from "./Components/User/SignUp"
 import {Switch, Route, Redirect} from 'react-router-dom'
 import NavBar from './Components/NavBar'
-import About from './Components/About'
 import AnimePage from './Components/Anime/AnimePage'
 import {useState, useEffect} from 'react'
 import ProfilePage from "./Components/User/ProfilePage"
@@ -160,9 +159,6 @@ function App() {
           </Route>
           <Route exact path="/">
             <Homepage onAnimeSearch={onAnimeSearch} updateAnimeSearchQuery={updateAnimeSearchQuery} animeSearchQuery={animeSearchQuery}/>
-          </Route>
-          <Route exact path="/about">
-            <About />
           </Route>
           <Route exact path="/loading">
             <Loading />
