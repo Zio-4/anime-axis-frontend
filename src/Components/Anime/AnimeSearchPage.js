@@ -7,6 +7,8 @@ import Card from 'react-bootstrap/Card'
 import {useState} from 'react'
 import {Link} from 'react-router-dom'
 import {RiSearchLine} from "react-icons/ri";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'
 
 
 function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
@@ -30,25 +32,25 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
 
 
     const renderResultsFromSearchPage = searchResults.map(anime => (
-        <Col xs={3} key={anime.mal_id}>
+        <OverlayTrigger key={anime.mal_id} placement="top" overlay={
+            <Tooltip>{anime.title}</Tooltip>}>
+        <Col xs={3} >
             <Card>
                 <Link to={`/anime/${anime.mal_id}`}><Card.Img variant="top" src={anime.image_url} /></Link>
-                <Card.Body>
-                <Card.Title>{anime.title}</Card.Title>
-                </Card.Body>
-            </Card>
+            </Card> 
         </Col>
+        </OverlayTrigger>
     ))
 
     const renderResultsFromHomepage = animeSearchResults.map(anime => (
-        <Col xs={3} key={anime.mal_id}>
+        <OverlayTrigger key={anime.mal_id} placement="top" overlay={
+            <Tooltip>{anime.title}</Tooltip>}>
+        <Col xs={3} >
             <Card>
                 <Link to={`/anime/${anime.mal_id}`}><Card.Img variant="top" src={anime.image_url} /></Link>
-                <Card.Body>
-                <Card.Title>{anime.title}</Card.Title>
-                </Card.Body>
-            </Card>
+            </Card> 
         </Col>
+        </OverlayTrigger>
     ))
 
     const render = () => {

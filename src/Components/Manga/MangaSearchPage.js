@@ -5,7 +5,9 @@ import Row from 'react-bootstrap/Row'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
 import {Link} from 'react-router-dom'
-import {RiSearchLine} from "react-icons/ri";    
+import {RiSearchLine} from "react-icons/ri";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip'   
 
 function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
     const [searchQuery, setSearchQuery] = useState("")
@@ -28,25 +30,25 @@ function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
 
 
     const renderResultsFromMangaSearchPage = searchResults.map(m => (
-        <Col xs={3} key={m.mal_id}>
-            <Card>
-            <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
-                <Card.Body>
-                <Card.Title>{m.title}</Card.Title>
-                </Card.Body>
-            </Card>
-        </Col>
+        <OverlayTrigger key={m.mal_id} placement="top" overlay={
+            <Tooltip>{m.title}</Tooltip>}>
+            <Col xs={3} >
+                <Card>
+                <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
+                </Card>
+            </Col>
+        </OverlayTrigger>
     ))
 
     const renderResultsFromMangaHomepage = mangaSearchResults.map(m => (
-        <Col xs={3} key={m.mal_id}>
-            <Card>
-            <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
-                <Card.Body>
-                <Card.Title>{m.title}</Card.Title>
-                </Card.Body>
-            </Card>
-        </Col>
+        <OverlayTrigger key={m.mal_id} placement="top" overlay={
+            <Tooltip>{m.title}</Tooltip>}>
+            <Col xs={3} >
+                <Card>
+                <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
+                </Card>
+            </Col>
+        </OverlayTrigger>
     ))
 
     const render = () => {
