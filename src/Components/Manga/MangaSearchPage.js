@@ -65,7 +65,7 @@ function MangaSearchPage({mangaSearchResults, mangaSearchQuery}) {
                 <Col style={{width: '22rem'}} className='mx-auto'>
                     <div className="searchbar">
                         <input type="text" className="search-input" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
-                        <a onClick={handleSearch} className="search-icon"><RiSearchLine/></a>
+                        <a   onClick={handleSearch} className="search-icon"><RiSearchLine/></a>
                     </div>
                 </Col>
                 <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : mangaSearchQuery}</h1>

@@ -40,7 +40,6 @@ function App() {
     fetch("/user")
     .then(r => r.json())
     .then(userData => {
-      console.log("userData in App", userData)
       if (userData.errors) {
         setLoading(false)
         setUser(false)  
@@ -131,13 +130,13 @@ function App() {
             <TopAnimeAiringList />
           </Route>
           <Route exact path="/manga/:id">
-            <MangaPage user={user}/>
+            <MangaPage />
           </Route>
           <Route exact path="/profile">
             <ProfilePage/>
           </Route>
           <Route exact path="/anime/:id">
-            <AnimePage user={user}/>
+            <AnimePage />
           </Route>
           <Route exact path="/login">
             <Login onLogin={onLogin}/>

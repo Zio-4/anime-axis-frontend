@@ -13,23 +13,56 @@ import Alert from 'react-bootstrap/Alert'
 
 
 
-function AnimePage({user}) {
+function AnimePage() {
     const params = useParams()
     const [anime, setAnime] = useState()
-    const [alertState, setAlertState] = useState(false)
+    const [user, setUser] = useState(false)
+    const [loginAlertState, setLoginAlertState] = useState(false)
+    const [addedAlertState, setAddedAlertState] = useState(false)
+    const [listButton, setListButton] = useState(false)
 
-    useEffect(() => {
+    // Fetch user in useEffect
+    // Set list button to true if user.animes includes the current anime fetched
+
+    function fetchUser() {
+        fetch("/user")
+        .then(r => {
+            if (r.ok) {
+                r.json().then(userData => {
+                    setUser(userData)
+                    }
+                )
+            } 
+        }
+    )
+    }
+    
+    function fetchAnime() {
         fetch(`https://api.jikan.moe/v3/anime/${params.id}`)
         .then(r => r.json())
         .then(animeFetched => {
             setAnime(animeFetched)
         })
+    }
+
+    useEffect(() => {
+        fetchUser()
+        fetchAnime()
     }, [params.id])
+
+    // If the anime already belongs in the users anime list, set the button to show that
+    useEffect(() => {
+        if (user && anime) {
+            if (user.animes.find(a => a.title === anime.title)){
+                setListButton(true)
+                }
+            }  
+    }, [user, anime])
 
 
     function handleClick() {
         if (!user) {
-            setAlertState(true)
+            setLoginAlertState(true)
         } else {
             fetch("/animes", {
                 method: "POST",
@@ -40,6 +73,13 @@ function AnimePage({user}) {
             })
             .then(r => r.json())
             .then(createdAnimeData => {
+                console.log(createdAnimeData)
+                if (createdAnimeData.id) {
+                    setAddedAlertState(true)
+                    setListButton(true)
+                } else if (createdAnimeData.message.search("Anime")) {
+                    setListButton(true)
+                }
             }) 
         }
     }
@@ -51,7 +91,7 @@ function AnimePage({user}) {
         <div>
         <Container className="anime-page-container" >
             <Row >
-                <Col className="anime-cards d-flex justify-content-center">
+                <Col className=" anime-cards d-flex justify-content-center">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Img variant="top" src={anime.image_url} />
                         <Card.Body>
@@ -63,10 +103,12 @@ function AnimePage({user}) {
                             <ListGroup.Item variant="dark">Duration: {anime.duration}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
-                            <Button onClick={handleClick} className="add-to-anime-list-button">+ Anime List</Button>
+                            {listButton ? <Button variant="success">Anime in list <span role="img" aria-label="checkmark emoji">✔️</span></Button> : <Button onClick={handleClick} className="add-to-anime-list-button">+ Anime List</Button>}
                         </Card.Body>
+                        {loginAlertState ? <Alert variant="danger" className="anime-page-alert" onClose={() => setLoginAlertState(false)} dismissible>You must be logged in to add an anime!</Alert> : null}
+                        {addedAlertState ? <Alert variant="success" onClose={() => setAddedAlertState(false)} dismissible>Anime has been added to your list</Alert> : null}
                     </Card>
-                    {alertState ? <Alert variant="danger" className="anime-page-alert" onClose={() => setAlertState(false)} dismissible>You must be logged in to add an anime!</Alert> : null}
+                    
                 </Col>
                 <Col className="anime-cards">
                    <Card className="bg-dark text-white">

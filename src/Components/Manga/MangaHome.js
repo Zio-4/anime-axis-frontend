@@ -102,9 +102,9 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         <>
             <Container className="manga-search">
                 <Col style={{width: '22rem'}} className='mx-auto'>
-                    <div class="searchbar">
+                    <div className="searchbar">
                         <input type="text" className="search-input" value={mangaSearchQuery} onChange={handleChange} placeholder="eg. 'Tokyo Ghoul'"/>
-                        <a onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
+                        <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
                     </div>
                 </Col>
             </Container>

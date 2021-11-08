@@ -12,22 +12,53 @@ import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
 
 
-function MangaPage({user}) {
+function MangaPage() {
     const params = useParams()
     const [manga, setManga] = useState()
-    const [alertState, setAlertState] = useState(false)
+    const [user, setUser] = useState()
+    const [loginAlertState, setLoginAlertState] = useState(false)
+    const [addedAlertState, setAddedAlertState] = useState(false)
+    const [listButton, setListButton] = useState(false)
 
-    useEffect(() => {
+    function fetchUser() {
+        fetch("/user")
+        .then(r => {
+            if (r.ok) {
+                r.json().then(userData => {
+                    setUser(userData)
+                    }
+                )
+            } 
+        }
+    )
+    }    
+
+    function fetchManga() {
         fetch(`https://api.jikan.moe/v3/manga/${params.id}`)
         .then(r => r.json())
         .then(mangaFetched => {
             setManga(mangaFetched)
         })
+    }
+
+    useEffect(() => {
+        fetchUser()
+        fetchManga()
     }, [params.id])
+
+    // If the manga already belongs in the users manga list, set the button to show that
+    useEffect(() => {
+        if (user && manga) {
+           if (user.mangas.find(m => m.title === manga.title)) {
+               setListButton(true)
+                }
+            }
+        }, [manga, user]    
+    )
 
     function handleClick() {
         if (!user) {
-            setAlertState(true)
+            setLoginAlertState(true)
         } else {
             fetch("/mangas", {
                 method: "POST",
@@ -39,6 +70,13 @@ function MangaPage({user}) {
             .then(r => r.json())
             .then(createdMangaData => {
                 console.log("manga page, created manga data", createdMangaData)
+                if (createdMangaData.id) {
+                    setAddedAlertState(true)
+                    setListButton(true)
+                } else if (createdMangaData.message.search("Anime")) {
+                    setListButton(true)
+                    setAddedAlertState(true)
+                }
             })
         }
     }
@@ -61,10 +99,11 @@ function MangaPage({user}) {
                                 <ListGroup.Item variant="dark">Volumes:  {manga.volumes}</ListGroup.Item>
                             </ListGroup>
                             <Card.Body>
-                                <Button onClick={handleClick} className="add-to-manga-list-button">+ Manga List</Button>
+                            {listButton ? <Button variant="success">Manga in list <span role="img" aria-label="checkmark emoji">✔️</span></Button> : <Button onClick={handleClick} className="add-to-manga-list-button">+ Manga List</Button>}
                             </Card.Body>
+                            {loginAlertState ? <Alert variant="danger" className="manga-page-alert" onClose={() => setLoginAlertState(false)} dismissible>You must be logged in to add a manga!</Alert> : null}
+                            {addedAlertState ? <Alert variant="success" onClose={() => setAddedAlertState(false)} dismissible>Manga has been added to your list</Alert> : null}
                         </Card>
-                        {alertState ? <Alert variant="danger" className="manga-page-alert" onClose={() => setAlertState(false)} dismissible>You must be logged in to add a manga!</Alert> : null}
                     </Col>
                 </Row>
 

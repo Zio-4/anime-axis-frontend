@@ -61,7 +61,6 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         fetchTopAnimeAiring() 
         fetchTopAnimeByPopularity()
         fetchTopUpcomingAnime()
-        updateAnimeSearchQuery("")
     }, [])
 
     // Update search
@@ -103,9 +102,9 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         <>
         <Container className="anime-search">
             <Col style={{width: '22rem'}} className='mx-auto'>
-                <div class="searchbar">
+                <div className="searchbar">
                     <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
-                    <a onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
+                    <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
                 </div>
             </Col>
         </Container>
