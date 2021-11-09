@@ -23,8 +23,9 @@ function TopAnimeByPopularityList() {
                 <td>
                     <Link to={`/anime/${anime.mal_id}`}>
                         <img src={anime.image_url} alt="anime art"/>
-                        {anime.title}
+                        
                     </Link>
+                    {anime.title}
                 </td>
                 <td>
                     {anime.score}

@@ -12,7 +12,6 @@ function MangaForum({user}) {
         fetch("/forum_posts/manga")
         .then(r => r.json())
         .then(mangas => {
-            console.log("manga forum posts in mangaForum", mangas)
             setMangaPosts(mangas)
         })
     }, [])
