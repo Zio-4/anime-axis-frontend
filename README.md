@@ -1,5 +1,6 @@
 # Install your own copy!
 
+![Screenshot](/Images/Homepage.png)
 
 ## Available Scripts
 
