@@ -12,7 +12,6 @@ import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
 
 
-
 function AnimePage() {
     const params = useParams()
     const [anime, setAnime] = useState()
@@ -59,6 +58,8 @@ function AnimePage() {
             }  
     }, [user, anime])
 
+    
+
 
     function handleClick() {
         if (!user) {
@@ -77,7 +78,7 @@ function AnimePage() {
                 if (createdAnimeData.id) {
                     setAddedAlertState(true)
                     setListButton(true)
-                } else if (createdAnimeData.message.search("Anime")) {
+                } else {
                     setListButton(true)
                 }
             }) 

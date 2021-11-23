@@ -5,30 +5,40 @@ import {Link} from 'react-router-dom'
 import Loading from '../Loading'
 import {Redirect} from 'react-router-dom'
 
-function AnimeList({user}) {
+function AnimeList({user, userData}) {
     const [animeList, setAnimeList] = useState([])
     const [errors, setErrors] = useState([])
 
-    useEffect(() => {
-        fetch("/user")
-        .then(r => {
-            if (r.ok) {
-                // If the response that is returned is not an error, parse it and turn it into JSON
-                r.json().then(userData => {
-                // Sort the user's anime list by title from A-Z
-                const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
-                setAnimeList(animesSortedByName)
-                    }
-                )
-            } else {
-                r.json().then(err => {
-                    setErrors(err.errors)
-                })
-            }
-        }
-    )
+    // useEffect(() => {
+    //     fetch("/user")
+    //     .then(r => {
+    //         if (r.ok) {
+    //             // If the response that is returned is not an error, parse it and turn it into JSON
+    //             r.json().then(userData => {
+    //             // Sort the user's anime list by title from A-Z
+    //             const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
+    //             setAnimeList(animesSortedByName)
+    //                 }
+    //             )
+    //         } else {
+    //             r.json().then(err => {
+    //                 setErrors(err.errors)
+    //             })
+    //         }
+    //     }
+    // )
         
+    // }, [])
+
+    useEffect(() => {
+        // Sort the user's anime list by title from A-Z
+        console.log("userData:", userData)
+        console.log("user animes:", userData.animes)
+        const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
+        setAnimeList(animesSortedByName)
     }, [])
+
+    console.log(userData)
 
     if (errors.length > 0) return <Redirect to="/login" />
     if (!animeList) return <Loading/>
@@ -53,16 +63,19 @@ function AnimeList({user}) {
                     </td>
                 </tr>
             ))
-        } else {
-            return <h1>There are no anime in your list yet. Go add some!</h1>
         }
-        
+    }
+
+    const addAnimeToListMessage = () => {
+        if (animeList.length === 0) {
+            return <h2>There are no anime in your list. Go add some!</h2>
+        } 
     }
 
     return (
         <Container className="users-anime-list">
             <header>
-                <h1>{user.username} anime list</h1>
+                <h1>{userData.username} anime list</h1>
             </header>
             <Table striped bordered hover>
                 <thead>
@@ -76,6 +89,7 @@ function AnimeList({user}) {
                     {renderUsersAnimeList()}
                 </tbody>
             </Table>
+            {addAnimeToListMessage()}
         </Container>
     )
 }

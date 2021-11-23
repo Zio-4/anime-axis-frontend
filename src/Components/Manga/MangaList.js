@@ -51,9 +51,13 @@ function MangaList({user}) {
                     </td>
                 </tr>
             ))
-        } else {
-            return <h1>There are no manga in your list yet. Go add some!</h1>
         }
+    }
+
+    const addMangaToListMessage = () => {
+        if (mangaList.length === 0) {
+            return <h2>There are no manga in your list. Go add some!</h2>
+        } 
     }
 
 
@@ -75,6 +79,7 @@ function MangaList({user}) {
                     {renderUsersMangaList()}
                 </tbody>
             </Table>
+            {addMangaToListMessage()}
         </Container>
     )
 }

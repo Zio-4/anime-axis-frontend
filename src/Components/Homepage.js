@@ -19,7 +19,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
     const history = useHistory()
 
-    //API fetch functions
+    // API fetch functions
 
     const fetchTopAnimesByScore = () => {
         fetch("https://api.jikan.moe/v3/top/anime/1/tv")

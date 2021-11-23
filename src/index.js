@@ -5,15 +5,22 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router} from 'react-router-dom'
+import { QueryClient, QueryClientProvider} from 'react-query'
+import { ReactQueryDevtools } from 'react-query/devtools'
 // import {Provider} from 'react-redux'
 // import store from "./Redux-Toolkit/store"
+
+const queryClient = new QueryClient()
 
 
 ReactDOM.render(
   <Router>
     {/* <Provider store={store}> */}
       <React.StrictMode>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </React.StrictMode>
     {/* </Provider> */}
   </Router>,

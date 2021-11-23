@@ -27,9 +27,12 @@ import ForumPost from "./Components/Forums/ForumPost"
 import AnimeList from "./Components/Anime/AnimeList"
 import MangaList from "./Components/Manga/MangaList"
 import MangaSearchPage from "./Components/Manga/MangaSearchPage"
+import {useQuery} from 'react-query'
+import Axios from 'axios'
 
 function App() {
   const [user, setUser] = useState(false)
+  const [userDataTest, setUserDataTest] = useState(false)
   const [loading, setLoading] = useState(true)
   const [animeSearchQuery, setAnimeSearchQuery] = useState("")
   const [animeSearchResults, setAnimeSearchResults] = useState([])
@@ -49,6 +52,45 @@ function App() {
       }
     })
   }, [])
+
+  // ------------------------------------------------------------------------------------------
+  // useEffect(() => {
+  //   Axios("/userr").then(res => {
+  //     console.log("res in axios:", res.data)
+  //   })
+  //   .catch(err => {
+  //     console.log("User fetch in app:", err)
+  //   })
+    
+  // }, [])
+
+  // useEffect(() => {
+  //     async function getUser() {
+  //     const resp = await Axios('/user')
+  //     setUserDataTest(resp.data)
+  //   }
+  //   getUser()
+  // }, [])
+
+
+   // ------------------------------------------------------------------------------------------
+
+  const fetchUser = async () => {
+    // Axios defaults to a get request
+    try {
+      const res = await Axios('/user')
+    setUserDataTest(res.data)
+    return res;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const userData = useQuery('userData', fetchUser)
+
+  if (userData.isLoading) return <Loading/>
+
+   // ------------------------------------------------------------------------------------------
 
   function onLogin(userData) {
     setUser(userData)
@@ -88,7 +130,7 @@ function App() {
             <MangaList user={user}/>
           </Route>
           <Route exact path="/animelist">
-            <AnimeList user={user}/>
+            <AnimeList user={user} userData={userDataTest}/>
           </Route>
           <Route exact path="/forums/newpost">
             <ForumPostForm user={user}/>
