@@ -21,20 +21,35 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     // fetching data functions
 
     const getTopAnimeByScore = async () => {
-        return await axios("https://api.jikan.moe/v3/top/anime/1/tv")
-        
+        try {
+            return await axios("https://api.jikan.moe/v3/top/anime/1/tv")
+        } catch (error) {
+            console.log(error.message)
+        }
      }
      
      const getTopAnimeByAiring = async () => {
-         return await axios("https://api.jikan.moe/v3/top/anime/1/airing")
+         try {
+            return await axios("https://api.jikan.moe/v3/top/anime/1/airing")
+         } catch(error) {
+             console.log(error.message)
+         }
      }
      
      const getTopAnimeByPopularity = async () => {
-         return await axios("https://api.jikan.moe/v3/top/anime/1/bypopularity")
+         try {
+            return await axios("https://api.jikan.moe/v3/top/anime/1/bypopularity")
+         } catch(error) {
+             console.log(error.message)
+         }
      }
      
      const getTopAnimeByUpcoming = async () => {
-         return await axios("https://api.jikan.moe/v3/top/anime/1/upcoming")
+         try {
+            return await axios("https://api.jikan.moe/v3/top/anime/1/upcoming")
+         } catch(error) {
+             console.log(error.message)
+         }
      }
 
      // Using aliases to identify each fetches data by name

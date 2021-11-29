@@ -20,19 +20,35 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     // fetching data functions
 
     const getTopMangaByScore = async () => {
-        return await axios("https://api.jikan.moe/v3/top/manga/1/manga")     
+        try {
+            return await axios("https://api.jikan.moe/v3/top/manga/1/manga")
+        } catch(error) {
+            console.log(error.message)
+        }
      }
      
      const getTopMangaByOneShots = async () => {
-         return await axios("https://api.jikan.moe/v3/top/manga/1/oneshots")
+         try {
+            return await axios("https://api.jikan.moe/v3/top/manga/1/oneshots")
+         } catch(error) {
+             console.log(error.message)
+         }
      }
      
      const getTopMangaByPopularity = async () => {
-         return await axios("https://api.jikan.moe/v3/top/manga/1/bypopularity")
+         try {
+            return await axios("https://api.jikan.moe/v3/top/manga/1/bypopularity")
+         } catch(error) {
+            console.log(error.message)
+         }
      }
      
      const getTopMangaByNovels = async () => {
-         return await axios("https://api.jikan.moe/v3/top/manga/1/novels")
+         try {
+            return await axios("https://api.jikan.moe/v3/top/manga/1/novels")
+         } catch(error) {
+             console.log(error.message)
+         }
      }
 
      // Using aliases to identify each fetches data by name
