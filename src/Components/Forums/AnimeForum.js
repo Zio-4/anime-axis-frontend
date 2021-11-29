@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import {useHistory, Link} from 'react-router-dom'
+import {useGetData} from '../../Hooks/useGetData'
 
 function AnimeForum({user}) {
     const [animePosts, setAnimePosts] = useState([])
@@ -15,6 +16,14 @@ function AnimeForum({user}) {
             setAnimePosts(animes)
         })
     }, [])
+
+
+    const { data, isLoading, isError} = useGetData('/user')
+    console.log("useAxiosGet Data:", data)
+
+
+
+
 
     function handleClick() {
         if (user) {

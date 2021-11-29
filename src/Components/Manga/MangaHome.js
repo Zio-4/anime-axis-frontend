@@ -10,56 +10,42 @@ import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import {RiSearchLine} from "react-icons/ri";
+import {useQuery} from 'react-query'
+import axios from 'axios'
+import Loading from '../Loading'
 
 function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
-    const [topMangaByScore, setTopMangaByScore] = useState([])
-    const [topMangaOneShots, setTopMangaOneShots] = useState([])
-    const [topMangaByPopularity, setTopMangaByPopularity] = useState([])
-    const [topMangaNovels, setTopMangaNovels] = useState([])
     const history = useHistory() 
 
-    // API fetch functions
+    // fetching data functions
 
-    function fetchTopMangaByScore() {
-        fetch("https://api.jikan.moe/v3/top/manga/1/manga")
-        .then(r => r.json())
-        .then((manga) => {
-            setTopMangaByScore(manga.top.slice(0,5))
-        })
-    }
+    const getTopMangaByScore = async () => {
+        return await axios("https://api.jikan.moe/v3/top/manga/1/manga")     
+     }
+     
+     const getTopMangaByOneShots = async () => {
+         return await axios("https://api.jikan.moe/v3/top/manga/1/oneshots")
+     }
+     
+     const getTopMangaByPopularity = async () => {
+         return await axios("https://api.jikan.moe/v3/top/manga/1/bypopularity")
+     }
+     
+     const getTopMangaByNovels = async () => {
+         return await axios("https://api.jikan.moe/v3/top/manga/1/novels")
+     }
 
-    function fetchTopMangaOneShots() {
-        fetch("https://api.jikan.moe/v3/top/manga/1/oneshots")
-        .then(r => r.json())
-        .then((manga) => {
-            setTopMangaOneShots(manga.top.slice(0,5))
-        })
-    }
-
-    function fetchTopMangaByPopularity() {
-        fetch("https://api.jikan.moe/v3/top/manga/1/bypopularity")
-        .then(r => r.json())
-        .then((manga) => {
-            setTopMangaByPopularity(manga.top.slice(0,5))
-        })
-    }
-
-    function fetchTopMangaNovels() {
-        fetch("https://api.jikan.moe/v3/top/manga/1/novels")
-        .then(r => r.json())
-        .then((manga) => {
-            setTopMangaNovels(manga.top.slice(0,5))
-        })
-    }
-
-    // Call fetch functions
-
-    useEffect(() => {
-        fetchTopMangaByScore()
-        fetchTopMangaOneShots()
-        fetchTopMangaByPopularity()
-        fetchTopMangaNovels()
-    }, [])
+     // Using aliases to identify each fetches data by name
+     
+     const {data: mangaScore, isLoading: mangaScoreLoading} = useQuery('topMangaByScore', getTopMangaByScore)
+     const {data: mangaOneShots, isLoading: mangaOneShotsLoading} = useQuery('topMangaByOneShots', getTopMangaByOneShots)
+     const {data: mangaPopularity, isLoading: mangaPopularityLoading} = useQuery('topMangaByPopularity', getTopMangaByPopularity)
+     const {data: mangaNovels, isLoading: mangaNovelsLoading} = useQuery('topMangaByNovels', getTopMangaByNovels)
+ 
+     if (mangaScoreLoading) return <Loading /> 
+     if (mangaOneShotsLoading) return <Loading />
+     if (mangaPopularityLoading) return <Loading />
+     if (mangaNovelsLoading) return <Loading />
 
     // update search state
 
@@ -80,19 +66,19 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
         history.push(`/search/manga`)
     }
 
-    const renderMangaByScore = topMangaByScore.map(manga => {
+    const renderMangaByScore = mangaScore.data.top.slice(0,5).map(manga => {
         return (<MangaCardByScore key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
-    const renderMangaOneShots = topMangaOneShots.map(manga => {
+    const renderMangaOneShots = mangaOneShots.data.top.slice(0,5).map(manga => {
         return (<MangaCardOneShots key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })    
 
-    const renderMangaByPopularity = topMangaByPopularity.map(manga => {
+    const renderMangaByPopularity = mangaPopularity.data.top.slice(0,5).map(manga => {
         return (<MangaCardByPopularity key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
-    const renderMangaNovels = topMangaNovels.map(manga => {
+    const renderMangaNovels = mangaNovels.data.top.slice(0,5).map(manga => {
         return (<MangaCardNovels key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 

@@ -75,18 +75,18 @@ function App() {
 
    // ------------------------------------------------------------------------------------------
 
-  const fetchUser = async () => {
+  const getUserData = async () => {
     // Axios defaults to a get request
     try {
       const res = await Axios('/user')
     setUserDataTest(res.data)
     return res;
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   }
 
-  const userData = useQuery('userData', fetchUser)
+  const userData = useQuery('userData', getUserData)
 
   if (userData.isLoading) return <Loading/>
 

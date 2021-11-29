@@ -10,58 +10,44 @@ import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import {RiSearchLine} from "react-icons/ri";
+import {useQuery} from 'react-query'
+import axios from 'axios'
+import Loading from './Loading'
 
 
 function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
-    const [topAnimeByScore, setTopAnimeByScore] = useState([])
-    const [topAnimeAiring, setTopAnimeAiring] = useState([])
-    const [topAnimeByPopularity, setTopAnimeByPopularity] = useState([])
-    const [topUpcomingAnime, setTopUpcomingAnime] = useState([])
     const history = useHistory()
 
-    // API fetch functions
+    // fetching data functions
 
-    const fetchTopAnimesByScore = () => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/tv")
-        .then((r) => r.json())
-        .then((data) => {
-                    // Only using the top 5 anime
-                    setTopAnimeByScore(data.top.slice(0,5))
-                })
-            }
+    const getTopAnimeByScore = async () => {
+        return await axios("https://api.jikan.moe/v3/top/anime/1/tv")
+        
+     }
+     
+     const getTopAnimeByAiring = async () => {
+         return await axios("https://api.jikan.moe/v3/top/anime/1/airing")
+     }
+     
+     const getTopAnimeByPopularity = async () => {
+         return await axios("https://api.jikan.moe/v3/top/anime/1/bypopularity")
+     }
+     
+     const getTopAnimeByUpcoming = async () => {
+         return await axios("https://api.jikan.moe/v3/top/anime/1/upcoming")
+     }
+
+     // Using aliases to identify each fetches data by name
+     
+     const {data: animeScore, isLoading: animeScoreLoading} = useQuery('topAnimeByScore', getTopAnimeByScore)
+     const {data: animeAiring, isLoading: animeAiringLoading} = useQuery('topAnimeByAiring', getTopAnimeByAiring)
+     const {data: animePopularity, isLoading: animePopularityLoading} = useQuery('topAnimeByPopularity', getTopAnimeByPopularity)
+     const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useQuery('topAnimeByUpcoming', getTopAnimeByUpcoming)
  
-    const fetchTopAnimeAiring = () => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/airing")
-        .then((r) => r.json())
-        .then((data) => {
-                    setTopAnimeAiring(data.top.slice(0,5))
-                })
-            }
-    
-    const fetchTopAnimeByPopularity = () => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/bypopularity")
-        .then((r) => r.json())
-        .then((data) => {
-                    setTopAnimeByPopularity(data.top.slice(0,5))
-                })
-            }
-
-    const fetchTopUpcomingAnime = () => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/upcoming")
-        .then((r) => r.json())
-        .then((data) => {
-                    setTopUpcomingAnime(data.top.slice(0,5))
-                })
-            }
-
-    // Call fetch functions
-
-    useEffect(() => {
-        fetchTopAnimesByScore()
-        fetchTopAnimeAiring() 
-        fetchTopAnimeByPopularity()
-        fetchTopUpcomingAnime()
-    }, [])
+     if (animeScoreLoading) return <Loading /> 
+     if (animeAiringLoading) return <Loading />
+     if (animePopularityLoading) return <Loading />
+     if (animeUpcomingLoading) return <Loading />
 
     // Update search
 
@@ -82,19 +68,19 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         history.push(`/search/anime`)
     }
 
-    const renderTopAnimeByScoreCards = topAnimeByScore.map(anime => {  
+    const renderTopAnimeByScoreCards = animeScore.data.top.slice(0,5).map(anime => {  
       return (<AnimeCardByScore key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
-    const renderTopAnimeAiring = topAnimeAiring.map(anime => {
+    const renderTopAnimeAiring = animeAiring.data.top.slice(0,5).map(anime => {
         return (<AnimeCardAiring key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
-    const renderTopAnimeByPopularity = topAnimeByPopularity.map(anime => {
+    const renderTopAnimeByPopularity = animePopularity.data.top.slice(0,5).map(anime => {
         return (<AnimeCardPopularity key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
-    const renderTopUpcomingAnime = topUpcomingAnime.map(anime => {
+    const renderTopUpcomingAnime = animeUpcoming.data.top.slice(0,5).map(anime => {
         return (<AnimeCardUpcoming key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
