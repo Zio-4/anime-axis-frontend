@@ -5,43 +5,19 @@ import {Link} from 'react-router-dom'
 import Loading from '../Loading'
 import {Redirect} from 'react-router-dom'
 
-function AnimeList({user, userData}) {
+function AnimeList({user}) {
     const [animeList, setAnimeList] = useState([])
-    const [errors, setErrors] = useState([])
 
-    // useEffect(() => {
-    //     fetch("/user")
-    //     .then(r => {
-    //         if (r.ok) {
-    //             // If the response that is returned is not an error, parse it and turn it into JSON
-    //             r.json().then(userData => {
-    //             // Sort the user's anime list by title from A-Z
-    //             const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
-    //             setAnimeList(animesSortedByName)
-    //                 }
-    //             )
-    //         } else {
-    //             r.json().then(err => {
-    //                 setErrors(err.errors)
-    //             })
-    //         }
-    //     }
-    // )
-        
-    // }, [])
-
-    useEffect(() => {
+    useEffect(() => {      
+        // Guard clause for sort error
+        if (!user) return <Redirect to="/login" />
         // Sort the user's anime list by title from A-Z
-        console.log("userData:", userData)
-        console.log("user animes:", userData.animes)
-        const animesSortedByName = userData.animes.sort((a, b) => a.title.localeCompare(b.title))
+        const animesSortedByName = user.data.animes.sort((a, b) => a.title.localeCompare(b.title))
         setAnimeList(animesSortedByName)
     }, [])
 
-    console.log(userData)
-
-    if (errors.length > 0) return <Redirect to="/login" />
-    if (!animeList) return <Loading/>
+    // Guard clause for returning jsx of undefined properties (user.username)
+    if (!user) return <Redirect to="/login" />
 
     let positionNumber = 0
 
@@ -56,7 +32,7 @@ function AnimeList({user, userData}) {
                         <Link to={`/anime/${a.id}`}>
                             <img src={a.image_url} alt="anime art"/>
                         </Link>
-                        {a.title}
+                        <div >{a.title}</div>
                     </td>
                     <td>
                         {a.score}
@@ -75,7 +51,7 @@ function AnimeList({user, userData}) {
     return (
         <Container className="users-anime-list">
             <header>
-                <h1>{userData.username} anime list</h1>
+                <h1>{user.data.username} anime list</h1>
             </header>
             <Table striped bordered hover>
                 <thead>

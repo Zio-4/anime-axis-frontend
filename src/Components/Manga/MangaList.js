@@ -6,30 +6,17 @@ import Loading from '../Loading'
 
 function MangaList({user}) {
     const [mangaList, setMangaList] = useState([])
-    const [errors, setErrors] = useState([])
 
-    useEffect(() => {
-        fetch("/user")
-        .then(r => {
-            if (r.ok) {
-                r.json().then(userData => {
-                    const mangasSortedByName = userData.mangas.sort((a, b) => a.title.localeCompare(b.title))
-                    setMangaList(mangasSortedByName)
-                    }
-                )
-            } else {
-                r.json().then(err => {
-                    setErrors(err.errors)
-                })
-            }
-        }
-    
-    )
-            
-    },[])
+    useEffect(() => {      
+        // Guard clause for sort error
+        if (!user) return <Redirect to="/login" />
+        // Sort the user's manga list by title from A-Z
+        const mangasSortedByName = user.data.mangas.sort((a, b) => a.title.localeCompare(b.title))
+        setMangaList(mangasSortedByName)
+    }, [])
 
-    if (errors.length > 0) return <Redirect to="/login"/>
-    if (!mangaList) return <Loading/>
+    // Guard clause for returning jsx of undefined properties (user.username)
+    if (!user) return <Redirect to="/login" />
 
     let positionNumber = 0
 
@@ -65,7 +52,7 @@ function MangaList({user}) {
 
         <Container className="users-manga-list">    
             <header>
-                <h1>{user.username} manga list</h1>
+                <h1>{user.data.username} manga list</h1>
             </header>
             <Table striped bordered hover>
                 <thead>

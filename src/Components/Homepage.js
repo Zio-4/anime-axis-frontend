@@ -111,7 +111,7 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
         </Container>
 
         <Container fluid="md" className="homepage-container">
-            <p className='mt-4 text-center'>Top anime by Score</p>
+            <p className='headers mt-4'>Top anime by score</p>
             <Row>
 
                 {renderTopAnimeByScoreCards}
@@ -120,21 +120,21 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
                     <Link to="/topanime/score"><Button className="top-list-button" size="md">See More</Button></Link>
                 </Container>
             </Row>
-            <p className='mt-4 text-center'>Top anime currently airing</p>
+            <p className='headers mt-4'>Top anime currently airing</p>
             <Row>
                 {renderTopAnimeAiring}
                 <Container>
                     <Link to="/topanime/airing"><Button className="top-list-button" size="md">See More</Button></Link>
                 </Container>
             </Row>
-            <p className='mt-4 text-center'>Top upcoming anime</p>
+            <p className='headers mt-4'>Top upcoming anime</p>
             <Row>
                 {renderTopUpcomingAnime}
                 <Container>
                     <Link to="/topanime/upcoming"><Button className="top-list-button" size="md">See More</Button></Link>
                 </Container>
             </Row>
-            <p className='mt-4 text-center'>Top anime by popularity</p>
+            <p className='headers mt-4'>Top anime by popularity</p>
             <Row>
                 {renderTopAnimeByPopularity}
                 <Container>

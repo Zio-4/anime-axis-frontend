@@ -23,6 +23,13 @@ code {
   src: url('../src/Fonts/njnaruto.ttf');
 }
 
+@font-face {
+  font-family: 'Inter', sans-serif;
+  font-family: 'Quicksand', sans-serif;
+  font-family: 'Shippori Antique', sans-serif;
+  src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Quicksand:wght@300&family=Shippori+Antique&display=swap')
+}
+
 .login-container{
   margin-top: 7rem;
 }
@@ -31,6 +38,12 @@ code {
   color:#813AFE;
   font-size: 20pt;
   font-family: 'NarutoFont';
+}
+
+.headers {
+  font-family: 'Inter'; 
+  font-size: 20pt;
+  font-weight: 600;
 }
 
 .icon-img{

@@ -10,7 +10,7 @@ function MangaCardByScore({title, image, id}) {
         <OverlayTrigger placement="top" overlay={
             <Tooltip>{title}</Tooltip>
     }>
-        <Col className="mt-3">
+        <Col>
             <Card className="bg-dark text-white"  key={id}>
                 <Link to={`/manga/${id}`}><Card.Img className="mainpage-cards" src={image} alt="Card image" /></Link>
             </Card>  

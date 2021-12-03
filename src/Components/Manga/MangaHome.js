@@ -111,28 +111,28 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
                 </Col>
             </Container>
             <Container fluid="md" className="manga-homepage-container">
-                <p className='mt-4 text-center'>Top manga by score</p>
+                <p className='headers mt-4'>Top manga by score</p>
                 <Row>
                     {renderMangaByScore}
                     <Container>
                         <Link to="/topmanga/score"><Button className="top-list-button-manga" size="md">See more</Button></Link>
                     </Container>
                 </Row>
-                <p className='mt-4 text-center'>Top manga one-shots</p>
+                <p className='headers mt-4'>Top manga one-shots</p>
                 <Row>
                     {renderMangaOneShots}
                     <Container>
                         <Link to="/topmanga/oneshots"><Button className="top-list-button-manga" size="md">See more</Button></Link>
                     </Container>
                 </Row>
-                <p className='mt-4 text-center'>Top manga by popularity</p>
+                <p className='headers mt-4'>Top manga by popularity</p>
                 <Row>
                     {renderMangaByPopularity}
                     <Container>
                         <Link to="/topmanga/popularity"><Button className="top-list-button-manga" size="md">See more</Button></Link>
                     </Container>
                 </Row>
-                <p className='mt-4 text-center'>Top manga novels</p>
+                <p className='headers mt-4'>Top manga novels</p>
                 <Row>
                     {renderMangaNovels}
                     <Container>

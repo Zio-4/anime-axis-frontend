@@ -10,7 +10,7 @@ function AnimeCardAiring({title, id, image}) {
         <OverlayTrigger placement="top" overlay={
             <Tooltip>{title}</Tooltip>
     }>
-            <Col className="mt-3">
+            <Col >
                 <Card className="mainpage-cards bg-dark text-white fluid"  key={id}>
                     <Link to={`/anime/${id}`}><Card.Img className="mainpage-card-images" src={image} alt="Card image" /></Link>
                 </Card>  

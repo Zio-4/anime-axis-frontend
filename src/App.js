@@ -31,47 +31,26 @@ import {useQuery} from 'react-query'
 import Axios from 'axios'
 
 function App() {
-  const [user, setUser] = useState(false)
-  const [userDataTest, setUserDataTest] = useState(false)
-  const [loading, setLoading] = useState(true)
+  // User state for conditional rendering of logout icon
+  const [userState, setUserState] = useState(false)
   const [animeSearchQuery, setAnimeSearchQuery] = useState("")
   const [animeSearchResults, setAnimeSearchResults] = useState([])
   const [mangaSearchQuery, setMangaSearchQuery] = useState("")
   const [mangaSearchResults, setMangaSearchResults] = useState([])
 
-  useEffect(() => {
-    fetch("/user")
-    .then(r => r.json())
-    .then(userData => {
-      if (userData.errors) {
-        setLoading(false)
-        setUser(false)  
-      } else {
-        setLoading(false)
-        setUser(userData)
-      }
-    })
-  }, [])
-
-  // ------------------------------------------------------------------------------------------
   // useEffect(() => {
-  //   Axios("/userr").then(res => {
-  //     console.log("res in axios:", res.data)
+  //   fetch("/user")
+  //   .then(r => r.json())
+  //   .then(userData => {
+  //     if (userData.errors) {
+  //       setLoading(false)
+  //       setUser(false)  
+  //     } else {
+  //       setLoading(false)
+  //       setUser(userData)
+  //     }
   //   })
-  //   .catch(err => {
-  //     console.log("User fetch in app:", err)
-  //   })
-    
   // }, [])
-
-  // useEffect(() => {
-  //     async function getUser() {
-  //     const resp = await Axios('/user')
-  //     setUserDataTest(resp.data)
-  //   }
-  //   getUser()
-  // }, [])
-
 
    // ------------------------------------------------------------------------------------------
 
@@ -79,26 +58,27 @@ function App() {
     // Axios defaults to a get request
     try {
       const res = await Axios('/user')
-    setUserDataTest(res.data)
+    // setUser(res.data)
+    setUserState(res)
     return res;
     } catch (error) {
       console.log(error.message)
     }
   }
 
-  const userData = useQuery('userData', getUserData)
+  const user = useQuery('userData', getUserData)
 
-  if (userData.isLoading) return <Loading/>
+  if (user.isLoading) return <Loading/>
 
    // ------------------------------------------------------------------------------------------
 
-  function onLogin(userData) {
-    setUser(userData)
-  }
+    // function onLogin(userData) {
+    //   setUser(userData)
+    // }
 
-  function onLogout() {
-    setUser(false)
-  }
+    // function onLogout() {
+    //   setUser(false)
+    // }
 
   function updateAnimeSearchQuery(query) {
     setAnimeSearchQuery(query)
@@ -119,18 +99,15 @@ function App() {
 
   return (
     <div className="App">
-      {loading ? <Loading /> : 
-      <>
-        <NavBar user={user} onLogout={onLogout}/>
+      {/* {loading ? <Loading /> : 
+      <> */}
+        <NavBar user={userState} setUserState={setUserState}/> 
         <Switch>
-          <Route exact path="/loading">
-            <Loading />
-          </Route>
           <Route exact path="/mangalist">
-            <MangaList user={user}/>
+            <MangaList user={user.data}/>
           </Route>
           <Route exact path="/animelist">
-            <AnimeList user={user} userData={userDataTest}/>
+            <AnimeList user={user.data}/>
           </Route>
           <Route exact path="/forums/newpost">
             <ForumPostForm user={user}/>
@@ -181,10 +158,10 @@ function App() {
             <AnimePage />
           </Route>
           <Route exact path="/login">
-            <Login onLogin={onLogin}/>
+            <Login setUserState={setUserState}/>
           </Route>
           <Route exact path="/signup">
-            <SignUp setUser={setUser}/>
+            <SignUp />
           </Route>
           <Route exact path="/search/manga">
             <MangaSearchPage mangaSearchResults={mangaSearchResults} mangaSearchQuery={mangaSearchQuery}/>
@@ -206,9 +183,14 @@ function App() {
             <Redirect from="*" to="/" />
           </Route>
         </Switch>
-      </>}
+      {/* </>} */}
     </div>
   );
 }
 
 export default App;
+
+
+// NavBar = onLogout={onLogout}
+// login = onLogin={onLogin}
+// sign up = setUser={setUser}
