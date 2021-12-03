@@ -4,7 +4,7 @@ import SignUp from "./Components/User/SignUp"
 import {Switch, Route, Redirect} from 'react-router-dom'
 import NavBar from './Components/NavBar'
 import AnimePage from './Components/Anime/AnimePage'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
 import React from 'react'
@@ -32,34 +32,20 @@ import Axios from 'axios'
 
 function App() {
   // User state for conditional rendering of logout icon
-  const [userState, setUserState] = useState(false)
+  const [userStateForNavBar, setUserStateForNavBar] = useState(false)
+  // State for handling search of animes and mangas
   const [animeSearchQuery, setAnimeSearchQuery] = useState("")
   const [animeSearchResults, setAnimeSearchResults] = useState([])
   const [mangaSearchQuery, setMangaSearchQuery] = useState("")
   const [mangaSearchResults, setMangaSearchResults] = useState([])
 
-  // useEffect(() => {
-  //   fetch("/user")
-  //   .then(r => r.json())
-  //   .then(userData => {
-  //     if (userData.errors) {
-  //       setLoading(false)
-  //       setUser(false)  
-  //     } else {
-  //       setLoading(false)
-  //       setUser(userData)
-  //     }
-  //   })
-  // }, [])
-
-   // ------------------------------------------------------------------------------------------
 
   const getUserData = async () => {
     // Axios defaults to a get request
     try {
       const res = await Axios('/user')
     // setUser(res.data)
-    setUserState(res)
+    setUserStateForNavBar(res)
     return res;
     } catch (error) {
       console.log(error.message)
@@ -70,15 +56,6 @@ function App() {
 
   if (user.isLoading) return <Loading/>
 
-   // ------------------------------------------------------------------------------------------
-
-    // function onLogin(userData) {
-    //   setUser(userData)
-    // }
-
-    // function onLogout() {
-    //   setUser(false)
-    // }
 
   function updateAnimeSearchQuery(query) {
     setAnimeSearchQuery(query)
@@ -101,7 +78,7 @@ function App() {
     <div className="App">
       {/* {loading ? <Loading /> : 
       <> */}
-        <NavBar user={userState} setUserState={setUserState}/> 
+        <NavBar user={userStateForNavBar} setUserStateForNavBar={setUserStateForNavBar}/> 
         <Switch>
           <Route exact path="/mangalist">
             <MangaList user={user.data}/>
@@ -158,7 +135,7 @@ function App() {
             <AnimePage />
           </Route>
           <Route exact path="/login">
-            <Login setUserState={setUserState}/>
+            <Login setUserStateForNavBar={setUserStateForNavBar}/>
           </Route>
           <Route exact path="/signup">
             <SignUp />

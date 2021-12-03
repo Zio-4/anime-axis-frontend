@@ -11,7 +11,7 @@ import React from 'react'
 import Alert from 'react-bootstrap/Alert'
 
 
-function Login({setUserState}) {
+function Login({setUserStateForNavBar}) {
     const [formData, setFormData] = useState({
         username:"",
         password:""
@@ -36,7 +36,7 @@ function Login({setUserState}) {
             if (r.ok) {
                 r.json().then((user) => {
                     // onLogin(user)
-                    setUserState(user)
+                    setUserStateForNavBar(user)
                 })
                     history.push("/")
             } else {

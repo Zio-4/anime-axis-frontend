@@ -1,20 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
-import Loading from '../Loading'
 import {Redirect} from 'react-router-dom'
 
 function AnimeList({user}) {
-    const [animeList, setAnimeList] = useState([])
-
-    useEffect(() => {      
-        // Guard clause for sort error
-        if (!user) return <Redirect to="/login" />
-        // Sort the user's anime list by title from A-Z
-        const animesSortedByName = user.data.animes.sort((a, b) => a.title.localeCompare(b.title))
-        setAnimeList(animesSortedByName)
-    }, [])
 
     // Guard clause for returning jsx of undefined properties (user.username)
     if (!user) return <Redirect to="/login" />
@@ -22,8 +12,8 @@ function AnimeList({user}) {
     let positionNumber = 0
 
     const renderUsersAnimeList = () => {
-        if (animeList.length > 0) {
-           return animeList.map(a => (
+        if (user.data.animes.length > 0) {
+           return user.data.animes.map(a => (
                <tr key={a.id}>
                     <td>
                         {positionNumber +=1}
@@ -43,7 +33,7 @@ function AnimeList({user}) {
     }
 
     const addAnimeToListMessage = () => {
-        if (animeList.length === 0) {
+        if (user.data.animes.length === 0) {
             return <h2>There are no anime in your list. Go add some!</h2>
         } 
     }

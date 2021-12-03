@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button'
 import { RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} from "react-icons/ri";
 import { FcImport } from "react-icons/fc";
 
-function NavBar({user, onLogout, setUserState}) {
+function NavBar({user, setUserStateForNavBar}) {
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
 
@@ -17,8 +17,7 @@ function NavBar({user, onLogout, setUserState}) {
         fetch("/logout", {
             method: "DELETE"
         })
-        // onLogout()
-        setUserState(false)
+        setUserStateForNavBar(false)
         setShowModal(false)
         history.push("/")
     }

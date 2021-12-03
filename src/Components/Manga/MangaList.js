@@ -1,19 +1,10 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link, Redirect} from 'react-router-dom'
-import Loading from '../Loading'
+
 
 function MangaList({user}) {
-    const [mangaList, setMangaList] = useState([])
-
-    useEffect(() => {      
-        // Guard clause for sort error
-        if (!user) return <Redirect to="/login" />
-        // Sort the user's manga list by title from A-Z
-        const mangasSortedByName = user.data.mangas.sort((a, b) => a.title.localeCompare(b.title))
-        setMangaList(mangasSortedByName)
-    }, [])
 
     // Guard clause for returning jsx of undefined properties (user.username)
     if (!user) return <Redirect to="/login" />
@@ -21,8 +12,8 @@ function MangaList({user}) {
     let positionNumber = 0
 
     const renderUsersMangaList = () => {
-        if (mangaList.length > 0) {
-           return mangaList.map(m => (
+        if (user.data.mangas.length > 0) {
+           return user.data.mangas.map(m => (
                 <tr key={m.id}>
                     <td>
                         {positionNumber +=1}
@@ -42,7 +33,7 @@ function MangaList({user}) {
     }
 
     const addMangaToListMessage = () => {
-        if (mangaList.length === 0) {
+        if (user.data.mangas.length === 0) {
             return <h2>There are no manga in your list. Go add some!</h2>
         } 
     }
