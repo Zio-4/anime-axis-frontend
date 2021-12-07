@@ -9,6 +9,8 @@ function MangaList({user}) {
     // Guard clause for returning jsx of undefined properties (user.username)
     if (!user) return <Redirect to="/login" />
 
+    console.log("user in mangalist:", user)
+
     let positionNumber = 0
 
     const renderUsersMangaList = () => {

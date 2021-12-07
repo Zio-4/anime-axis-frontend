@@ -29,6 +29,7 @@ import MangaList from "./Components/Manga/MangaList"
 import MangaSearchPage from "./Components/Manga/MangaSearchPage"
 import {useQuery} from 'react-query'
 import Axios from 'axios'
+import {useGetData} from './Hooks/useGetData'
 
 function App() {
   // User state for conditional rendering of logout icon
@@ -52,9 +53,16 @@ function App() {
     }
   }
 
-  const user = useQuery('userData', getUserData)
+  const {data: user, isLoading: userIsLoading} = useQuery('userData', getUserData)
+  // const onSuccess = (user) => setUserStateForNavBar(user)
 
-  if (user.isLoading) return <Loading/>
+  // const {data: user, isLoading: userIsLoading, status} = useGetData('/user', onSuccess)  
+
+  // console.log(status)
+  // console.log("user from hook:", user)
+
+
+  if (userIsLoading) return <Loading/>
 
 
   function updateAnimeSearchQuery(query) {
@@ -81,10 +89,10 @@ function App() {
         <NavBar user={userStateForNavBar} setUserStateForNavBar={setUserStateForNavBar}/> 
         <Switch>
           <Route exact path="/mangalist">
-            <MangaList user={user.data}/>
+            <MangaList user={user}/>
           </Route>
           <Route exact path="/animelist">
-            <AnimeList user={user.data}/>
+            <AnimeList user={user}/>
           </Route>
           <Route exact path="/forums/newpost">
             <ForumPostForm user={user}/>
@@ -132,7 +140,7 @@ function App() {
             <ProfilePage/>
           </Route>
           <Route exact path="/anime/:id">
-            <AnimePage />
+            <AnimePage user={user}/>
           </Route>
           <Route exact path="/login">
             <Login setUserStateForNavBar={setUserStateForNavBar}/>

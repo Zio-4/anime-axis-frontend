@@ -8,19 +8,38 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} from "react-icons/ri";
 import { FcImport } from "react-icons/fc";
+import {queryClient, useQuery, useQueryClient} from 'react-query'
+import axios from 'axios'
 
 function NavBar({user, setUserStateForNavBar}) {
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
+    const queryClient = useQueryClient()
 
-    function logoutUser() {
-        fetch("/logout", {
-            method: "DELETE"
-        })
-        setUserStateForNavBar(false)
+    // Rewrite with react query and async axios function. Wait for response THEN invadlidate the query
+    // function logoutUser() {
+    //     fetch("/logout", {
+    //         method: "DELETE"
+    //     })
+    //     setUserStateForNavBar(false)
+    //     setShowModal(false)
+    //     history.push("/")
+    //     queryClient.invalidateQueries('userData')
+    // }
+
+    const logoutUser = async () => {
         setShowModal(false)
-        history.push("/")
+        try{
+            await axios.delete('/logout')
+            console.log("LoggedOut:")
+            queryClient.invalidateQueries('userData')
+            history.push("/")
+        }catch(error) {
+            console.log(error.message)
+        }
     }
+
+
 
     const handleCloseModal = () => setShowModal(false)
     

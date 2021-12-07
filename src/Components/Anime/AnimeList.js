@@ -9,6 +9,7 @@ function AnimeList({user}) {
     // Guard clause for returning jsx of undefined properties (user.username)
     if (!user) return <Redirect to="/login" />
 
+
     let positionNumber = 0
 
     const renderUsersAnimeList = () => {
