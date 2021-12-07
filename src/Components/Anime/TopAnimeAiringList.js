@@ -1,22 +1,19 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
+import {useGetData} from '../../Hooks/useGetData'
+import Loading from '../Loading'
 
 function TopAnimeAiringList() {
-    const [topAnimeAiring, setTopAnimeAiring] = useState([])
 
-    useEffect(() => {
-        fetch("https://api.jikan.moe/v3/top/anime/1/airing")
-        .then((r) => r.json())
-        .then((data) => {
-                    setTopAnimeAiring(data.top)
-                })
-    }, [])
+    const {data: anime, isLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/airing')
 
-    const renderTopAnimeAiringList = topAnimeAiring.map(anime => {
+    if (isLoading) return <Loading />
+
+    const renderTopAnimeAiringList = anime.data.top.map(anime => {
         return (
-            <tr>
+            <tr key={anime.mal_id}>
                 <td>
                     {anime.rank}
                 </td>

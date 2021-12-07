@@ -27,7 +27,6 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
         setSearchQuery("")
     }
 
-
     const renderResultsFromSearchPage = searchResults.map(anime => (
         <OverlayTrigger key={anime.mal_id} placement="top" overlay={
             <Tooltip>{anime.title}</Tooltip>}>
