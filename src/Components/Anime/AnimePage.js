@@ -31,7 +31,6 @@ function AnimePage({user}) {
 
     if (isLoading) return <Loading />
 
-
    async function handleClick() {
         if (!user) {
             setLoginAlertState(true)

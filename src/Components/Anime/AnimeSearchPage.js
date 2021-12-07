@@ -8,6 +8,7 @@ import {Link} from 'react-router-dom'
 import {RiSearchLine} from "react-icons/ri";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
+import axios from 'axios'
 
 
 function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
@@ -19,14 +20,11 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
         setSearchQuery(mUV => e.target.value)
     }
 
-    function handleSearch() {
-        fetch(`https://api.jikan.moe/v3/search/anime?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
-        .then(r => r.json())
-        .then(searchResultData => {
-            setSearchResults(searchResultData.results)
-            setSearchQueryOnceSearched(searchQuery)
-            setSearchQuery("")
-        })
+    async function handleSearch() {
+        let resp = await axios(`https://api.jikan.moe/v3/search/anime?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
+        setSearchResults(resp.data.results)
+        setSearchQueryOnceSearched(searchQuery)
+        setSearchQuery("")
     }
 
 
