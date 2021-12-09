@@ -47,7 +47,7 @@ function NavBar({user, setUserStateForNavBar}) {
         setShowModal(true)
     }
 
-    console.log("user in navbar:", user)
+    // console.log("user in navbar:", user)
 
     return (
         <>

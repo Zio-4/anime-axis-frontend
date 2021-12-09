@@ -4,25 +4,14 @@ import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import {useHistory, Link} from 'react-router-dom'
 import {useGetData} from '../../Hooks/useGetData'
+import Loading from '../Loading'
 
 function AnimeForum({user}) {
-    const [animePosts, setAnimePosts] = useState([])
     const history = useHistory()
-    
-    useEffect(() => {
-        fetch("/forum_posts/anime")
-        .then(r => r.json())
-        .then(animes => {
-            setAnimePosts(animes)
-        })
-    }, [])
 
+    const { data: animePosts, isLoading } = useGetData('/forum_posts/anime')
 
-    const { data, isLoading, isError} = useGetData('/user')
-    console.log("useAxiosGet Data:", data)
-
-
-
+    if (isLoading) return <Loading />
 
 
     function handleClick() {
@@ -35,17 +24,15 @@ function AnimeForum({user}) {
         }
     }
     
-    const renderAnimePosts = animePosts.map(a => (
-            
-                <tr key={a.id}>
-                    <td>
-                    <Link to={`/forums/post/${a.id}`}>{a.title}</Link>
-                        <br/>
-                        {a.user.username} - {a.post_time}
-                    </td>
-                    <td>{a.number_of_comments}</td>
-                </tr>
-            
+    const renderAnimePosts = animePosts.data.map(a => (  
+            <tr key={a.id}>
+                <td>
+                <Link to={`/forums/post/${a.id}`}>{a.title}</Link>
+                    <br/>
+                    {a.user.username} - {a.post_time}
+                </td>
+                <td>{a.number_of_comments}</td>
+            </tr>
         )
     )
 

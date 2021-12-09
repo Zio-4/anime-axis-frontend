@@ -30,6 +30,7 @@ function ForumPostForm({user}) {
     }, [history.location.state])
 
 
+
     function handleSubmit(e){
         e.preventDefault()
         fetch("/forum_posts", {
@@ -39,7 +40,7 @@ function ForumPostForm({user}) {
                 "Accept": "application/json",
             },
             body: JSON.stringify({
-                title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.id}
+                title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id}
             ),
         })
         .then(r => r.json())

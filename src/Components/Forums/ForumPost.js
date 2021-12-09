@@ -7,30 +7,38 @@ import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
 import Comment from './Comment'
+import {useGetData} from '../../Hooks/useGetData'
+import axios from 'axios'
+import { useMutation, useQueryClient } from 'react-query'
 
 function ForumPost({user}) {
-    const [forumPost, setForumPost] = useState()
-    const [comments, setComments] = useState([])
-    const [show, setShow] = useState(false);
+
     const params = useParams()
+    const [show, setShow] = useState(false);
     const [modalTextValue, setModalTextValue] = useState("")
     const [alertState, setAlertState] = useState(false)
+    const queryClient = useQueryClient()
 
-    useEffect(() => {
-        fetch(`/forum_posts/${params.id}`)
-        .then(r => r.json())
-        .then(post => {
-            setForumPost(post)
-        })
-    }, [params.id])
+    const postNewComment = useMutation(addNewComment => {
+        return axios.post('/comments', addNewComment)
+    }, {onSuccess: (data) => {
+            queryClient.setQueryData(`getData/comments/${params.id}`, (oldQueryData) => {
+                return {
+                    ...oldQueryData,
+                    data: [...oldQueryData.data, data.data]
+                }
+            })
+            setModalTextValue("")
+            setShow(false)
+        }
+    }) 
 
-    useEffect(() => {
-        fetch(`/comments/${params.id}`) 
-        .then(r => r.json())
-        .then(commentData => {
-            setComments(commentData)
-        })
-    }, [comments.length, params.id])
+    const { data: comments, isLoading: commentsIsLoading } = useGetData(`/comments/${params.id}`)
+    const { data: forumPost, isLoading: forumPostIsLoading } = useGetData(`/forum_posts/${params.id}`)
+
+    if (forumPostIsLoading) return <Loading />
+    if (commentsIsLoading) return <Loading />
+
 
     const handleClose = () => setShow(false);
     function handleShow() {
@@ -42,33 +50,17 @@ function ForumPost({user}) {
     } 
 
 
-    const renderComments = comments.map(c => (
+    const renderComments = comments.data.map(c => (
         <Comment key={c.id} content={c.content} time={c.comment_time} username={c.user.username}/>
     ))
 
+
+
     function handleSubmit(e) {
         e.preventDefault()
-        fetch("/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify({
-                content: modalTextValue, forum_post_id: forumPost.id, user_id: user.id}
-            ),
-        })
-        .then(r => r.json())
-        .then(newComment => {
-            console.log("returnedData", newComment)
-            setModalTextValue("")
-            setShow(false)
-            setComments(((mUV) => [...comments, newComment]))
-        })
+        postNewComment.mutate({content: modalTextValue, forum_post_id: forumPost.data.id, user_id: user.data.id})
     }
 
-
-    if (!forumPost) return <Loading/>
 
     return (
         <div>
@@ -76,11 +68,11 @@ function ForumPost({user}) {
                 <Button onClick={handleShow} className="comment-button">Comment on post</Button>
                 {alertState ? <Alert variant="danger" className="forum-post-alert" onClose={() => setAlertState(false)} dismissible>You must first login to comment</Alert> : null}
                 <Card className="forum-post-card" border="dark">
-                    <Card.Header>By {forumPost.user.username}</Card.Header>
+                    <Card.Header>By {forumPost.data.user.username}</Card.Header>
                     <Card.Body>
-                        <Card.Title>{forumPost.title}</Card.Title>
+                        <Card.Title>{forumPost.data.title}</Card.Title>
                         <Card.Text>
-                            {forumPost.content}
+                            {forumPost.data.content}
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer className="text-muted">{forumPost.post_time}</Card.Footer>
