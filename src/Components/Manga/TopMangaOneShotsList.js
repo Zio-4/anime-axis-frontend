@@ -1,22 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
+import {useGetData} from '../../Hooks/useGetData'
+import Loading from '../Loading'
 
 function TopMangaOneShotsList() {
-    const [topMangaOneShots, setTopMangaOneShots] = useState([])
+    const {data: manga, isLoading} = useGetData('https://api.jikan.moe/v3/top/manga/1/oneshots')
 
-    useEffect(() => {
-        fetch("https://api.jikan.moe/v3/top/manga/1/oneshots")
-        .then((r) => r.json())
-        .then((data) => {
-                setTopMangaOneShots(data.top)
-                })
-    }, [])
+    if (isLoading) return <Loading />
 
-    const renderTopMangaOneShots = topMangaOneShots.map(manga => {
+    const renderTopMangaOneShots = manga.data.top.map(manga => {
         return (
-            <tr>
+            <tr key={manga.mal_id}>
                 <td>
                     {manga.rank}
                 </td>
@@ -35,7 +31,7 @@ function TopMangaOneShotsList() {
     })
 
     return (
-<Container className="top-manga-oneshots-list">
+        <Container className="top-manga-oneshots-list">
             <header>
                 <h1>Top 50 manga one-shots</h1>
             </header>

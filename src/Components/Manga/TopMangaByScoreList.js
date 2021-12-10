@@ -1,22 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Table from 'react-bootstrap/Table'
 import {Link} from 'react-router-dom'
+import {useGetData} from '../../Hooks/useGetData'
+import Loading from '../Loading'
 
 function TopMangaByScoreList() {
-    const [topMangaByScore, setTopMangaByScore] = useState([])
+    const {data: manga, isLoading} = useGetData('https://api.jikan.moe/v3/top/manga/1/manga')
 
-    useEffect(() => {
-        fetch("https://api.jikan.moe/v3/top/manga/1/manga")
-        .then((r) => r.json())
-        .then((data) => {
-                setTopMangaByScore(data.top)
-                })
-    }, [])
+    if (isLoading) return <Loading />
 
-    const renderTopMangaByScore = topMangaByScore.map(manga => {
+    const renderTopMangaByScore = manga.data.top.map(manga => {
         return (
-            <tr>
+            <tr key={manga.mal_id}>
                 <td>
                     {manga.rank}
                 </td>

@@ -21,8 +21,8 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
     }
 
     async function handleSearch() {
-        let resp = await axios(`https://api.jikan.moe/v3/search/anime?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
-        setSearchResults(resp.data.results)
+        let response = await axios(`https://api.jikan.moe/v3/search/anime?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
+        setSearchResults(response.data.results)
         setSearchQueryOnceSearched(searchQuery)
         setSearchQuery("")
     }

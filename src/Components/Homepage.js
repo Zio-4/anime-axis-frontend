@@ -1,4 +1,3 @@
-import {useEffect, useState} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import AnimeCardByScore from './Anime/AnimeCardByScore'
@@ -10,9 +9,8 @@ import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import {RiSearchLine} from "react-icons/ri";
-import {useQuery} from 'react-query'
-import axios from 'axios'
 import Loading from './Loading'
+import {useGetData} from '../Hooks/useGetData'
 
 
 function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
@@ -20,44 +18,12 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
 
     // fetching data functions
 
-    const getTopAnimeByScore = async () => {
-        try {
-            return await axios("https://api.jikan.moe/v3/top/anime/1/tv")
-        } catch (error) {
-            console.log(error.message)
-        }
-     }
-     
-     const getTopAnimeByAiring = async () => {
-         try {
-            return await axios("https://api.jikan.moe/v3/top/anime/1/airing")
-         } catch(error) {
-             console.log(error.message)
-         }
-     }
-     
-     const getTopAnimeByPopularity = async () => {
-         try {
-            return await axios("https://api.jikan.moe/v3/top/anime/1/bypopularity")
-         } catch(error) {
-             console.log(error.message)
-         }
-     }
-     
-     const getTopAnimeByUpcoming = async () => {
-         try {
-            return await axios("https://api.jikan.moe/v3/top/anime/1/upcoming")
-         } catch(error) {
-             console.log(error.message)
-         }
-     }
-
      // Using aliases to identify each fetches data by name
      
-     const {data: animeScore, isLoading: animeScoreLoading} = useQuery('topAnimeByScore', getTopAnimeByScore)
-     const {data: animeAiring, isLoading: animeAiringLoading} = useQuery('topAnimeByAiring', getTopAnimeByAiring)
-     const {data: animePopularity, isLoading: animePopularityLoading} = useQuery('topAnimeByPopularity', getTopAnimeByPopularity)
-     const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useQuery('topAnimeByUpcoming', getTopAnimeByUpcoming)
+     const {data: animeScore, isLoading: animeScoreLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/tv')
+     const {data: animeAiring, isLoading: animeAiringLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/airing')
+     const {data: animePopularity, isLoading: animePopularityLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/bypopularity')
+     const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/upcoming')
  
      if (animeScoreLoading) return <Loading /> 
      if (animeAiringLoading) return <Loading />
@@ -101,47 +67,47 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
 
     return (
         <>
-        <Container className="anime-search">
-            <Col style={{width: '22rem'}} className='mx-auto'>
-                <div className="searchbar">
-                    <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
-                    <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
-                </div>
-            </Col>
-        </Container>
+            <Container className="anime-search">
+                <Col style={{width: '22rem'}} className='mx-auto'>
+                    <div className="searchbar">
+                        <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
+                        <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
+                    </div>
+                </Col>
+            </Container>
 
-        <Container fluid="md" className="homepage-container">
-            <p className='headers mt-4'>Top anime by score</p>
-            <Row>
+            <Container fluid="md" className="homepage-container">
+                <p className='headers mt-4'>Top anime by score</p>
+                <Row>
 
-                {renderTopAnimeByScoreCards}
+                    {renderTopAnimeByScoreCards}
 
-                <Container>
-                    <Link to="/topanime/score"><Button className="top-list-button" size="md">See More</Button></Link>
-                </Container>
-            </Row>
-            <p className='headers mt-4'>Top anime currently airing</p>
-            <Row>
-                {renderTopAnimeAiring}
-                <Container>
-                    <Link to="/topanime/airing"><Button className="top-list-button" size="md">See More</Button></Link>
-                </Container>
-            </Row>
-            <p className='headers mt-4'>Top upcoming anime</p>
-            <Row>
-                {renderTopUpcomingAnime}
-                <Container>
-                    <Link to="/topanime/upcoming"><Button className="top-list-button" size="md">See More</Button></Link>
-                </Container>
-            </Row>
-            <p className='headers mt-4'>Top anime by popularity</p>
-            <Row>
-                {renderTopAnimeByPopularity}
-                <Container>
-                    <Link to="/topanime/popularity"><Button className="top-list-button" id="bottom-see-more-button-anime" size="md">See More</Button></Link>
-                </Container>
-            </Row>
-        </Container>
+                    <Container>
+                        <Link to="/topanime/score"><Button className="top-list-button" size="md">See More</Button></Link>
+                    </Container>
+                </Row>
+                <p className='headers mt-4'>Top anime currently airing</p>
+                <Row>
+                    {renderTopAnimeAiring}
+                    <Container>
+                        <Link to="/topanime/airing"><Button className="top-list-button" size="md">See More</Button></Link>
+                    </Container>
+                </Row>
+                <p className='headers mt-4'>Top upcoming anime</p>
+                <Row>
+                    {renderTopUpcomingAnime}
+                    <Container>
+                        <Link to="/topanime/upcoming"><Button className="top-list-button" size="md">See More</Button></Link>
+                    </Container>
+                </Row>
+                <p className='headers mt-4'>Top anime by popularity</p>
+                <Row>
+                    {renderTopAnimeByPopularity}
+                    <Container>
+                        <Link to="/topanime/popularity"><Button className="top-list-button" id="bottom-see-more-button-anime" size="md">See More</Button></Link>
+                    </Container>
+                </Row>
+            </Container>
         </>
     )
 }

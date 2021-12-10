@@ -1,6 +1,6 @@
 import React from 'react'
-import {useParams} from 'react-router-dom'
-import {useEffect, useState} from 'react'
+import { useParams } from 'react-router-dom'
+import { useState } from 'react'
 import Loading from '../Loading'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
@@ -10,78 +10,45 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Badge from 'react-bootstrap/Badge'
 import Alert from 'react-bootstrap/Alert'
+import { useGetData } from '../../Hooks/useGetData'
+import axios from 'axios'
 
 
-function MangaPage() {
+function MangaPage({user}) {
     const params = useParams()
-    const [manga, setManga] = useState()
-    const [user, setUser] = useState()
     const [loginAlertState, setLoginAlertState] = useState(false)
     const [addedAlertState, setAddedAlertState] = useState(false)
     const [listButton, setListButton] = useState(false)
 
-    function fetchUser() {
-        fetch("/user")
-        .then(r => {
-            if (r.ok) {
-                r.json().then(userData => {
-                    setUser(userData)
-                    }
-                )
-            } 
-        }
-    )
-    }    
 
-    function fetchManga() {
-        fetch(`https://api.jikan.moe/v3/manga/${params.id}`)
-        .then(r => r.json())
-        .then(mangaFetched => {
-            setManga(mangaFetched)
-        })
+    const onSuccess = (manga) => {
+        if (user && manga) {
+            if (user.data.mangas.find(m => m.title === manga.data.title)){
+                setListButton(true)
+                }
+            } 
     }
 
-    useEffect(() => {
-        fetchUser()
-        fetchManga()
-    }, [params.id])
+    const {data: manga, isLoading} = useGetData(`https://api.jikan.moe/v3/manga/${params.id}`, onSuccess)
 
-    // If the manga already belongs in the users manga list, set the button to show that
-    useEffect(() => {
-        if (user && manga) {
-           if (user.mangas.find(m => m.title === manga.title)) {
-               setListButton(true)
-                }
-            }
-        }, [manga, user]    
-    )
+    if (isLoading) return <Loading />    
 
-    function handleClick() {
+
+    async function handleClick() {
         if (!user) {
             setLoginAlertState(true)
         } else {
-            fetch("/mangas", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({title: manga.title, id: manga.mal_id, image_url: manga.image_url , score: manga.score, user_id: user.id})
-            })
-            .then(r => r.json())
-            .then(createdMangaData => {
-                console.log("manga page, created manga data", createdMangaData)
-                if (createdMangaData.id) {
-                    setAddedAlertState(true)
+            try {
+                let resp = await axios.post('/mangas', {title: manga.data.title, id: manga.data.mal_id, image_url: manga.data.image_url , score: manga.data.score, user_id: user.id})
+                if (resp.data) {
                     setListButton(true)
-                } else if (createdMangaData.message.search("Anime")) {
-                    setListButton(true)
-                    setAddedAlertState(true)
+                    setAddedAlertState(true) 
                 }
-            })
+            } catch (error) {
+                console.log(error)
+            }
         }
     }
-
-    if (!manga) return <Loading />
 
     return (
         <div>
@@ -89,14 +56,14 @@ function MangaPage() {
                 <Row>
                     <Col className="d-flex justify-content-center mb-2">
                         <Card style={{ width: '18rem'}} className="bg-dark text-white ">
-                            <Card.Img variant="top" src={manga.image_url} />
+                            <Card.Img variant="top" src={manga.data.image_url} />
                             <Card.Body>
-                                <Card.Title>{manga.title_english ? manga.title_english : manga.title}</Card.Title>
+                                <Card.Title>{manga.data.title_english ? manga.data.title_english : manga.data.title}</Card.Title>
                             </Card.Body>
                             <ListGroup className="list-group-flush">
-                                <ListGroup.Item variant="dark">Rank:  {manga.rank}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Chapters:  {manga.chapters ? manga.chapters : "Unknown"}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Volumes:  {manga.volumes}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Rank:  {manga.data.rank}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Chapters:  {manga.data.chapters ? manga.data.chapters : "Unknown"}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Volumes:  {manga.data.volumes}</ListGroup.Item>
                             </ListGroup>
                             <Card.Body>
                             {listButton ? <Button variant="success">Manga in list <span role="img" aria-label="checkmark emoji">✔️</span></Button> : <Button onClick={handleClick} className="add-to-manga-list-button">+ Manga List</Button>}
@@ -113,18 +80,18 @@ function MangaPage() {
                     <Card.Body>
                             <Card.Title>Synopsis</Card.Title>
                             <Card.Text>
-                                {manga.synopsis}
+                                {manga.data.synopsis}
                             </Card.Text>
                         </Card.Body>
                     </Card>
 
-                        {manga.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
+                        {manga.data.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
 
                         <Card id="manga-background-card" className="bg-dark text-white mb-2"> 
                             <Card.Body>
                                 <Card.Title>Background</Card.Title>
                                 <Card.Text>
-                                    {manga.background}
+                                    {manga.data.background}
                                 </Card.Text>
                             </Card.Body>
                         </Card>
@@ -135,15 +102,15 @@ function MangaPage() {
                         <Card style={{ width: '18rem' }} className="bg-dark text-white ">
                             <Card.Header>Manga Info</Card.Header>
                             <ListGroup variant="flush">
-                                <ListGroup.Item variant="dark">Published: {manga.published.string}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Type:  {manga.type}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Authors:  {manga.authors.map(auth => <li key={auth.name}>{auth.name}</li>)}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Rank by popularity:  {manga.popularity}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Serializations:  {manga.serializations.map(s => <li key={s.name}>{s.name}</li>)}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">MyAnimeList Score:  {manga.score}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Status:  {manga.status}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Japanese Title:  {manga.title_japanese}</ListGroup.Item>
-                                <ListGroup.Item variant="dark">Synonyms:  {manga.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Published: {manga.data.published.string}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Type:  {manga.data.type}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Authors:  {manga.data.authors.map(author => <li key={author.name}>{author.name}</li>)}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Rank by popularity:  {manga.data.popularity}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Serializations:  {manga.data.serializations.map(s => <li key={s.name}>{s.name}</li>)}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">MyAnimeList Score:  {manga.data.score}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Status:  {manga.data.status}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Japanese Title:  {manga.data.title_japanese}</ListGroup.Item>
+                                <ListGroup.Item variant="dark">Synonyms:  {manga.data.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
                             </ListGroup>
                         </Card>
                     </Col>

@@ -12,7 +12,6 @@ import axios from 'axios'
 import { useMutation, useQueryClient } from 'react-query'
 
 function ForumPost({user}) {
-
     const params = useParams()
     const [show, setShow] = useState(false);
     const [modalTextValue, setModalTextValue] = useState("")

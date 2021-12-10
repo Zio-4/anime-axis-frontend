@@ -1,7 +1,6 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import {useEffect, useState} from 'react'
 import MangaCardByPopularity from './MangaCardByPopularity'
 import MangaCardByScore from './MangaCardByScore'
 import MangaCardNovels from './MangaCardNovels'
@@ -10,53 +9,20 @@ import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import {RiSearchLine} from "react-icons/ri";
-import {useQuery} from 'react-query'
-import axios from 'axios'
 import Loading from '../Loading'
+import {useGetData} from '../../Hooks/useGetData'
 
 function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     const history = useHistory() 
 
     // fetching data functions
 
-    const getTopMangaByScore = async () => {
-        try {
-            return await axios("https://api.jikan.moe/v3/top/manga/1/manga")
-        } catch(error) {
-            console.log(error.message)
-        }
-     }
-     
-     const getTopMangaByOneShots = async () => {
-         try {
-            return await axios("https://api.jikan.moe/v3/top/manga/1/oneshots")
-         } catch(error) {
-             console.log(error.message)
-         }
-     }
-     
-     const getTopMangaByPopularity = async () => {
-         try {
-            return await axios("https://api.jikan.moe/v3/top/manga/1/bypopularity")
-         } catch(error) {
-            console.log(error.message)
-         }
-     }
-     
-     const getTopMangaByNovels = async () => {
-         try {
-            return await axios("https://api.jikan.moe/v3/top/manga/1/novels")
-         } catch(error) {
-             console.log(error.message)
-         }
-     }
-
      // Using aliases to identify each fetches data by name
      
-     const {data: mangaScore, isLoading: mangaScoreLoading} = useQuery('topMangaByScore', getTopMangaByScore)
-     const {data: mangaOneShots, isLoading: mangaOneShotsLoading} = useQuery('topMangaByOneShots', getTopMangaByOneShots)
-     const {data: mangaPopularity, isLoading: mangaPopularityLoading} = useQuery('topMangaByPopularity', getTopMangaByPopularity)
-     const {data: mangaNovels, isLoading: mangaNovelsLoading} = useQuery('topMangaByNovels', getTopMangaByNovels)
+     const {data: mangaScore, isLoading: mangaScoreLoading} = useGetData('https://api.jikan.moe/v3/top/manga/1/manga')
+     const {data: mangaOneShots, isLoading: mangaOneShotsLoading} = useGetData('https://api.jikan.moe/v3/top/manga/1/oneshots')
+     const {data: mangaPopularity, isLoading: mangaPopularityLoading} = useGetData('https://api.jikan.moe/v3/top/manga/1/bypopularity')
+     const {data: mangaNovels, isLoading: mangaNovelsLoading} = useGetData('https://api.jikan.moe/v3/top/manga/1/novels')
  
      if (mangaScoreLoading) return <Loading /> 
      if (mangaOneShotsLoading) return <Loading />
