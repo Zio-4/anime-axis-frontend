@@ -1,21 +1,18 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import Table from 'react-bootstrap/Table'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import {useHistory, Link} from 'react-router-dom'
+import Loading from '../Loading'
+import {useGetData} from '../../Hooks/useGetData'
 
 
 function GeneralForum({user}) {
-    const [generalPosts, setGeneralPosts] = useState([])
     const history = useHistory()
-    
-    useEffect(() => {
-        fetch("/forum_posts/general")
-        .then(r => r.json())
-        .then(general => {
-            setGeneralPosts(general)
-        })
-    }, [])
+
+    const { data: generalPosts, isLoading } = useGetData('/forum_posts/general')
+
+    if (isLoading) return <Loading />
 
     function handleClick() {
         if (user) {
@@ -27,7 +24,7 @@ function GeneralForum({user}) {
         }
     }
 
-    const renderGeneralPosts = generalPosts.map(g => (
+    const renderGeneralPosts = generalPosts.data.map(g => (
             <tr key={g.id}>
                 <td>
                 <Link to={`/forums/post/${g.id}`}>{g.title}</Link>
