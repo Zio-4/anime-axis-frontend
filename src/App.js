@@ -33,7 +33,7 @@ import {useGetData} from './Hooks/useGetData'
 
 function App() {
   // User state for conditional rendering of logout icon
-  const [userStateForNavBar, setUserStateForNavBar] = useState(false)
+  const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
   // State for handling search of animes and mangas
   const [animeSearchQuery, setAnimeSearchQuery] = useState("")
   const [animeSearchResults, setAnimeSearchResults] = useState([])
@@ -41,27 +41,27 @@ function App() {
   const [mangaSearchResults, setMangaSearchResults] = useState([])
 
 
-  const getUserData = async () => {
-    // Axios defaults to a get request
-    try {
-      const res = await Axios('/user')
-    // setUser(res.data)
-    setUserStateForNavBar(res)
-    return res;
-    } catch (error) {
-      console.log(error.message)
+  // const getUserData = async () => {
+  //   // Axios defaults to a get request
+  //   try {
+  //     const res = await Axios('/user')
+  //   // setUser(res.data)
+  //   setUserIsLoggedIn(true)
+  //   return res;
+  //   } catch (error) {
+  //     console.log(error.message)
+  //   }
+  // }
+
+  const onSuccess = (data) => {
+    if (data) {
+      setUserIsLoggedIn(true)
     }
+    
   }
 
-  const {data: user, isLoading: userIsLoading} = useQuery('userData', getUserData)
-  // const onSuccess = (user) => setUserStateForNavBar(user)
-
-  // const {data: user, isLoading: userIsLoading, status} = useGetData('/user', onSuccess)  
-
-  // console.log(status)
-  // console.log("user from hook:", user)
-
-
+  const {data: user, isLoading: userIsLoading} = useGetData('/user', onSuccess)
+  
   if (userIsLoading) return <Loading/>
 
 
@@ -86,7 +86,7 @@ function App() {
     <div className="App">
       {/* {loading ? <Loading /> : 
       <> */}
-        <NavBar user={userStateForNavBar} setUserStateForNavBar={setUserStateForNavBar}/> 
+        <NavBar userIsLoggedIn={userIsLoggedIn} setUserIsLoggedIn={setUserIsLoggedIn}/> 
         <Switch>
           <Route exact path="/mangalist">
             <MangaList user={user}/>
@@ -143,7 +143,7 @@ function App() {
             <AnimePage user={user}/>
           </Route>
           <Route exact path="/login">
-            <Login setUserStateForNavBar={setUserStateForNavBar}/>
+            <Login setUserIsLoggedIn={setUserIsLoggedIn}/>
           </Route>
           <Route exact path="/signup">
             <SignUp />

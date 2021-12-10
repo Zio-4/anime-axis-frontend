@@ -9,9 +9,10 @@ import {Link, useHistory} from 'react-router-dom'
 import {useState} from 'react'
 import React from 'react'
 import Alert from 'react-bootstrap/Alert'
+import axios from 'axios'
 
 
-function Login({setUserStateForNavBar}) {
+function Login({setUserIsLoggedIn}) {
     const [formData, setFormData] = useState({
         username:"",
         password:""
@@ -24,27 +25,17 @@ function Login({setUserStateForNavBar}) {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    function handleLogin(e) {
+    async function handleLogin(e) {
         e.preventDefault()
-        fetch("/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        }).then((r) => {
-            if (r.ok) {
-                r.json().then((user) => {
-                    // onLogin(user)
-                    setUserStateForNavBar(user)
-                })
-                    history.push("/")
-            } else {
-                r.json().then((err) => {
-                    setErrors(err.error)
-                })
-            }
-        })
+        try {
+            await axios.post('/login', formData)
+            setUserIsLoggedIn(true)
+            history.push("/")
+        } catch (err) {
+            console.log("Login error:", err.response.data.message)
+            setErrors(err.response.data.message)
+        }
+        
     }    
 
     return (

@@ -8,37 +8,23 @@ import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 import { RiDiscussFill, RiHome2Fill, RiUser3Fill, RiFileMarkFill} from "react-icons/ri";
 import { FcImport } from "react-icons/fc";
-import {queryClient, useQuery, useQueryClient} from 'react-query'
 import axios from 'axios'
 
-function NavBar({user, setUserStateForNavBar}) {
+function NavBar({userIsLoggedIn, setUserIsLoggedIn}) {
     const [showModal, setShowModal] = useState(false)
     const history = useHistory()
-    const queryClient = useQueryClient()
 
-    // Rewrite with react query and async axios function. Wait for response THEN invadlidate the query
-    // function logoutUser() {
-    //     fetch("/logout", {
-    //         method: "DELETE"
-    //     })
-    //     setUserStateForNavBar(false)
-    //     setShowModal(false)
-    //     history.push("/")
-    //     queryClient.invalidateQueries('userData')
-    // }
 
-    const logoutUser = async () => {
-        setShowModal(false)
+    const logoutUser = async () => {       
         try{
             await axios.delete('/logout')
-            console.log("LoggedOut:")
-            queryClient.invalidateQueries('userData')
+            setShowModal(false)
+            setUserIsLoggedIn(false)
             history.push("/")
         }catch(error) {
             console.log(error.message)
         }
     }
-
 
 
     const handleCloseModal = () => setShowModal(false)
@@ -47,7 +33,6 @@ function NavBar({user, setUserStateForNavBar}) {
         setShowModal(true)
     }
 
-    // console.log("user in navbar:", user)
 
     return (
         <>
@@ -71,7 +56,7 @@ function NavBar({user, setUserStateForNavBar}) {
                     </Nav>
                     <Nav>
                         <Nav.Link href="/profile"><RiUser3Fill /></Nav.Link>
-                        {user ? <Nav.Link href="" id="logout-button" onClick={handleShowModal}><FcImport/></Nav.Link> : null}
+                        {userIsLoggedIn ? <Nav.Link href="" id="logout-button" onClick={handleShowModal}><FcImport/></Nav.Link> : null}
                     </Nav>
                 </Container>
             </Navbar>

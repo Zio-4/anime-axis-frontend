@@ -21,7 +21,7 @@ function ForumPostForm({user}) {
 
     // Use the location state to provide the correct forum id for the backend when creating a new forum post
     useEffect(() => {
-        if (history.location.state === undefined) {
+        if (!history.location.state) {
             setForumIdState(1)
         } else if (history.location.state.from === "manga forum") {
             setForumIdState(2)
