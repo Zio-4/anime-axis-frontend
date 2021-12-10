@@ -13,10 +13,6 @@ code {
     monospace;
 }
 
-.sidebar{
-  min-height: calc(100vh - 2em);
-  position: fixed;
-}
 
 @font-face {
   font-family: 'NarutoFont';
@@ -93,12 +89,15 @@ code {
   text-align: center;
 }
 
+.forum-post-form-container{
+  margin-top: 12rem;
+}
+
 .profile-container {
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
     min-height: 100vh;
-    
 }
 
 #profile-icon, .top-list-button {

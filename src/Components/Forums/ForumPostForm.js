@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import {useHistory} from 'react-router-dom'
+import axios from 'axios'
 
 
 function ForumPostForm({user}) {
@@ -31,33 +32,16 @@ function ForumPostForm({user}) {
 
 
 
-    function handleSubmit(e){
+    async function handleSubmit(e){
         e.preventDefault()
-        fetch("/forum_posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify({
-                title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id}
-            ),
-        })
-        .then(r => r.json())
-        .then(returnedData => {
-            console.log("returnedData", returnedData)
-            setFormData({
-                title:"",
-                content:""
-            })
-            history.push(`/forums/post/${returnedData.id}`)
-        })
-            
+        let response = await axios.post('/forum_posts', {title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id})
+        setFormData({title:"", content:""})
+        history.push(`/forums/post/${response.data.id}`)
     }
 
     return (
-        <Container className="anime-post-form-container">
-            <Form onSubmit={handleSubmit}>
+        <Container className="forum-post-form-container">
+            <Form onSubmit={handleSubmit} >
                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                     <Form.Label>Post title</Form.Label>
                     <Form.Control type="text" onChange={handleChange} name="title" value={formData.title} placeholder="Why did the chicken cross the road?" />
