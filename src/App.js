@@ -41,18 +41,6 @@ function App() {
   const [mangaSearchResults, setMangaSearchResults] = useState([])
 
 
-  // const getUserData = async () => {
-  //   // Axios defaults to a get request
-  //   try {
-  //     const res = await Axios('/user')
-  //   // setUser(res.data)
-  //   setUserIsLoggedIn(true)
-  //   return res;
-  //   } catch (error) {
-  //     console.log(error.message)
-  //   }
-  // }
-
   const onSuccess = (data) => {
     if (data) {
       setUserIsLoggedIn(true)
@@ -137,7 +125,7 @@ function App() {
             <MangaPage user={user}/>
           </Route>
           <Route exact path="/profile">
-            <ProfilePage/>
+            <ProfilePage user={user}/>
           </Route>
           <Route exact path="/anime/:id">
             <AnimePage user={user}/>
@@ -146,7 +134,7 @@ function App() {
             <Login setUserIsLoggedIn={setUserIsLoggedIn}/>
           </Route>
           <Route exact path="/signup">
-            <SignUp />
+            <SignUp setUserIsLoggedIn={setUserIsLoggedIn}/>
           </Route>
           <Route exact path="/search/manga">
             <MangaSearchPage mangaSearchResults={mangaSearchResults} mangaSearchQuery={mangaSearchQuery}/>

@@ -5,8 +5,9 @@ import {useHistory} from 'react-router-dom'
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Alert from 'react-bootstrap/Alert'
+import axios from 'axios'
 
-function SignUp({setUser}) {
+function SignUp({setUserIsLoggedIn}) {
     const [formData, setFormData] = useState({
         username:"",
         password:"",
@@ -19,35 +20,37 @@ function SignUp({setUser}) {
         setFormData({...formData, [e.target.name]: e.target.value})
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault()
-        fetch("/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-            },
-            body: JSON.stringify(formData
-            ),
-        })
-        .then(r => {
-            if (r.ok) {
-                r.json().then(data => {
-                    setUser(data)
-                    setFormData({
-                        username:"",
-                        password:"",
-                        password_confirmation:""
-                    })
-                    history.push("/")
-                })
-            } else {
-                r.json().then(err => {
-                    console.log(err.errors)
-                    setErrors(err.errors)
-                })
-            }
-        })
+        // fetch("/signup", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/json",
+        //     },
+        //     body: JSON.stringify(formData
+        //     ),
+        // })
+        // .then(r => {
+        //     if (r.ok) {
+        //         r.json().then(data => {
+        //             setUser(data)
+        //             setFormData({
+        //                 username:"",
+        //                 password:"",
+        //                 password_confirmation:""
+        //             })
+        //             history.push("/")
+        //         })
+        //     } else {
+        //         r.json().then(err => {
+        //             console.log(err.errors)
+        //             setErrors(err.errors)
+        //         })
+        //     }
+        // })
+        await axios.post('/signup', formData)
+
     }
 
 

@@ -28,12 +28,27 @@ function Login({setUserIsLoggedIn}) {
     async function handleLogin(e) {
         e.preventDefault()
         try {
+            // if (!formData) {
+            //     throw new Error("Please enter your login information")
+            // }
+            // // if (!formData.password) {
+            // //     throw new Error("Please enter your password")
+            // // }
+            // // if (!formData.username) {
+            // //     throw new Error("Please enter your username")
+            // // }
             await axios.post('/login', formData)
             setUserIsLoggedIn(true)
             history.push("/")
-        } catch (err) {
-            console.log("Login error:", err.response.data.message)
-            setErrors(err.response.data.message)
+        } catch (error) {
+            console.log("error.message:", error.message)
+            console.log("error.response:", error.response)
+            // if (error.message) {
+            //     // setErrors(error.message)
+            // } else {
+            //     setErrors(error.response.data.message)
+            // }
+            setErrors(error.response.data.message)
         }
         
     }    

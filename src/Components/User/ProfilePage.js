@@ -1,46 +1,50 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import Row from 'react-bootstrap/Row'
 import loginIcon from '../../Images/user.svg'
 import Button from 'react-bootstrap/Button'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import Modal from 'react-bootstrap/Modal'
 import Alert from 'react-bootstrap/Alert'
+import axios from 'axios'
+import { useMutation, useQueryClient } from 'react-query'
 
-function ProfilePage() {
-    const [user, setUser] = useState(false)
-    const [bio, setBio] = useState("")
-    const [avatar, setAvatar] = useState("")
+function ProfilePage({user}) {
     const [showBioModal, setShowBioModal] = useState(false);
     const [showAvatarModal, setShowAvatarModal] = useState(false)
     const [avatarModalValue, setAvatarModalValue] = useState("")
     const [bioModalTextValue, setBioModalTextValue] = useState("")
     const [bioAlertState, setBioAlertState] = useState(false)
     const [avatarAlertState, setAvatarAlertState] = useState(false)
-    const [errors, setErrors] = useState([])
+    const queryClient = useQueryClient()
 
-    useEffect(() => {
-        fetch("/user")
-        .then(r => {
-            if (r.ok) {
-                r.json().then(userData => {
-                    setUser(userData)
-                    setBio(userData.bio)
-                    setAvatar(userData.avatar)
-                    }
-                )
-            } else {
-                r.json().then(err => {
-                    setErrors(err.errors)
-                })
-            }
+    const updateBio = useMutation(editBio => {
+        return axios.patch(`/users/${user.data.id}`, editBio)
+    }, {onSuccess: (data) => {
+            console.log("data in onSuccess:", data)
+            queryClient.setQueryData('getData/user', data)
+            setShowBioModal(false)
+            setBioModalTextValue("")
+            setBioAlertState(true)
+            },
+        onError: (error) => console.log(error.message)
         }
-    
     )
-            
-    },[])
+
+    const updateAvatar = useMutation(editAvatar => {
+        return axios.patch(`/users/${user.data.id}`, editAvatar)
+    }, {
+        onSuccess: data => {
+            console.log("Data in onSuccess:", data)
+            queryClient.setQueryData('getData/user', data)
+            setShowAvatarModal(false)
+            setAvatarModalValue("")
+            setAvatarAlertState(true)
+        },
+        onError: error => console.log(error.message)
+    })
 
 
     const handleCloseBio = () => {
@@ -59,64 +63,35 @@ function ProfilePage() {
     const handleShowAvatar = () => setShowAvatarModal(true)
 
 
-
-    function handleSubmitBio() {
-        fetch(`/users/${user.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({bio: bioModalTextValue || user.bio})
-        })
-        .then(r => r.json())
-        .then(userData => {
-            console.log(userData)
-            setBio(userData.bio)
-            setShowBioModal(false)
-            setBioModalTextValue("")
-            setBioAlertState(true)
-        })
+    function handleEditBio() {
+        updateBio.mutate({bio: bioModalTextValue || user.data.bio})
     }
 
-    function handleSubmitAvatar() {
-        fetch(`/users/${user.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({avatar: avatarModalValue || user.avatar})
-        })
-        .then(r => r.json())
-        .then(userData => {
-            console.log(userData)
-            setAvatar(userData.avatar)
-            setShowAvatarModal(false)
-            setAvatarModalValue("")
-            setAvatarAlertState(true)
-        })
+    function handleEditAvatar() {
+        updateAvatar.mutate({avatar: avatarModalValue || user.data.avatar})
     }
 
-    if (errors.length > 0) return <Redirect to="/login"/>  
+    if (!user) return <Redirect to="/login"/>  
 
 
     return (
         <Container className="profile-container">
             <Row className="d-flex justify-content-center"> 
                 <Card style={{ width: '18rem' }}>
-                    <Card.Img variant="top" src={avatar ? avatar : loginIcon} id="profile-icon" alt="profile-icon" />
+                    <Card.Img variant="top" src={user.data.avatar ? user.data.avatar : loginIcon} id="profile-icon" alt="profile-icon" />
                     <Card.Body>
-                        <Card.Title>{user.username}</Card.Title>
+                        <Card.Title>{user.data.username}</Card.Title>
                     </Card.Body>
                     <ListGroup className="list-group-flush">                
-                        <ListGroup.Item> <strong>Bio:</strong> {user.bio && bio === undefined ? user.bio : bio}</ListGroup.Item>
+                        <ListGroup.Item> <strong>Bio:</strong> {user.data.bio ? user.data.bio : null}</ListGroup.Item>
                     </ListGroup>
                 </Card>
                 <div className="d-grid gap-2 mt-2 justify-content-center">
-                    {bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio} className="profile-buttons">Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio} className="profile-buttons">Add bio</Button>}
-                    {avatar? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar} className="profile-buttons">Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar} className="profile-buttons">Add avatar</Button>}
+                    {user.data.bio ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio} className="profile-buttons">Update bio</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowBio} className="profile-buttons">Add bio</Button>}
+                    {user.data.avatar ? <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar} className="profile-buttons">Update avatar</Button> : <Button variant="primary" size="sm" style={{width: '18rem'}} onClick={handleShowAvatar} className="profile-buttons">Add avatar</Button>}
 
-                    {bioAlertState ? <Alert variant="success" className="profile-buttons text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
-                    {avatarAlertState ? <Alert variant="success" className="profile-buttons text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}
+                    {bioAlertState ? <Alert variant="success" className="text-center" onClose={() => setBioAlertState(false)} dismissible>Bio has been updated</Alert> : null}
+                    {avatarAlertState ? <Alert variant="success" className="text-center" onClose={() => setAvatarAlertState(false)} dismissible>Avatar has been updated</Alert> : null}
                 </div>
             </Row>
 
@@ -129,7 +104,7 @@ function ProfilePage() {
                     <Button variant="secondary" onClick={handleCloseBio}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitBio}>
+                    <Button variant="primary" onClick={handleEditBio}>
                         Submit
                     </Button>
                 </Modal.Footer>
@@ -137,14 +112,14 @@ function ProfilePage() {
 
             <Modal show={showAvatarModal} onHide={handleCloseAvatar} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Enter url for avatar image (Some url's may not render the image due to Cross Origin Read Blocking)</Modal.Title>
+                    <Modal.Title>Enter URL for avatar image (Some URL's may not render the image due to Cross Origin Read Blocking)</Modal.Title>
                 </Modal.Header>
                 <Modal.Body as="textarea" value={avatarModalValue} onChange={(e) => setAvatarModalValue(e.target.value)}></Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseAvatar}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleSubmitAvatar}>
+                    <Button variant="primary" onClick={handleEditAvatar}>
                         Submit
                     </Button>
                 </Modal.Footer>

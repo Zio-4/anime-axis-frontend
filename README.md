@@ -1,6 +1,6 @@
 # Anime Axis 
 An anime/database and forum for learning and discussing your favorite stories.
-![Screenshot](src/Images/Homepage.png)
+![Screenshot](src/Images/AnimeHomepage.png)
 
 ## Description
 
