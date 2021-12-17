@@ -25,6 +25,15 @@ code {
   src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Quicksand:wght@300&family=Shippori+Antique&display=swap')
 }
 
+.signup-header{
+  margin-top: 8rem;
+  text-align: center;
+}
+
+.signup-form-headers {
+  border-bottom: 1px solid
+}
+
 .login-container{
   margin-top: 7rem;
 }
@@ -76,7 +85,7 @@ code {
   margin-top: 3rem;
 }
 
-.forum-component, .anime-page-container, .manga-page-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list, .sign-up-form-container, .manga-search, .users-manga-list{
+.forum-component, .anime-page-container, .manga-page-container, .top-anime-airing-list, .top-anime-popularity-list, .top-anime-score-list, .top-anime-upcoming-list, .top-manga-popularity-list, .top-manga-score-list, .top-manga-novels-list, .top-manga-oneshots-list, .anime-search, .anime-forum-container, .anime-post-form-container, .manga-forum-container, .general-forum-container, .forum-post-container, .anime-discussion-container, .users-anime-list, .manga-search, .users-manga-list{
   margin-top: 6rem;
 }
 

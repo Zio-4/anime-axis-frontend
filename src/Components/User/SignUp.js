@@ -49,24 +49,36 @@ function SignUp({setUserIsLoggedIn}) {
         //         })
         //     }
         // })
-        await axios.post('/signup', formData)
-
+        try {
+            await axios.post('/signup', formData)
+            setUserIsLoggedIn(true)
+            setFormData({
+                username:"",
+                password:"",
+                password_confirmation:""
+            })
+            history.push("/")
+        } catch (error) {
+            console.log(error.response.data)
+            setErrors(error)
+        }
     }
 
 
     return (
         <Container>
+            <h2 className="signup-header">Create an account</h2>
             <Form className="sign-up-form-container" onSubmit={handleSubmit}>
-                    <Form.Group>
-                        <Form.Label>Username</Form.Label>
+                    <Form.Group className="mb-2">
+                        <Form.Label className="signup-form-headers">Username</Form.Label>
                         <Form.Control type="username" value={formData.username} name="username" onChange={handleInput} placeholder="Enter Username" />
                     </Form.Group>
-                    <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                    <Form.Group className="mb-2" controlId="formBasicPassword">
+                        <Form.Label className="signup-form-headers">Password</Form.Label>
                         <Form.Control type="password" value={formData.password} name="password" onChange={handleInput} placeholder="Password" autoComplete="on"/>
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicPasswordConfirmation">
-                        <Form.Label>Confirm Password</Form.Label>
+                        <Form.Label className="signup-form-headers">Confirm Password</Form.Label>
                         <Form.Control type="password" value={formData.password_confirmation} name="password_confirmation" onChange={handleInput} placeholder="Confirm your password" autoComplete="on"/>
                     </Form.Group>
 
