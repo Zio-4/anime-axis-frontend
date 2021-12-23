@@ -23,7 +23,6 @@ function ProfilePage({user}) {
     const updateBio = useMutation(editBio => {
         return axios.patch(`/users/${user.data.id}`, editBio)
     }, {onSuccess: (data) => {
-            console.log("data in onSuccess:", data)
             queryClient.setQueryData('getData/user', data)
             setShowBioModal(false)
             setBioModalTextValue("")

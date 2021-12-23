@@ -22,34 +22,11 @@ function SignUp({setUserIsLoggedIn}) {
 
     async function handleSubmit(e) {
         e.preventDefault()
-        // fetch("/signup", {
-        //     method: "POST",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/json",
-        //     },
-        //     body: JSON.stringify(formData
-        //     ),
-        // })
-        // .then(r => {
-        //     if (r.ok) {
-        //         r.json().then(data => {
-        //             setUser(data)
-        //             setFormData({
-        //                 username:"",
-        //                 password:"",
-        //                 password_confirmation:""
-        //             })
-        //             history.push("/")
-        //         })
-        //     } else {
-        //         r.json().then(err => {
-        //             console.log(err.errors)
-        //             setErrors(err.errors)
-        //         })
-        //     }
-        // })
         try {
+            if (formData.password != formData.password_confirmation) {
+                setErrors(["Password and Password confirmation do not match"])
+                return
+            }
             await axios.post('/signup', formData)
             setUserIsLoggedIn(true)
             setFormData({
@@ -59,10 +36,14 @@ function SignUp({setUserIsLoggedIn}) {
             })
             history.push("/")
         } catch (error) {
-            console.log(error.response.data)
-            setErrors(error)
+            console.log("error:", error)
+            console.log("error data:", error.response.data.errors)
+            setErrors(error.response.data.errors)
         }
     }
+
+    console.log(errors)
+
 
 
     return (
@@ -82,10 +63,10 @@ function SignUp({setUserIsLoggedIn}) {
                         <Form.Control type="password" value={formData.password_confirmation} name="password_confirmation" onChange={handleInput} placeholder="Confirm your password" autoComplete="on"/>
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" className="signup-button">
+                    <Button variant="primary" type="submit" className="signup-button mb-2">
                         Submit
                     </Button>
-                    {errors.length > 0 ? errors.map(err => <Alert className="mt-2" variant="danger">{err}</Alert>) : null}
+                    {errors.length > 0 ? errors.map(err => <Alert key={err} className="mt-2" variant="danger">{err}</Alert>) : null}
             </Form>
         </Container>
     )
