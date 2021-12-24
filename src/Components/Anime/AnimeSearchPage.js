@@ -39,11 +39,11 @@ function AnimeSearchPage() {
     const renderResults = searchResults.map(anime => (
         <OverlayTrigger key={anime.mal_id} placement="top" overlay={
             <Tooltip>{anime.title}</Tooltip>}>
-        <Col xs={3} >
-            <Card>
-                <Link to={`/anime/${anime.mal_id}`}><Card.Img variant="top" src={anime.image_url} /></Link>
-            </Card> 
-        </Col>
+            <Col xs={6} sm={2} med={4}>
+                <Card className='mainpage-cards search-cards'>
+                    <Link to={`/anime/${anime.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={anime.image_url} /></Link>
+                </Card> 
+            </Col>
         </OverlayTrigger>
     ))
 
@@ -59,7 +59,7 @@ function AnimeSearchPage() {
 
                 <h1 className="mt-5">Showing results for: {searchQuery}</h1>
             </Container>
-            <Container className="d-flex justify-content-center">
+            <Container >
                 <Row> 
                     {renderResults}
                     {isLoading ? <Loading /> : null}

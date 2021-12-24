@@ -37,9 +37,9 @@ function MangaSearchPage() {
     const renderResults = searchResults.map(m => (
         <OverlayTrigger key={m.mal_id} placement="top" overlay={
             <Tooltip>{m.title}</Tooltip>}>
-            <Col xs={3} >
-                <Card>
-                <Link to ={`/manga/${m.mal_id}`}><Card.Img variant="top" src={m.image_url} /></Link>
+            <Col xs={6} sm={2} med={4}>
+                <Card className='mainpage-cards search-cards'>
+                <Link to ={`/manga/${m.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={m.image_url} /></Link>
                 </Card>
             </Col>
         </OverlayTrigger>

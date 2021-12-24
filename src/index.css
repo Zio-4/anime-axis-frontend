@@ -140,6 +140,10 @@ code {
   }
 }
 
+.search-cards {
+  margin-bottom: .5rem;
+}
+
 
 #bottom-see-more-button-anime, #bottom-see-more-button-manga{
   margin-bottom: 1rem;
