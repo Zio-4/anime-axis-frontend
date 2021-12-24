@@ -89,7 +89,7 @@ code {
   margin-top: 6rem;
 }
 
-#manga-background-card, .anime-forum-table, .manga-forum-table, .general-forum-table, .anime-discussion-table, .forum-post-card, .comments-container{
+.anime-forum-table, .manga-forum-table, .general-forum-table, .anime-discussion-table, .forum-post-card, .comments-container{
   margin-top: 1rem;
 }
 

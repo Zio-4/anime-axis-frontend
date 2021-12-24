@@ -52,7 +52,7 @@ function AnimePage({user}) {
         <div>
         <Container className="anime-page-container" >
             <Row >
-                <Col className=" anime-cards d-flex justify-content-center">
+                <Col className=" anime-cards d-flex justify-content-center h-100">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Img variant="top" src={anime.data.image_url} />
                         <Card.Body>
@@ -82,7 +82,7 @@ function AnimePage({user}) {
                    </Card>
                    {anime.data.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
                 </Col>
-                <Col className="anime-cards d-flex justify-content-center">
+                <Col className="anime-cards d-flex justify-content-center h-100">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Header>Anime Info</Card.Header>
                         <ListGroup variant="flush">

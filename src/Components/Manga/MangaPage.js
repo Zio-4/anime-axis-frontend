@@ -54,7 +54,7 @@ function MangaPage({user}) {
         <div>
             <Container className="manga-page-container">
                 <Row>
-                    <Col className="d-flex justify-content-center mb-2">
+                    <Col med={4} className="d-flex justify-content-center mb-2 h-100">
                         <Card style={{ width: '18rem'}} className="bg-dark text-white ">
                             <Card.Img variant="top" src={manga.data.image_url} />
                             <Card.Body>
@@ -72,18 +72,18 @@ function MangaPage({user}) {
                             {addedAlertState ? <Alert variant="success" onClose={() => setAddedAlertState(false)} dismissible>Manga has been added to your list</Alert> : null}
                         </Card>
                     </Col>
-                </Row>
+                
 
-                <Row>
-                    <Col>
-                    <Card className="bg-dark text-white">
-                    <Card.Body>
-                            <Card.Title>Synopsis</Card.Title>
-                            <Card.Text>
-                                {manga.data.synopsis}
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
+                
+                    <Col med={4}>
+                        <Card className="bg-dark text-white">
+                            <Card.Body>
+                                <Card.Title>Synopsis</Card.Title>
+                                <Card.Text>
+                                    {manga.data.synopsis}
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
 
                         {manga.data.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
 
@@ -96,9 +96,8 @@ function MangaPage({user}) {
                             </Card.Body>
                         </Card>
                     </Col>
-                </Row>
-                <Row>
-                    <Col className="d-flex justify-content-center mb-2">
+
+                    <Col med={4} className="d-flex justify-content-center mb-2 h-100">
                         <Card style={{ width: '18rem' }} className="bg-dark text-white ">
                             <Card.Header>Manga Info</Card.Header>
                             <ListGroup variant="flush">
