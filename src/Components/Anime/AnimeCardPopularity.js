@@ -10,7 +10,7 @@ function AnimeCardPopularity({title, id, image}) {
         <OverlayTrigger placement="top" overlay={
             <Tooltip>{title}</Tooltip>
         }>
-            <Col>
+            <Col xs={6} md={2}>
                 <Card className="mainpage-cards bg-dark text-white fluid"  key={id}>
                     <Link to={`/anime/${id}`}><Card.Img className="mainpage-card-images" src={image} alt="Card image" /></Link>
                 </Card>  

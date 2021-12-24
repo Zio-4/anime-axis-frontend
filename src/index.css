@@ -109,7 +109,7 @@ code {
 }
 
 #profile-icon, .top-list-button {
-  margin-top: 1rem;
+  margin-top: .5rem;
 }
 
 .loading-component {
@@ -119,19 +119,27 @@ code {
   min-height: 100vh;
 }
 
-.mainpage-card-images{
-  height: 346px;
+.mainpage-card-images {
+  height: 300px;
   width: 225px;
 }
 
-@media (max-width: 1000px) {
+.novels {
+  height: 300px;
+  width: 225px;
+}
 
-  .mainpage-cards{
-    height: fit-content;
-    width: fit-content;
+@media only screen and (max-width: 575px) {
+  .mainpage-card-images{
+    height: 245px;
+    width: 225px;
   }
 
+  .mainpage-cards {
+    margin-bottom: .5rem;
+  }
 }
+
 
 #bottom-see-more-button-anime, #bottom-see-more-button-manga{
   margin-bottom: 1rem;

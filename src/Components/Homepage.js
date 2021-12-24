@@ -55,31 +55,31 @@ function Homepage() {
         }
     }
 
-    const renderTopAnimeByScoreCards = animeScore.data.top.slice(0,5).map(anime => {  
+    const renderTopAnimeByScoreCards = animeScore.data.top.slice(0,6).map(anime => {  
       return (<AnimeCardByScore key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
-    const renderTopAnimeAiring = animeAiring.data.top.slice(0,5).map(anime => {
+    const renderTopAnimeAiring = animeAiring.data.top.slice(0,6).map(anime => {
         return (<AnimeCardAiring key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
-    const renderTopAnimeByPopularity = animePopularity.data.top.slice(0,5).map(anime => {
+    const renderTopAnimeByPopularity = animePopularity.data.top.slice(0,6).map(anime => {
         return (<AnimeCardPopularity key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
-    const renderTopUpcomingAnime = animeUpcoming.data.top.slice(0,5).map(anime => {
+    const renderTopUpcomingAnime = animeUpcoming.data.top.slice(0,6).map(anime => {
         return (<AnimeCardUpcoming key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
     })
 
     return (
         <>
             <Container className="anime-search">
-                <Col style={{width: '22rem'}} className='mx-auto'>
-                    <div className="searchbar">
-                        <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
-                        <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
-                    </div>
-                </Col>
+                    <Col style={{width: '22rem'}} className='mx-auto'>
+                        <div className="searchbar">
+                            <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
+                            <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
+                        </div>
+                    </Col>
             </Container>
 
             <Container fluid="md" className="homepage-container">

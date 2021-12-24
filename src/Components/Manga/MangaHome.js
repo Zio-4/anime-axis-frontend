@@ -54,19 +54,19 @@ function MangaHome() {
         }
     }
 
-    const renderMangaByScore = mangaScore.data.top.slice(0,5).map(manga => {
+    const renderMangaByScore = mangaScore.data.top.slice(0,6).map(manga => {
         return (<MangaCardByScore key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
-    const renderMangaOneShots = mangaOneShots.data.top.slice(0,5).map(manga => {
+    const renderMangaOneShots = mangaOneShots.data.top.slice(0,6).map(manga => {
         return (<MangaCardOneShots key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })    
 
-    const renderMangaByPopularity = mangaPopularity.data.top.slice(0,5).map(manga => {
+    const renderMangaByPopularity = mangaPopularity.data.top.slice(0,6).map(manga => {
         return (<MangaCardByPopularity key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
-    const renderMangaNovels = mangaNovels.data.top.slice(0,5).map(manga => {
+    const renderMangaNovels = mangaNovels.data.top.slice(0,6).map(manga => {
         return (<MangaCardNovels key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
     })
 
@@ -87,28 +87,28 @@ function MangaHome() {
                 <Row>
                     {renderMangaByScore}
                     <Container>
-                        <Link to="/topmanga/score"><Button className="top-list-button-manga" size="md">See more</Button></Link>
+                        <Link to="/topmanga/score"><Button className="top-list-button" size="md">See more</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top manga one-shots</p>
                 <Row>
                     {renderMangaOneShots}
                     <Container>
-                        <Link to="/topmanga/oneshots"><Button className="top-list-button-manga" size="md">See more</Button></Link>
+                        <Link to="/topmanga/oneshots"><Button className="top-list-button" size="md">See more</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top manga by popularity</p>
                 <Row>
                     {renderMangaByPopularity}
                     <Container>
-                        <Link to="/topmanga/popularity"><Button className="top-list-button-manga" size="md">See more</Button></Link>
+                        <Link to="/topmanga/popularity"><Button className="top-list-button" size="md">See more</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top manga novels</p>
                 <Row>
                     {renderMangaNovels}
                     <Container>
-                        <Link to="/topmanga/novels"><Button className="top-list-button-manga" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
+                        <Link to="/topmanga/novels"><Button className="top-list-button" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
                     </Container>
                 </Row>
             </Container>
