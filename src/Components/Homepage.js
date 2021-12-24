@@ -4,17 +4,22 @@ import AnimeCardByScore from './Anime/AnimeCardByScore'
 import AnimeCardAiring from './Anime/AnimeCardAiring'
 import AnimeCardPopularity from './Anime/AnimeCardPopularity'
 import AnimeCardUpcoming from './Anime/AnimeCardUpcoming'
-import React from 'react'
+import React, { useState } from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import {RiSearchLine} from "react-icons/ri";
 import Loading from './Loading'
 import {useGetData} from '../Hooks/useGetData'
+import { useDispatch } from 'react-redux'
+import { updateSearchQuery, updateSearchResults } from '../Redux-Toolkit/search'
+import axios from 'axios'
 
 
-function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
+function Homepage() {
+    const [animeSearchQuery, setAnimeSearchQuery] = useState('')
     const history = useHistory()
+    const dispatch = useDispatch()
 
     // fetching data functions
 
@@ -33,20 +38,21 @@ function Homepage({onAnimeSearch, updateAnimeSearchQuery, animeSearchQuery}) {
     // Update search
 
     function handleChange(e) {
-        updateAnimeSearchQuery(mUV => e.target.value)
+        setAnimeSearchQuery(e.target.value)
     }
 
     // Handle a search
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        fetch(`https://api.jikan.moe/v3/search/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
-        .then(r => r.json())
-        .then(searchResultData => {
-            console.log("search result data", searchResultData)
-            onAnimeSearch(searchResultData)
-        })
-        history.push(`/search/anime`)
+        dispatch(updateSearchQuery(animeSearchQuery))
+        try {
+            let response = await axios(`https://api.jikan.moe/v3/search/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
+            dispatch(updateSearchResults(response.data.results))
+            history.push(`/search/anime`)
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     const renderTopAnimeByScoreCards = animeScore.data.top.slice(0,5).map(anime => {  

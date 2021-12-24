@@ -23,7 +23,7 @@ function SignUp({setUserIsLoggedIn}) {
     async function handleSubmit(e) {
         e.preventDefault()
         try {
-            if (formData.password != formData.password_confirmation) {
+            if (formData.password !== formData.password_confirmation) {
                 setErrors(["Password and Password confirmation do not match"])
                 return
             }
@@ -41,9 +41,6 @@ function SignUp({setUserIsLoggedIn}) {
             setErrors(error.response.data.errors)
         }
     }
-
-    console.log(errors)
-
 
 
     return (

@@ -1,19 +1,24 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import MangaCardByPopularity from './MangaCardByPopularity'
 import MangaCardByScore from './MangaCardByScore'
 import MangaCardNovels from './MangaCardNovels'
 import MangaCardOneShots from './MangaCardOneShots'
-import {Link, useHistory} from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import {RiSearchLine} from "react-icons/ri";
+import { RiSearchLine } from "react-icons/ri";
 import Loading from '../Loading'
-import {useGetData} from '../../Hooks/useGetData'
+import { useGetData } from '../../Hooks/useGetData'
+import { useDispatch } from 'react-redux'
+import { updateSearchQuery, updateSearchResults } from '../../Redux-Toolkit/search'
+import axios from 'axios'
 
-function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
-    const history = useHistory() 
+function MangaHome() {
+    const [mangaSearchQuery, setMangaSearchQuery] = useState('')
+    const history = useHistory()
+    const dispatch = useDispatch() 
 
     // fetching data functions
 
@@ -32,20 +37,21 @@ function MangaHome({onMangaSearch, updateMangaSearchQuery, mangaSearchQuery}) {
     // update search state
 
     function handleChange(e) {
-        updateMangaSearchQuery(mUV => e.target.value)
+        setMangaSearchQuery(e.target.value)
     }
 
     // Handle a search
 
-    function handleSubmit(e) {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        fetch(`https://api.jikan.moe/v3/search/manga?q=${mangaSearchQuery}&order_by=title&sort=asc&limit=10`)
-        .then(r => r.json())
-        .then(searchResultData => {
-            console.log("search result data", searchResultData)
-            onMangaSearch(searchResultData)
-        })
-        history.push(`/search/manga`)
+        dispatch(updateSearchQuery(mangaSearchQuery))
+        try {
+            let response = await axios(`https://api.jikan.moe/v3/search/manga?q=${mangaSearchQuery}&order_by=title&sort=asc&limit=10`)
+            dispatch(updateSearchResults(response.data.results))
+            history.push(`/search/manga`)
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     const renderMangaByScore = mangaScore.data.top.slice(0,5).map(manga => {

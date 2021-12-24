@@ -1,13 +1,12 @@
 import Homepage from "./Components/Homepage"
 import Login from "./Components/User/Login"
 import SignUp from "./Components/User/SignUp"
-import {Switch, Route, Redirect} from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import NavBar from './Components/NavBar'
 import AnimePage from './Components/Anime/AnimePage'
-import {useState} from 'react'
 import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
-import React from 'react'
+import React, { useState } from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
 import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
@@ -27,19 +26,11 @@ import ForumPost from "./Components/Forums/ForumPost"
 import AnimeList from "./Components/Anime/AnimeList"
 import MangaList from "./Components/Manga/MangaList"
 import MangaSearchPage from "./Components/Manga/MangaSearchPage"
-import {useQuery} from 'react-query'
-import Axios from 'axios'
 import {useGetData} from './Hooks/useGetData'
 
 function App() {
   // User state for conditional rendering of logout icon
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
-  // State for handling search of animes and mangas
-  const [animeSearchQuery, setAnimeSearchQuery] = useState("")
-  const [animeSearchResults, setAnimeSearchResults] = useState([])
-  const [mangaSearchQuery, setMangaSearchQuery] = useState("")
-  const [mangaSearchResults, setMangaSearchResults] = useState([])
-
 
   const onSuccess = (data) => {
     if (data) {
@@ -52,22 +43,6 @@ function App() {
   
   if (userIsLoading) return <Loading/>
 
-
-  function updateAnimeSearchQuery(query) {
-    setAnimeSearchQuery(query)
-  }
-
-  function onAnimeSearch(searchResults) {
-    setAnimeSearchResults(searchResults.results)
-  }
-
-  function updateMangaSearchQuery(query) {
-    setMangaSearchQuery(query)
-  }
-
-  function onMangaSearch(searchResults) {
-    setMangaSearchResults(searchResults.results)
-  }
 
 
   return (
@@ -137,16 +112,16 @@ function App() {
             <SignUp setUserIsLoggedIn={setUserIsLoggedIn}/>
           </Route>
           <Route exact path="/search/manga">
-            <MangaSearchPage mangaSearchResults={mangaSearchResults} mangaSearchQuery={mangaSearchQuery}/>
+            <MangaSearchPage />
           </Route>
           <Route exact path="/manga">
-            <MangaHome onMangaSearch={onMangaSearch} updateMangaSearchQuery={updateMangaSearchQuery} mangaSearchQuery={mangaSearchQuery}/>
+            <MangaHome />
           </Route>
           <Route exact path="/search/anime">
-            <AnimeSearchPage animeSearchResults={animeSearchResults} animeSearchQuery={animeSearchQuery}/>
+            <AnimeSearchPage />
           </Route>
           <Route exact path="/">
-            <Homepage onAnimeSearch={onAnimeSearch} updateAnimeSearchQuery={updateAnimeSearchQuery} animeSearchQuery={animeSearchQuery}/>
+            <Homepage />
           </Route>
           <Route exact path="/loading">
             <Loading />
@@ -162,8 +137,3 @@ function App() {
 }
 
 export default App;
-
-
-// NavBar = onLogout={onLogout}
-// login = onLogin={onLogin}
-// sign up = setUser={setUser}

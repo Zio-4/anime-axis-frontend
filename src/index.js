@@ -7,22 +7,22 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {BrowserRouter as Router} from 'react-router-dom'
 import { QueryClient, QueryClientProvider} from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-// import {Provider} from 'react-redux'
-// import store from "./Redux-Toolkit/store"
+import { store }  from './Redux-Toolkit/store'
+import { Provider } from 'react-redux'
 
 const queryClient = new QueryClient()
 
 
 ReactDOM.render(
   <Router>
-    {/* <Provider store={store}> */}
       <React.StrictMode>
         <QueryClientProvider client={queryClient}>
-          <App />
+          <Provider store={store}>
+            <App />
+          </Provider>
           <ReactQueryDevtools initialIsOpen={false} />
         </QueryClientProvider>
       </React.StrictMode>
-    {/* </Provider> */}
   </Router>,
   document.getElementById('root')
 );

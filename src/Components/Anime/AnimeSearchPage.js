@@ -9,25 +9,34 @@ import {RiSearchLine} from "react-icons/ri";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip'
 import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { updateSearchQuery, updateSearchResults } from '../../Redux-Toolkit/search'
+import Loading from '../Loading'
 
 
-function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
-    const [searchQuery, setSearchQuery] = useState("")
-    const [searchResults, setSearchResults] = useState([])
-    const [searchQueryOnceSearched, setSearchQueryOnceSearched] = useState("")
+function AnimeSearchPage() {
+    const [animeSearchQuery, setAnimeSearchQuery] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
+    const { searchQuery } = useSelector(state => state.search)
+    const { searchResults } = useSelector(state => state.search)
+    const dispatch = useDispatch()
 
-    function handleChange(e) {
-        setSearchQuery(mUV => e.target.value)
+
+    const handleChange = (e) => {
+        setAnimeSearchQuery(e.target.value)
     }
 
-    async function handleSearch() {
-        let response = await axios(`https://api.jikan.moe/v3/search/anime?q=${searchQuery}&order_by=title&sort=asc&limit=10`)
-        setSearchResults(response.data.results)
-        setSearchQueryOnceSearched(searchQuery)
-        setSearchQuery("")
+    const handleSearch = async () => {
+        setIsLoading(true)
+        dispatch(updateSearchQuery(animeSearchQuery))
+        dispatch(updateSearchResults([]))
+        let response = await axios(`https://api.jikan.moe/v3/search/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
+        setIsLoading(false)
+        dispatch(updateSearchResults(response.data.results))
+        setAnimeSearchQuery("")
     }
 
-    const renderResultsFromSearchPage = searchResults.map(anime => (
+    const renderResults = searchResults.map(anime => (
         <OverlayTrigger key={anime.mal_id} placement="top" overlay={
             <Tooltip>{anime.title}</Tooltip>}>
         <Col xs={3} >
@@ -37,41 +46,23 @@ function AnimeSearchPage({animeSearchResults, animeSearchQuery}) {
         </Col>
         </OverlayTrigger>
     ))
-
-    const renderResultsFromHomepage = animeSearchResults.map(anime => (
-        <OverlayTrigger key={anime.mal_id} placement="top" overlay={
-            <Tooltip>{anime.title}</Tooltip>}>
-        <Col xs={3} >
-            <Card>
-                <Link to={`/anime/${anime.mal_id}`}><Card.Img variant="top" src={anime.image_url} /></Link>
-            </Card> 
-        </Col>
-        </OverlayTrigger>
-    ))
-
-    const render = () => {
-        if (searchResults.length === 0) {
-            return renderResultsFromHomepage
-        } else {
-            return renderResultsFromSearchPage
-        }
-    }
 
     return (
         <div>
             <Container className="anime-search">
                 <Col style={{width: '22rem'}} className='mx-auto'>
                     <div className="searchbar">
-                        <input type="text" className="search-input" value={searchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
+                        <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
                         <a onClick={handleSearch} className="search-icon"><RiSearchLine/></a>
                     </div>
                 </Col>
 
-                <h1 className="mt-5">Showing results for: {searchQueryOnceSearched ? searchQueryOnceSearched : animeSearchQuery}</h1>
+                <h1 className="mt-5">Showing results for: {searchQuery}</h1>
             </Container>
             <Container className="d-flex justify-content-center">
                 <Row> 
-                    {render()}
+                    {renderResults}
+                    {isLoading ? <Loading /> : null}
                 </Row>
             </Container>
         </div>
