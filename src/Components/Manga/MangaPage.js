@@ -39,7 +39,7 @@ function MangaPage({user}) {
             setLoginAlertState(true)
         } else {
             try {
-                let resp = await axios.post('/mangas', {title: manga.data.title, id: manga.data.mal_id, image_url: manga.data.image_url , score: manga.data.score, user_id: user.id})
+                let resp = await axios.post('https://anime-axis-api.herokuapp.com/mangas', {title: manga.data.title, id: manga.data.mal_id, image_url: manga.data.image_url , score: manga.data.score, user_id: user.id})
                 if (resp.data) {
                     setListButton(true)
                     setAddedAlertState(true) 

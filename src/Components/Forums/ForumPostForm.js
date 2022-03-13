@@ -34,7 +34,7 @@ function ForumPostForm({user}) {
 
     async function handleSubmit(e){
         e.preventDefault()
-        let response = await axios.post('/forum_posts', {title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id})
+        let response = await axios.post('https://anime-axis-api.herokuapp.com/forum_posts', {title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id})
         setFormData({title:"", content:""})
         history.push(`/forums/post/${response.data.id}`)
     }

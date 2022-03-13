@@ -41,7 +41,7 @@ function AnimeSearchPage() {
             <Tooltip>{anime.title}</Tooltip>}>
             <Col xs={6} sm={2} med={4}>
                 <Card className='mainpage-cards search-cards'>
-                    <Link to={`https://anime-axis.herokuapp.com/anime/${anime.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={anime.image_url} /></Link>
+                    <Link to={`/anime/${anime.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={anime.image_url} /></Link>
                 </Card> 
             </Col>
         </OverlayTrigger>

@@ -27,7 +27,7 @@ function SignUp({setUserIsLoggedIn}) {
                 setErrors(["Password and Password confirmation do not match"])
                 return
             }
-            await axios.post('/signup', formData)
+            await axios.post('https://anime-axis-api.herokuapp.com/signup', formData)
             setUserIsLoggedIn(true)
             setFormData({
                 username:"",

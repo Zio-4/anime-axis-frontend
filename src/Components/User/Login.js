@@ -28,26 +28,13 @@ function Login({setUserIsLoggedIn}) {
     async function handleLogin(e) {
         e.preventDefault()
         try {
-            // if (!formData) {
-            //     throw new Error("Please enter your login information")
-            // }
-            // // if (!formData.password) {
-            // //     throw new Error("Please enter your password")
-            // // }
-            // // if (!formData.username) {
-            // //     throw new Error("Please enter your username")
-            // // }
-            await axios.post('/login', formData)
+
+            await axios.post('https://anime-axis-api.herokuapp.com/login', formData)
             setUserIsLoggedIn(true)
             history.push("/")
         } catch (error) {
             console.log("error.message:", error.message)
             console.log("error.response:", error.response)
-            // if (error.message) {
-            //     // setErrors(error.message)
-            // } else {
-            //     setErrors(error.response.data.message)
-            // }
             setErrors(error.response.data.message)
         }
         

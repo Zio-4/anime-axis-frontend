@@ -9,7 +9,7 @@ import Loading from '../Loading'
 function AnimeForum({user}) {
     const history = useHistory()
 
-    const { data: animePosts, isLoading } = useGetData('/forum_posts/anime')
+    const { data: animePosts, isLoading } = useGetData('https://anime-axis-api.herokuapp.com/forum_posts/anime')
 
     if (isLoading) return <Loading />
 
