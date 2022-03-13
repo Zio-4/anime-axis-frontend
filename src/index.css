@@ -121,7 +121,7 @@ code {
 
 .mainpage-card-images {
 height: 300px;
-width: 200px;
+width: 195px;
 }
 /* height: 300px;
 width: 225px; */
@@ -135,7 +135,7 @@ width: 225px; */
 @media only screen and (max-width: 575px) {
   .mainpage-card-images{
     height: 245px;
-    width: 225px;
+    width: 195px;
   }
 
   .mainpage-cards {
