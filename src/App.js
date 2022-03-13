@@ -6,7 +6,7 @@ import NavBar from './Components/NavBar'
 import AnimePage from './Components/Anime/AnimePage'
 import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
 import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
@@ -40,7 +40,7 @@ function App() {
     
   }
 
-  const {data: user, isLoading: userIsLoading} = useGetData('/user', onSuccess)
+  const {data: user, isLoading: userIsLoading} = useGetData('https://anime-axis-api.herokuapp.com/user', onSuccess)
   
   if (userIsLoading) return <Loading/>
 
