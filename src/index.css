@@ -120,9 +120,12 @@ code {
 }
 
 .mainpage-card-images {
-  height: 300px;
-  width: 225px;
+  height: 18rem;
+  
 }
+/* height: 300px;
+width: 225px; */
+
 
 .novels {
   height: 300px;
