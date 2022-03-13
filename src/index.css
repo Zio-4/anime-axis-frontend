@@ -120,8 +120,8 @@ code {
 }
 
 .mainpage-card-images {
-  height: 18rem;
-  
+height: 300px;
+width: 200px;
 }
 /* height: 300px;
 width: 225px; */
