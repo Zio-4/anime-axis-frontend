@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider} from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
 import { store }  from './Redux-Toolkit/store'
 import { Provider } from 'react-redux'
+import axios from 'axios'
 
 const queryClient = new QueryClient()
 
