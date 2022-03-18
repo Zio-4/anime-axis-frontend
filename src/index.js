@@ -12,6 +12,8 @@ import { Provider } from 'react-redux'
 
 const queryClient = new QueryClient()
 
+axios.defaults.withCredentials = true
+
 
 ReactDOM.render(
   <Router>
