@@ -4,7 +4,7 @@ import axios from 'axios'
 const getData = async (url) => {
   try{
     if (url.includes('anime-axis')) {
-      return await axios(url, { withCredentials: true })
+      return await axios(url, { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
     } else {
       return await axios(url)
     }

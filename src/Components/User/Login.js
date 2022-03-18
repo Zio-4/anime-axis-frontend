@@ -28,8 +28,7 @@ function Login({setUserIsLoggedIn}) {
     async function handleLogin(e) {
         e.preventDefault()
         try {
-
-            await axios.post('https://anime-axis-api.herokuapp.com/login', formData)
+            await axios.post('https://anime-axis-api.herokuapp.com/login', formData, { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
             setUserIsLoggedIn(true)
             history.push("/")
         } catch (error) {
