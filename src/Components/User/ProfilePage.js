@@ -33,11 +33,11 @@ function ProfilePage({user}) {
     )
 
     const updateAvatar = useMutation(editAvatar => {
-        return axios.patch(`https://anime-axis-api.herokuapp.com/users/${user.data.id}`, editAvatar)
+        return axios.patch(`/users/${user.data.id}`, editAvatar)
     }, {
         onSuccess: data => {
             console.log("Data in onSuccess:", data)
-            queryClient.setQueryData('getDatahttps://anime-axis-api.herokuapp.com/user', data)
+            queryClient.setQueryData('getData/user', data)
             setShowAvatarModal(false)
             setAvatarModalValue("")
             setAvatarAlertState(true)

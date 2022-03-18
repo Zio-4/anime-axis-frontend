@@ -10,7 +10,7 @@ import {useGetData} from '../../Hooks/useGetData'
 function GeneralForum({user}) {
     const history = useHistory()
 
-    const { data: generalPosts, isLoading } = useGetData('https://anime-axis-api.herokuapp.com/forum_posts/general')
+    const { data: generalPosts, isLoading } = useGetData('https://anime-axis-api.herokuapp.com/api/forum_posts/general')
 
     if (isLoading) return <Loading />
 

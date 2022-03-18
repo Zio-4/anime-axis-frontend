@@ -19,9 +19,9 @@ function ForumPost({user}) {
     const queryClient = useQueryClient()
 
     const postNewComment = useMutation(addNewComment => {
-        return axios.post('https://anime-axis-api.herokuapp.com/comments', addNewComment)
+        return axios.post('/api/comments', addNewComment)
     }, {onSuccess: (data) => {
-            queryClient.setQueryData(`getDatahttps://anime-axis-api.herokuapp.com/comments/${params.id}`, (oldQueryData) => {
+            queryClient.setQueryData(`getData/api/comments/${params.id}`, (oldQueryData) => {
                 return {
                     ...oldQueryData,
                     data: [...oldQueryData.data, data.data]
@@ -32,8 +32,8 @@ function ForumPost({user}) {
         }
     }) 
 
-    const { data: comments, isLoading: commentsIsLoading } = useGetData(`https://anime-axis-api.herokuapp.com/comments/${params.id}`)
-    const { data: forumPost, isLoading: forumPostIsLoading } = useGetData(`https://anime-axis-api.herokuapp.com/forum_posts/${params.id}`)
+    const { data: comments, isLoading: commentsIsLoading } = useGetData(`/api/comments/${params.id}`)
+    const { data: forumPost, isLoading: forumPostIsLoading } = useGetData(`/api/forum_posts/${params.id}`)
 
     if (forumPostIsLoading) return <Loading />
     if (commentsIsLoading) return <Loading />
