@@ -36,7 +36,7 @@ function AnimePage({user}) {
             setLoginAlertState(true)
         } else {
             try {
-                let resp = await axios.post('https://anime-axis-api.herokuapp.com/api/animes', {title: anime.data.title, id: anime.data.mal_id, image_url: anime.data.image_url , score: anime.data.score, user_id: user.id}, {withCredentials: true, 'Access-Control-Allow-Origin': '*'})
+                let resp = await axios.post('https://anime-axis-api.herokuapp.com/api/animes', {title: anime.data.title, id: anime.data.mal_id, image_url: anime.data.image_url , score: anime.data.score, user_id: user.id}, {withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com'})
                 if (resp.data) {
                     setListButton(true)
                     setAddedAlertState(true) 

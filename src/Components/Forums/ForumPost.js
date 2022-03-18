@@ -19,7 +19,7 @@ function ForumPost({user}) {
     const queryClient = useQueryClient()
 
     const postNewComment = useMutation(addNewComment => {
-        return axios.post('https://anime-axis-api.herokuapp.com/api/comments', addNewComment, { withCredentials: true })
+        return axios.post('https://anime-axis-api.herokuapp.com/api/comments', addNewComment, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
     }, {onSuccess: (data) => {
             queryClient.setQueryData(`getDatahttps://anime-axis-api.herokuapp.com/api/comments/${params.id}`, (oldQueryData) => {
                 return {

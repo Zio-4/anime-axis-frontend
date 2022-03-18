@@ -17,7 +17,7 @@ function NavBar({userIsLoggedIn, setUserIsLoggedIn}) {
 
     const logoutUser = async () => {       
         try{
-            await axios.delete('https://anime-axis-api.herokuapp.com/logout', { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
+            await axios.delete('https://anime-axis-api.herokuapp.com/logout', { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
             setShowModal(false)
             setUserIsLoggedIn(false)
             history.push("/")
