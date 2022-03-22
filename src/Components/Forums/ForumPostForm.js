@@ -34,7 +34,7 @@ function ForumPostForm({user}) {
 
     async function handleSubmit(e){
         e.preventDefault()
-        let response = await axios.post('https://anime-axis-api.herokuapp.com/api/forum_posts', {title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id}, { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
+        let response = await axios.post('https://anime-axis-api.herokuapp.com/api/forum_posts', {title: formData.title, content: formData.content, forum_id: forumIdState, user_id: user.data.id}, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
         setFormData({title:"", content:""})
         history.push(`/forums/post/${response.data.id}`)
     }

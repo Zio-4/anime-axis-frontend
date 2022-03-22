@@ -4,7 +4,8 @@ import axios from 'axios'
 const getData = async (url) => {
   try{
     if (url.includes('anime-axis')) {
-      return await axios(url, { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
+      console.log("Jikan API")
+      return await axios(url, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
     } else {
       return await axios(url)
     }
