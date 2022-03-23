@@ -9,7 +9,7 @@ import {useGetData} from '../../Hooks/useGetData'
 function MangaForum({user}) {
     const history = useHistory()
 
-    const { data: mangaPosts, isLoading } = useGetData('https://anime-axis-api.herokuapp.com/api/forum_posts/general')
+    const { data: mangaPosts, isLoading } = useGetData('https://anime-axis-api.herokuapp.com/api/forum_posts/manga')
 
     if (isLoading) return <Loading />
 
@@ -22,6 +22,8 @@ function MangaForum({user}) {
             history.push("/login", {from: "manga forum"})
         }
     }
+
+    console.log(mangaPosts)
 
     const renderMangaPosts = mangaPosts.data.map(m => (
             <tr key={m.id}>

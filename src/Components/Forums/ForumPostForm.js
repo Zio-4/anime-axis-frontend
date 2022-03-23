@@ -30,7 +30,7 @@ function ForumPostForm({user}) {
         }
     }, [history.location.state])
 
-
+    console.log('forumId:', forumIdState)
 
     async function handleSubmit(e){
         e.preventDefault()

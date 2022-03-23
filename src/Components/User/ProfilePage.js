@@ -21,7 +21,7 @@ function ProfilePage({user}) {
     const queryClient = useQueryClient()
 
     const updateBio = useMutation(editBio => {
-        return axios.patch(`https://anime-axis-api.herokuapp.com/users/${user.data.id}`, editBio, { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
+        return axios.patch(`https://anime-axis-api.herokuapp.com/users/${user.data.id}`, editBio, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com'})
     }, {onSuccess: (data) => {
             queryClient.setQueryData('getDatahttps://anime-axis-api.herokuapp.com/user', data)
             setShowBioModal(false)
@@ -33,7 +33,7 @@ function ProfilePage({user}) {
     )
 
     const updateAvatar = useMutation(editAvatar => {
-        return axios.patch(`/users/${user.data.id}`, editAvatar, { withCredentials: true, 'Access-Control-Allow-Origin': '*' })
+        return axios.patch(`/users/${user.data.id}`, editAvatar, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
     }, {
         onSuccess: data => {
             console.log("Data in onSuccess:", data)
