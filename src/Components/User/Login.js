@@ -34,7 +34,7 @@ function Login({setUserIsLoggedIn}) {
         } catch (error) {
             console.log("error.message:", error.message)
             console.log("error.response:", error.response)
-            setErrors(error.response.data.message)
+            setErrors(error.message)
         }
         
     }    

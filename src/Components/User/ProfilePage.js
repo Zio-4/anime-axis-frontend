@@ -20,6 +20,7 @@ function ProfilePage({user}) {
     const [avatarAlertState, setAvatarAlertState] = useState(false)
     const queryClient = useQueryClient()
 
+
     const updateBio = useMutation(editBio => {
         return axios.patch(`https://anime-axis-api.herokuapp.com/users/${user.data.id}`, editBio, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com'})
     }, {onSuccess: (data) => {
@@ -33,7 +34,7 @@ function ProfilePage({user}) {
     )
 
     const updateAvatar = useMutation(editAvatar => {
-        return axios.patch(`/users/${user.data.id}`, editAvatar, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
+        return axios.patch(`https://anime-axis-api.herokuapp.com/users/${user.data.id}`, editAvatar, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
     }, {
         onSuccess: data => {
             console.log("Data in onSuccess:", data)
@@ -69,6 +70,10 @@ function ProfilePage({user}) {
     function handleEditAvatar() {
         updateAvatar.mutate({avatar: avatarModalValue || user.data.avatar})
     }
+
+
+    // console.log("user data:", user.data)
+
 
     if (!user) return <Redirect to="/login"/>  
 
@@ -111,7 +116,7 @@ function ProfilePage({user}) {
 
             <Modal show={showAvatarModal} onHide={handleCloseAvatar} animation={false} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
                 <Modal.Header closeButton>
-                    <Modal.Title>Enter URL for avatar image (Some URL's may not render the image due to Cross Origin Read Blocking)</Modal.Title>
+                    <Modal.Title>Enter URL for avatar image</Modal.Title>
                 </Modal.Header>
                 <Modal.Body as="textarea" value={avatarModalValue} onChange={(e) => setAvatarModalValue(e.target.value)}></Modal.Body>
                 <Modal.Footer>

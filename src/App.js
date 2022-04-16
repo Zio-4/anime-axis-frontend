@@ -37,7 +37,6 @@ function App() {
     if (data) {
       setUserIsLoggedIn(true)
     }
-    
   }
 
   const {data: user, isLoading: userIsLoading} = useGetData('https://anime-axis-api.herokuapp.com/user', onSuccess)
