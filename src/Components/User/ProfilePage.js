@@ -34,16 +34,16 @@ function ProfilePage({user}) {
     )
 
     const updateAvatar = useMutation(editAvatar => {
+        console.log(editAvatar)
         return axios.patch(`https://anime-axis-api.herokuapp.com/users/${user.data.id}`, editAvatar, { withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com' })
-    }, {
-        onSuccess: data => {
+    }, {onSuccess: (data) => {
             console.log("Data in onSuccess:", data)
             queryClient.setQueryData('getDatahttps://anime-axis-api.herokuapp.com/user', data)
             setShowAvatarModal(false)
             setAvatarModalValue("")
             setAvatarAlertState(true)
         },
-        onError: error => console.log(error.message)
+        onError: (error) => console.log(error.message)
     })
 
 
