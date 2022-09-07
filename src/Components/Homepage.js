@@ -77,7 +77,7 @@ function Homepage() {
                     <Col style={{width: '22rem'}} className='mx-auto'>
                         <div className="searchbar">
                             <input type="text" className="search-input" value={animeSearchQuery} onChange={handleChange} placeholder="eg. 'Naruto'"/>
-                            <a href="/#" onClick={handleSubmit} className="search-icon"><RiSearchLine/></a>
+                            <div onClick={handleSubmit} className="search-icon"><RiSearchLine/></div>
                         </div>
                     </Col>
             </Container>

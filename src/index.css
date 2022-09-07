@@ -178,9 +178,11 @@ width: 225px; */
     color: #813AFE;
     }
 
+/* height and width 40px */
+
   .search-icon{
-  height: 40px;
-  width: 40px;
+  height: 2.5rem; 
+  width: 2.5rem;
   float: right;
   display: flex;
   justify-content: center;
@@ -188,6 +190,11 @@ width: 225px; */
   border-radius: 50%;
   color:white;
   text-decoration:none;
+  cursor: pointer;
+  }
+
+  .search-icon:hover{
+    color: black
   }
 
   ::placeholder{
