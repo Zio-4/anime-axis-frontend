@@ -35,6 +35,7 @@ function App() {
 
   setInterval(() => {
     let a = 10
+    a = 19
   }, 100000)
 
 
