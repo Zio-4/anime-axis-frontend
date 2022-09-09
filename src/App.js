@@ -35,7 +35,7 @@ function App() {
 
   setInterval(() => {
     console.log('cold start prevention')
-  }, 100000)
+  }, 300000)
 
 
   const onSuccess = (data) => {
