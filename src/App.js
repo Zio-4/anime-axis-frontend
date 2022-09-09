@@ -33,6 +33,11 @@ function App() {
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
 
 
+  setInterval(() => {
+    let a = 10
+  }, 100000)
+
+
   const onSuccess = (data) => {
     if (data) {
       setUserIsLoggedIn(true)
