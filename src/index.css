@@ -1,17 +1,8 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.body-bg {
+  background-color: aqua; 
 }
 
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 @font-face {
   font-family: 'NarutoFont';
@@ -45,7 +36,8 @@ code {
 }
 
 .headers {
-  font-family: 'Inter'; 
+  /* font-family: 'Inter';  */
+  font-family: 'Lato', sans-serif;
   font-size: 20pt;
   font-weight: 600;
 }
@@ -102,10 +94,10 @@ code {
 }
 
 .profile-container {
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    min-height: 100vh;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  min-height: 100vh;
 }
 
 #profile-icon, .top-list-button {
@@ -119,10 +111,20 @@ code {
   min-height: 100vh;
 }
 
+/* .mainpage-cards{
+  height: 100%;
+  width: 100%;
+} */
+
 .mainpage-card-images {
-height: 300px;
-width: 195px;
+  /* height: 300px;
+  width: 195px; */
+  height: 35vh;
+  width: 100%;
+  object-fit: fill;
+
 }
+
 /* height: 300px;
 width: 225px; */
 
@@ -134,8 +136,11 @@ width: 225px; */
 
 @media only screen and (max-width: 575px) {
   .mainpage-card-images{
-    height: 245px;
-    width: 195px;
+    /* height: 245px;
+    width: 195px; */
+    height: 30vh;
+    width: 100%;
+    object-fit: fill;
   }
 
   .mainpage-cards {

@@ -1,9 +1,5 @@
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import AnimeCardByScore from './Anime/AnimeCardByScore'
-import AnimeCardAiring from './Anime/AnimeCardAiring'
-import AnimeCardPopularity from './Anime/AnimeCardPopularity'
-import AnimeCardUpcoming from './Anime/AnimeCardUpcoming'
 import React, { useState } from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
@@ -14,6 +10,7 @@ import {useGetData} from '../Hooks/useGetData'
 import { useDispatch } from 'react-redux'
 import { updateSearchQuery, updateSearchResults } from '../Redux-Toolkit/search'
 import axios from 'axios'
+import Card from './Card'
 
 
 function Homepage() {
@@ -56,19 +53,19 @@ function Homepage() {
     }
 
     const renderTopAnimeByScoreCards = animeScore.data.top.slice(0,6).map(anime => {  
-      return (<AnimeCardByScore key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+      return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url} path={`/anime/${anime.mal_id}`}/>)
     })
 
     const renderTopAnimeAiring = animeAiring.data.top.slice(0,6).map(anime => {
-        return (<AnimeCardAiring key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+        return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url} path={`/anime/${anime.mal_id}`}/>)
     })
 
     const renderTopAnimeByPopularity = animePopularity.data.top.slice(0,6).map(anime => {
-        return (<AnimeCardPopularity key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+        return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url} path={`/anime/${anime.mal_id}`}/>)
     })
 
     const renderTopUpcomingAnime = animeUpcoming.data.top.slice(0,6).map(anime => {
-        return (<AnimeCardUpcoming key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url}/>)
+        return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.image_url} path={`/anime/${anime.mal_id}`}/>)
     })
 
     return (

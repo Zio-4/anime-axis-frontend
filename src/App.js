@@ -6,7 +6,7 @@ import NavBar from './Components/NavBar'
 import AnimePage from './Components/Anime/AnimePage'
 import ProfilePage from "./Components/User/ProfilePage"
 import Loading from './Components/Loading'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
 import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
@@ -31,6 +31,10 @@ import {useGetData} from './Hooks/useGetData'
 function App() {
   // User state for conditional rendering of logout icon
   const [userIsLoggedIn, setUserIsLoggedIn] = useState(false)
+
+  useEffect(() => {
+    document.body.style.backgroundColor = "#FFFAFA"
+  }, [])
 
 
   setInterval(() => {

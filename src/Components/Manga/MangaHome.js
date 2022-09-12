@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import MangaCardByPopularity from './MangaCardByPopularity'
-import MangaCardByScore from './MangaCardByScore'
-import MangaCardNovels from './MangaCardNovels'
-import MangaCardOneShots from './MangaCardOneShots'
 import { Link, useHistory } from 'react-router-dom'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -14,6 +10,7 @@ import { useGetData } from '../../Hooks/useGetData'
 import { useDispatch } from 'react-redux'
 import { updateSearchQuery, updateSearchResults } from '../../Redux-Toolkit/search'
 import axios from 'axios'
+import Card from '../Card'
 
 function MangaHome() {
     const [mangaSearchQuery, setMangaSearchQuery] = useState('')
@@ -55,19 +52,19 @@ function MangaHome() {
     }
 
     const renderMangaByScore = mangaScore.data.top.slice(0,6).map(manga => {
-        return (<MangaCardByScore key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<Card key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} path={`/manga/${manga.mal_id}`}/>)
     })
 
     const renderMangaOneShots = mangaOneShots.data.top.slice(0,6).map(manga => {
-        return (<MangaCardOneShots key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<Card key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} path={`/manga/${manga.mal_id}`}/>)
     })    
 
     const renderMangaByPopularity = mangaPopularity.data.top.slice(0,6).map(manga => {
-        return (<MangaCardByPopularity key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<Card key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} path={`/manga/${manga.mal_id}`}/>)
     })
 
     const renderMangaNovels = mangaNovels.data.top.slice(0,6).map(manga => {
-        return (<MangaCardNovels key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} />)
+        return (<Card key={manga.mal_id} title={manga.title} image={manga.image_url} id={manga.mal_id} path={`/manga/${manga.mal_id}`}/>)
     })
 
 
