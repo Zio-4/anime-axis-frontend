@@ -7,19 +7,21 @@ import Loading from '../Loading'
 
 function TopAnimeAiringList() {
 
-    const {data: anime, isLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/airing')
+    const {data: anime, isLoading} = useGetData('https://api.jikan.moe/v4/top/anime?filter=airing')
+
+    console.log('anime data', anime)
 
     if (isLoading) return <Loading />
 
-    const renderTopAnimeAiringList = anime.data.top.map(anime => {
-        return (
+    const renderTopAnimeAiringList = anime.data.data.map((anime, i) => {
+        return (      
             <tr key={anime.mal_id}>
                 <td>
-                    {anime.rank}
+                    {i + 1}
                 </td>
                 <td>
                     <Link to={`/anime/${anime.mal_id}`}>
-                        <img src={anime.image_url} alt="anime art"/>
+                        <img src={anime.images.jpg.image_url} alt="anime art"/>
                         
                     </Link>
                     {anime.title}
@@ -34,7 +36,7 @@ function TopAnimeAiringList() {
     return (
         <Container className="top-anime-airing-list">
             <header>
-                <h1>Top 50 anime currently airing</h1>
+                <h1>Top 25 anime currently airing</h1>
             </header>
             <Table striped bordered hover>
                 <thead>

@@ -27,7 +27,10 @@ function AnimePage({user}) {
             } 
     }
 
-    const {data: anime, isLoading} = useGetData(`https://api.jikan.moe/v3/anime/${params.id}`, onSuccess)
+    const {data: anime, isLoading} = useGetData(`https://api.jikan.moe/v4/anime/${params.id}`, onSuccess)
+
+    console.log('anime data :', anime)
+    console.log('param :', params.id)
 
     if (isLoading) return <Loading />
 
@@ -54,14 +57,14 @@ function AnimePage({user}) {
             <Row >
                 <Col className=" anime-cards d-flex justify-content-center h-100">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
-                        <Card.Img variant="top" src={anime.data.image_url} />
+                        <Card.Img variant="top" src={anime.data.data.images.jpg.image_url} />
                         <Card.Body>
-                            <Card.Title>{anime.data.title_english ? anime.data.title_english : anime.data.title}</Card.Title>
+                            <Card.Title>{anime.data.data.title_english ? anime.data.data.title_english : anime.data.data.title}</Card.Title>
                         </Card.Body>
                         <ListGroup className="list-group-flush">
-                            <ListGroup.Item variant="dark">Rank: {anime.data.rank}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Episodes: {anime.data.episodes ? anime.data.episodes : "Unknown"}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Duration: {anime.data.duration}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rank: {anime.data.data.rank}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Episodes: {anime.data.data.episodes ? anime.data.data.episodes : "Unknown"}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Duration: {anime.data.data.duration}</ListGroup.Item>
                         </ListGroup>
                         <Card.Body>
                             {listButton ? <Button variant="success">Anime in list <span role="img" aria-label="checkmark emoji">✔️</span></Button> : <Button onClick={handleClick} className="add-to-anime-list-button">+ Anime List</Button>}
@@ -76,27 +79,27 @@ function AnimePage({user}) {
                    <Card.Body>
                         <Card.Title>Synopsis</Card.Title>
                         <Card.Text>
-                            {anime.data.synopsis}
+                            {anime.data.data.synopsis}
                         </Card.Text>
                     </Card.Body>
                    </Card>
-                   {anime.data.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
+                   {anime.data.data.genres.map(g => <Badge key={g.name} pill bg="light" text="dark">{g.name}</Badge>)}
                 </Col>
                 <Col className="anime-cards d-flex justify-content-center h-100">
                     <Card style={{ width: '18rem' }} className="bg-dark text-white">
                         <Card.Header>Anime Info</Card.Header>
                         <ListGroup variant="flush">
-                            <ListGroup.Item variant="dark">Aired: {anime.data.aired.string}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Type: {anime.data.type}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Rank by popularity: {anime.data.popularity}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Producers: {anime.data.producers.map(prod => <li key={prod.name}>{prod.name}</li>) }</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Premiered: {anime.data.premiered}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Rating: {anime.data.rating}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">MyAnimeList Score: {anime.data.score}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Status: {anime.data.status}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Studios: {anime.data.studios.map(studio => <li key={studio.name}>{studio.name}</li>)}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Japanese Title: {anime.data.title_japanese}</ListGroup.Item>
-                            <ListGroup.Item variant="dark">Synonyms: {anime.data.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Aired: {anime.data.data.aired.string}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Type: {anime.data.data.type}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rank by popularity: {anime.data.data.popularity}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Producers: {anime.data.data.producers.map(prod => <li key={prod.name}>{prod.name}</li>) }</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Premiered: {anime.data.data.premiered}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Rating: {anime.data.data.rating}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">MyAnimeList Score: {anime.data.data.score}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Status: {anime.data.data.status}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Studios: {anime.data.data.studios.map(studio => <li key={studio.name}>{studio.name}</li>)}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Japanese Title: {anime.data.data.title_japanese}</ListGroup.Item>
+                            <ListGroup.Item variant="dark">Synonyms: {anime.data.data.title_synonyms.map(syn => <li key={syn}>{syn}</li>)}</ListGroup.Item>
                         </ListGroup>
                     </Card>
                 </Col>

@@ -7,19 +7,19 @@ import Loading from '../Loading'
 
 function TopAnimeByPopularityList() {
 
-    const {data: anime, isLoading} = useGetData('https://api.jikan.moe/v3/top/anime/1/bypopularity')
+    const {data: anime, isLoading} = useGetData('https://api.jikan.moe/v4/top/anime?filter=bypopularity')
 
     if (isLoading) return <Loading />
 
-    const renderTopAnimeByPopularityList = anime.data.top.map(anime => {
-        return (
+    const renderTopAnimeByPopularityList = anime.data.data.map((anime, i) => {
+        return (      
             <tr key={anime.mal_id}>
                 <td>
-                    {anime.rank}
+                    {i + 1}
                 </td>
                 <td>
                     <Link to={`/anime/${anime.mal_id}`}>
-                        <img src={anime.image_url} alt="anime art"/>
+                        <img src={anime.images.jpg.image_url} alt="anime art"/>
                         
                     </Link>
                     {anime.title}
@@ -33,7 +33,7 @@ function TopAnimeByPopularityList() {
     return (
         <Container className="top-anime-popularity-list">
             <header>
-                <h1>Top 50 anime by popularity</h1>
+                <h1>Top 25 anime by popularity</h1>
             </header>
             <Table striped bordered hover>
                 <thead>
