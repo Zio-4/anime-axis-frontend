@@ -9,8 +9,6 @@ function TopAnimeAiringList() {
 
     const {data: anime, isLoading} = useGetData('https://api.jikan.moe/v4/top/anime?filter=airing')
 
-    console.log('anime data', anime)
-
     if (isLoading) return <Loading />
 
     const renderTopAnimeAiringList = anime.data.data.map((anime, i) => {

@@ -61,8 +61,9 @@ function Homepage() {
         e.preventDefault()
         dispatch(updateSearchQuery(animeSearchQuery))
         try {
-            let response = await axios(`https://api.jikan.moe/v3/search/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
-            dispatch(updateSearchResults(response.data.results))
+            let response = await axios(`https://api.jikan.moe/v4/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
+            console.log('search response :', response.data.data)
+            dispatch(updateSearchResults(response.data.data))
             history.push(`/search/anime`)
         } catch(error) {
             console.log(error)

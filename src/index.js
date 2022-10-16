@@ -14,8 +14,6 @@ import { Provider } from 'react-redux'
 const queryClient = new QueryClient()
 
 
-
-
 ReactDOM.render(
   <Router>
       <React.StrictMode>

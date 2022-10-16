@@ -21,16 +21,13 @@ function AnimePage({user}) {
     
     const onSuccess = (anime) => {
         if (user && anime) {
-            if (user.data.animes.find(a => a.title === anime.data.title)){
+            if (user.data.animes.find(a => a.title === anime.data.data.title)){
                 setListButton(true)
                 }
             } 
     }
 
     const {data: anime, isLoading} = useGetData(`https://api.jikan.moe/v4/anime/${params.id}`, onSuccess)
-
-    console.log('anime data :', anime)
-    console.log('param :', params.id)
 
     if (isLoading) return <Loading />
 
@@ -39,7 +36,7 @@ function AnimePage({user}) {
             setLoginAlertState(true)
         } else {
             try {
-                let resp = await axios.post('https://anime-axis-api.herokuapp.com/api/animes', {title: anime.data.title, id: anime.data.mal_id, image_url: anime.data.image_url , score: anime.data.score, user_id: user.id}, {withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com'})
+                let resp = await axios.post('https://anime-axis-api.herokuapp.com/api/animes', {title: anime.data.data.title, id: anime.data.data.mal_id, image_url: anime.data.data.images.jpg.image_url , score: anime.data.data.score, user_id: user.id}, {withCredentials: true, 'Access-Control-Allow-Origin': 'https://anime-axis.herokuapp.com'})
                 if (resp.data) {
                     setListButton(true)
                     setAddedAlertState(true) 

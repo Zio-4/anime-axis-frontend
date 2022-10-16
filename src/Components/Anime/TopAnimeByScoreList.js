@@ -11,8 +11,6 @@ function TopAnimeByScoreList() {
 
     if (isLoading) return <Loading />
 
-    console.log('anime data: ', anime.data.data)
-
     const renderTopAnimeByScore = anime.data.data.map((anime, i) => {
         return (      
             <tr key={anime.mal_id}>

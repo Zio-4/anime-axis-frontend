@@ -30,9 +30,9 @@ function AnimeSearchPage() {
         setIsLoading(true)
         dispatch(updateSearchQuery(animeSearchQuery))
         dispatch(updateSearchResults([]))
-        let response = await axios(`https://api.jikan.moe/v3/search/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
+        let response = await axios(`https://api.jikan.moe/v4/anime?q=${animeSearchQuery}&order_by=title&sort=asc&limit=10`)
         setIsLoading(false)
-        dispatch(updateSearchResults(response.data.results))
+        dispatch(updateSearchResults(response.data.data))
         setAnimeSearchQuery("")
     }
 
@@ -41,7 +41,7 @@ function AnimeSearchPage() {
             <Tooltip>{anime.title}</Tooltip>}>
             <Col xs={6} sm={2} med={4}>
                 <Card className='mainpage-cards search-cards'>
-                    <Link to={`/anime/${anime.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={anime.image_url} /></Link>
+                    <Link to={`/anime/${anime.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={anime.images.jpg.image_url} /></Link>
                 </Card> 
             </Col>
         </OverlayTrigger>
