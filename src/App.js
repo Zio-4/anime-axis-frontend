@@ -9,14 +9,6 @@ import Loading from './Components/Loading'
 import React, { useState, useEffect } from 'react'
 import MangaHome from './Components/Manga/MangaHome'
 import MangaPage from './Components/Manga/MangaPage'
-import TopAnimeUpcomingList from './Components/Anime/TopAnimeUpcomingList'
-import TopAnimeByPopularityList from './Components/Anime/TopAnimeByPopularityList'
-import TopAnimeAiringList from './Components/Anime/TopAnimeAiringList'
-import TopAnimeByScoreList from './Components/Anime/TopAnimeByScoreList'
-import TopMangaNovelsList from "./Components/Manga/TopMangaNovelsList"
-import TopMangaByPopularityList from "./Components/Manga/TopMangaByPopularityList"
-import TopMangaByScoreList from "./Components/Manga/TopMangaByScoreList"
-import TopMangaOneShotsList from "./Components/Manga/TopMangaOneShotsList"
 import AnimeSearchPage from "./Components/Anime/AnimeSearchPage"
 import AnimeForum from "./Components/Forums/AnimeForum"
 import GeneralForum from "./Components/Forums/GeneralForum"
@@ -27,6 +19,7 @@ import AnimeList from "./Components/Anime/AnimeList"
 import MangaList from "./Components/Manga/MangaList"
 import MangaSearchPage from "./Components/Manga/MangaSearchPage"
 import {useGetData} from './Hooks/useGetData'
+import TopList from "./Components/TopList"
 
 function App() {
   // User state for conditional rendering of logout icon
@@ -81,29 +74,29 @@ function App() {
           <Route exact path="/forums/post/:id">
             <ForumPost user={user}/>
           </Route>
-          <Route exact path="/topmanga/score">
-            <TopMangaByScoreList />
+          <Route exact path="/manga/top/score">
+            <TopList />
           </Route>
-          <Route exact path="/topmanga/oneshots">
-            <TopMangaOneShotsList />
+          <Route exact path="/manga/top/oneshots">
+            <TopList />
           </Route>
-          <Route exact path="/topmanga/novels">
-            <TopMangaNovelsList />
+          <Route exact path="/manga/top/novels">
+            <TopList />
           </Route>
-          <Route exact path="/topmanga/popularity">
-            <TopMangaByPopularityList />
+          <Route exact path="/manga/top/popularity">
+            <TopList />
           </Route>
-          <Route exact path ="/topanime/score">
-            <TopAnimeByScoreList />
+          <Route exact path ="/anime/top/score">
+            <TopList />
           </Route>
-          <Route exact path="/topanime/upcoming">
-            <TopAnimeUpcomingList />
+          <Route exact path="/anime/top/upcoming">
+            <TopList />
           </Route>
-          <Route exact path="/topanime/popularity">
-            <TopAnimeByPopularityList />
+          <Route exact path="/anime/top/popularity">
+            <TopList />
           </Route>
-          <Route exact path="/topanime/airing">
-            <TopAnimeAiringList />
+          <Route exact path="/anime/top/airing">
+            <TopList />
           </Route>
           <Route exact path="/manga/:id">
             <MangaPage user={user}/>
@@ -135,6 +128,10 @@ function App() {
           <Route exact path="/loading">
             <Loading />
           </Route>
+          <Route exact path="/top/anime/score">
+            <TopList />
+          </Route>
+
           <Route path="*">
             <h1>404 not found</h1>
             <Redirect from="*" to="/" />

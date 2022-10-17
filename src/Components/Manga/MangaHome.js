@@ -96,28 +96,28 @@ function MangaHome() {
                 <Row>
                     {renderMangaByScore}
                     <Container>
-                        <Link to="/topmanga/score"><Button className="top-list-button" size="md">See more</Button></Link>
+                        <Link to={{ pathname: "/manga/top/score", state: { animeOrManga: 'manga', type: '', filter: ''}}}><Button className="top-list-button" size="md">See more</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top manga one-shots</p>
                 <Row>
                     {renderMangaOneShots}
                     <Container>
-                        <Link to="/topmanga/oneshots"><Button className="top-list-button" size="md">See more</Button></Link>
+                        <Link to={{ pathname: "/manga/top/oneshots", state: { animeOrManga: 'manga', type: 'oneshot', filter: ''}}}><Button className="top-list-button" size="md">See more</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top manga by popularity</p>
                 <Row>
                     {renderMangaByPopularity}
                     <Container>
-                        <Link to="/topmanga/popularity"><Button className="top-list-button" size="md">See more</Button></Link>
+                        <Link to={{ pathname: "/manga/top/popularity", state: { animeOrManga: 'manga', type: '', filter: 'bypopularity'}}}><Button className="top-list-button" size="md">See more</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top manga novels</p>
                 <Row>
                     {renderMangaNovels}
                     <Container>
-                        <Link to="/topmanga/novels"><Button className="top-list-button" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
+                        <Link to={{ pathname: "/manga/top/novels", state: { animeOrManga: 'manga', type: 'novel', filter: ''}}}><Button className="top-list-button" id="bottom-see-more-button-manga" size="md">See more</Button></Link>
                     </Container>
                 </Row>
             </Container>

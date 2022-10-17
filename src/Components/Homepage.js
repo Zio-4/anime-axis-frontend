@@ -34,8 +34,6 @@ function Homepage() {
     // Using aliases to identify each fetches data by name
      const { data: animeScore, isLoading: animeScoreLoading } = useGetData('https://api.jikan.moe/v4/top/anime?type=tv&limit=6')
      const {data: animeAiring, isLoading: animeAiringLoading, isSuccess } = useGetData('https://api.jikan.moe/v4/top/anime?filter=airing&limit=6')
-    //  const {data: animePopularity, isLoading: animePopularityLoading} = useGetData('https://api.jikan.moe/v4/top/anime?filter=bypopularity&limit=6')
-    //  const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useGetData('https://api.jikan.moe/v4/top/anime?filter=upcoming&limit=6')
 
     // Explicitly using useQuery hook here due to v4 of Jikan API returning an error of too many requests if I use the useGetData hook for all 4 calls.
     const { data: animePopularity, isLoading: animePopularityLoading, isSuccess: animePopularitySuccess } = useQuery('animeByPopularity', animePopularityFetcher, { enabled: isSuccess })
@@ -104,28 +102,28 @@ function Homepage() {
                     {renderTopAnimeByScoreCards}
 
                     <Container>
-                        <Link to="/topanime/score"><Button className="top-list-button" size="md">See More</Button></Link>
+                        <Link to={{ pathname: "/anime/top/score", state: { animeOrManga: 'anime', type: '', filter: ''}}}><Button className="top-list-button" size="md">See More</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top anime currently airing</p>
                 <Row>
                     {renderTopAnimeAiring}
                     <Container>
-                        <Link to="/topanime/airing"><Button className="top-list-button" size="md">See More</Button></Link>
+                        <Link to={{ pathname:"/anime/top/airing", state: { animeOrManga: 'anime', type: '', filter: 'airing'} }}><Button className="top-list-button" size="md">See More</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top upcoming anime</p>
                 <Row>
                     {animeUpcoming && renderTopUpcomingAnime}
                     <Container>
-                        <Link to="/topanime/upcoming"><Button className="top-list-button" size="md">See More</Button></Link>
+                        <Link to={{ pathname: "/anime/top/upcoming", state: { animeOrManga: 'anime', type: '', filter: 'upcoming'}}}><Button className="top-list-button" size="md">See More</Button></Link>
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top anime by popularity</p>
                 <Row>
                     {animePopularity && renderTopAnimeByPopularity}
                     <Container>
-                        <Link to="/topanime/popularity"><Button className="top-list-button" id="bottom-see-more-button-anime" size="md">See More</Button></Link>
+                        <Link to={{ pathname: "/anime/top/popularity", state: { animeOrManga: 'anime', type: '', filter: 'bypopularity'}}}><Button className="top-list-button" id="bottom-see-more-button-anime" size="md">See More</Button></Link>
                     </Container>
                 </Row>
             </Container>
