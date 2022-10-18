@@ -35,8 +35,8 @@ function MangaHome() {
      const {data: mangaScore, isLoading: mangaScoreLoading} = useGetData('https://api.jikan.moe/v4/top/manga?limit=6')
      const {data: mangaOneShots, isLoading: mangaOneShotsLoading, isSuccess} = useGetData('https://api.jikan.moe/v4/top/manga?type=oneshot&limit=6')
 
-     const {data: mangaPopularity, isLoading: mangaPopularityLoading, isSuccess: mangaPopularityCall} = useQuery('mangaByPopularity', mangaPopularityFetcher, { enabled: isSuccess })
-     const {data: mangaNovels, isLoading: mangaNovelsLoading} = useQuery('mangaByNovels', mangaNovelsFetcher, { enabled: mangaPopularityCall })
+     const { data: mangaPopularity, isLoading: mangaPopularityLoading, isSuccess: mangaPopularitySuccess} = useQuery('mangaByPopularity', mangaPopularityFetcher, { enabled: isSuccess })
+     const {data: mangaNovels, isLoading: mangaNovelsLoading} = useQuery('mangaByNovels', mangaNovelsFetcher, { enabled: mangaPopularitySuccess })
  
      if (mangaScoreLoading) return <Loading /> 
      if (mangaOneShotsLoading) return <Loading />

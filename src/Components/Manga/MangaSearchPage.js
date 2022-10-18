@@ -27,9 +27,9 @@ function MangaSearchPage() {
         setIsLoading(true)
         dispatch(updateSearchQuery(mangaSearchQuery))
         dispatch(updateSearchResults([]))
-        let response = await axios(`https://api.jikan.moe/v3/search/manga?q=${mangaSearchQuery}&order_by=title&sort=asc&limit=10`)
+        let response = await axios(`https://api.jikan.moe/v4/manga?q=${mangaSearchQuery}&order_by=title&sort=asc&limit=10`)
         setIsLoading(false)
-        dispatch(updateSearchResults(response.data.results))
+        dispatch(updateSearchResults(response.data.data))
         setMangaSearchQuery("")
     }
 
@@ -39,7 +39,7 @@ function MangaSearchPage() {
             <Tooltip>{m.title}</Tooltip>}>
             <Col xs={6} sm={2} med={4}>
                 <Card className='mainpage-cards search-cards'>
-                    <Link to ={`/manga/${m.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={m.image_url} /></Link>
+                    <Link to ={`/manga/${m.mal_id}`}><Card.Img className='mainpage-card-images' variant="top" src={m.images.jpg.image_url} /></Link>
                 </Card>
             </Col>
         </OverlayTrigger>
