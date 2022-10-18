@@ -50,12 +50,12 @@ function NavBar({userIsLoggedIn, setUserIsLoggedIn}) {
                             <NavDropdown.Item href="/forums/general">General forum</NavDropdown.Item>
                         </NavDropdown>
                         <NavDropdown title={<RiFileMarkFill/>} menuVariant="dark" >
-                            <NavDropdown.Item href="/animelist">Anime list</NavDropdown.Item>
-                            <NavDropdown.Item href="/mangalist">Manga list</NavDropdown.Item>
+                            <NavDropdown.Item href={userIsLoggedIn ? "/animelist" : '/login'}>Anime list</NavDropdown.Item>
+                            <NavDropdown.Item href={userIsLoggedIn ? "/mangalist" : '/login'}>Manga list</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/profile"><RiUser3Fill /></Nav.Link>
+                        <Nav.Link href={userIsLoggedIn ? '/profile' : '/login'}><RiUser3Fill /></Nav.Link>
                         {userIsLoggedIn ? <Nav.Link href="" id="logout-button" onClick={handleShowModal}><FcImport/></Nav.Link> : null}
                     </Nav>
                 </Container>

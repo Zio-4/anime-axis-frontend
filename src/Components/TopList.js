@@ -12,8 +12,6 @@ const TopList = () => {
     const listType = location.state.type
     const listFilter = location.state.filter
 
-    console.log('list type: ', listType)
-
     const {data: result, isLoading} = useGetData(`https://api.jikan.moe/v4/top/${animeOrManga}?type=${listType}&filter=${listFilter}`)
 
     if (isLoading) return <Loading />

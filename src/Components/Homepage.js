@@ -19,11 +19,6 @@ function Homepage() {
     const history = useHistory()
     const dispatch = useDispatch()
 
-    // setTimeout(() => {
-    //     setCounter(counter + 1)
-    // }, 1000)
-    // console.log('counter :', counter)
-
 
     // fetching data functions
      const animePopularityFetcher = async () => {
@@ -40,9 +35,6 @@ function Homepage() {
     const { data: animeScore, isLoading: animeScoreLoading} = useGetData('https://api.jikan.moe/v4/top/anime?type=tv&limit=6')
     const { data: animeAiring, isLoading: animeAiringLoading, isSuccess: animeAiringSuccess } = useGetData('https://api.jikan.moe/v4/top/anime?filter=airing&limit=6')
     const { data: animePopularity, isLoading: animePopularityLoading, isSuccess: animePopularitySuccess } = useQuery('animeByPopularity', animePopularityFetcher, { enabled: animeAiringSuccess })
-    
-    // const animePopularity = animePopularityResponse.data
-    // let animePopularityLoading = animePopularityResponse.isLoading
 
     // Explicitly using useQuery hook here due to v4 of Jikan API returning an error of too many requests if I use the useGetData hook for all 4 calls.
     const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useQuery('animeByUpcoming', animeUpcomingFetcher, { enabled: animePopularitySuccess })
