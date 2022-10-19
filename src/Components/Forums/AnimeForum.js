@@ -13,7 +13,6 @@ function AnimeForum({user}) {
 
     if (isLoading) return <Loading />
 
-
     function handleClick() {
         if (user) {
             history.push("/forums/newpost")
