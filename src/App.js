@@ -18,7 +18,7 @@ import ForumPost from "./Components/Forums/ForumPost"
 import AnimeList from "./Components/Anime/AnimeList"
 import MangaList from "./Components/Manga/MangaList"
 import MangaSearchPage from "./Components/Manga/MangaSearchPage"
-import {useGetData} from './Hooks/useGetData'
+import { useGetData } from './Hooks/useGetData'
 import TopList from "./Components/TopList"
 
 function App() {

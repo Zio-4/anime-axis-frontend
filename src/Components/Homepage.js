@@ -32,18 +32,18 @@ function Homepage() {
     }
     
     // Using aliases to identify each fetches data by name
-    const { data: animeScore, isLoading: animeScoreLoading} = useGetData('https://api.jikan.moe/v4/top/anime?type=tv&limit=6')
+    const { data: animeScore, isLoading: animeScoreLoading } = useGetData('https://api.jikan.moe/v4/top/anime?type=tv&limit=6')
     const { data: animeAiring, isLoading: animeAiringLoading, isSuccess: animeAiringSuccess } = useGetData('https://api.jikan.moe/v4/top/anime?filter=airing&limit=6')
-    const { data: animePopularity, isLoading: animePopularityLoading, isSuccess: animePopularitySuccess } = useQuery('animeByPopularity', animePopularityFetcher, { enabled: animeAiringSuccess })
+    // const { data: animePopularity, isLoading: animePopularityLoading, isSuccess: animePopularitySuccess } = useQuery('animeByPopularity', animePopularityFetcher, { enabled: animeAiringSuccess })
 
     // Explicitly using useQuery hook here due to v4 of Jikan API returning an error of too many requests if I use the useGetData hook for all 4 calls.
-    const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useQuery('animeByUpcoming', animeUpcomingFetcher, { enabled: animePopularitySuccess })
+    const {data: animeUpcoming, isLoading: animeUpcomingLoading} = useQuery('animeByUpcoming', animeUpcomingFetcher, { enabled: animeAiringSuccess })
 
 
  
      if (animeScoreLoading) return <Loading /> 
      if (animeAiringLoading) return <Loading />
-     if (animePopularityLoading) return <Loading />
+    //  if (animePopularityLoading) return <Loading />
      if (animeUpcomingLoading) return <Loading />
 
 
@@ -76,9 +76,9 @@ function Homepage() {
         return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.images.jpg.image_url} path={`/anime/${anime.mal_id}`}/>)
     })
 
-    const renderTopAnimeByPopularity = animePopularity.data.data.map(anime => {
-        return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.images.jpg.image_url} path={`/anime/${anime.mal_id}`}/>)
-    })
+    // const renderTopAnimeByPopularity = animePopularity.data.data.map(anime => {
+    //     return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.images.jpg.image_url} path={`/anime/${anime.mal_id}`}/>)
+    // })
 
     const renderTopUpcomingAnime = animeUpcoming.data.data.map(anime => {
         return (<Card key={anime.mal_id} title={anime.title} id={anime.mal_id} image={anime.images.jpg.image_url} path={`/anime/${anime.mal_id}`}/>)
@@ -119,13 +119,13 @@ function Homepage() {
                         <Link to={{ pathname: "/anime/top/upcoming", state: { animeOrManga: 'anime', type: '', filter: 'upcoming'}}}><Button className="top-list-button" size="md">See More</Button></Link>
                     </Container>
                 </Row>
-                <p className='headers mt-4'>Top anime by popularity</p>
-                <Row>
+                {/* <p className='headers mt-4'>Top anime by popularity</p> */}
+                {/* <Row>
                     {animePopularity && renderTopAnimeByPopularity}
                     <Container>
                         <Link to={{ pathname: "/anime/top/popularity", state: { animeOrManga: 'anime', type: '', filter: 'bypopularity'}}}><Button className="top-list-button" id="bottom-see-more-button-anime" size="md">See More</Button></Link>
                     </Container>
-                </Row>
+                </Row> */}
             </Container>
         </>
     )
