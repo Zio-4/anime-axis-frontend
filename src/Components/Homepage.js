@@ -102,7 +102,7 @@ function Homepage() {
                     </Container>
                 </Row>
                 <p className='headers mt-4'>Top upcoming anime</p>
-                <Row>
+                <Row className='mb-3'>
                     {animeUpcoming && renderTopUpcomingAnime}
                     <Container>
                         <Link to={{ pathname: "/anime/top/upcoming", state: { animeOrManga: 'anime', type: '', filter: 'upcoming'}}}><Button className="top-list-button" size="md">See More</Button></Link>
