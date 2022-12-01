@@ -36,7 +36,6 @@
 }
 
 .headers {
-  /* font-family: 'Inter';  */
   font-family: 'Lato', sans-serif;
   font-size: 20pt;
   font-weight: 600;
@@ -111,23 +110,13 @@
   min-height: 100vh;
 }
 
-/* .mainpage-cards{
-  height: 100%;
-  width: 100%;
-} */
 
 .mainpage-card-images {
-  /* height: 300px;
-  width: 195px; */
-  /* height: 35vh; */
   max-height: 17rem;
   width: 100%;
   object-fit: fill;
 
 }
-
-/* height: 300px;
-width: 225px; */
 
 
 .novels {
@@ -137,8 +126,6 @@ width: 225px; */
 
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
   .mainpage-card-images{
-    /* height: 245px;
-    width: 195px; */
     height: 28vh;
     width: 100%;
     object-fit: fill;
@@ -151,8 +138,6 @@ width: 225px; */
 
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .mainpage-card-images{
-    /* height: 245px;
-    width: 195px; */
     height: 25vh;
     width: 100%;
     object-fit: fill;
@@ -165,8 +150,6 @@ width: 225px; */
 
 @media only screen and (min-width: 768px) and (max-width: 992px) {
   .mainpage-card-images{
-    /* height: 245px;
-    width: 195px; */
     height: 18vh;
     width: 100%;
     object-fit: fill;
@@ -179,8 +162,6 @@ width: 225px; */
 
 @media only screen and (min-width: 576px) and (max-width: 767px) {
   .mainpage-card-images{
-    /* height: 245px;
-    width: 195px; */
     height: 60vh;
     width: 100%;
     object-fit: fill;
@@ -195,8 +176,6 @@ width: 225px; */
 
 @media only screen and (max-width: 575px) {
   .mainpage-card-images{
-    /* height: 245px;
-    width: 195px; */
     height: 30vh;
     width: 100%;
     object-fit: fill;
